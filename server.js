@@ -9,10 +9,14 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
+app.get('/join', (req, res) => res.sendFile(__dirname + '/views/join.html' ));
+app.get('/main', (req, res) => res.sendFile(__dirname + '/views/main.html' ));
+app.get('/folderBtn', (req, res) => res.sendFile(__dirname + '/views/folder.html' ));
+
+
 app.get('/', function (req, res) {
     res.render('login.html')
   })
-2
 
 app.post('/login', (req, res) => {
   const ID = req.body.ID;
@@ -25,6 +29,8 @@ app.post('/login', (req, res) => {
       res.send({result:false})
     }*/
   });
+
+
 
 // var mysql      = require('mysql');
 // var connection = mysql.createConnection({
