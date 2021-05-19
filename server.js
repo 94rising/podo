@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 
+
+
 const server = app.listen(3000, () => {
     console.log('Start Server : localhost:3000');
 });
@@ -12,6 +14,7 @@ app.engine('html', require('ejs').renderFile);
 app.get('/join', (req, res) => res.sendFile(__dirname + '/views/join.html' ));
 app.get('/main', (req, res) => res.sendFile(__dirname + '/views/main.html' ));
 app.get('/folderBtn', (req, res) => res.sendFile(__dirname + '/views/folder.html' ));
+app.get('/calendarBtn', (req, res) => res.sendFile(__dirname + '/views/calendar.html' ));
 
 
 app.get('/', function (req, res) {
