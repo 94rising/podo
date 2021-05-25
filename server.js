@@ -15,6 +15,7 @@ app.get('/join', (req, res) => res.sendFile(__dirname + '/views/join.html' ));
 app.get('/main', (req, res) => res.sendFile(__dirname + '/views/main.html' ));
 app.get('/folderBtn', (req, res) => res.sendFile(__dirname + '/views/folder.html' ));
 app.get('/calendarBtn', (req, res) => res.sendFile(__dirname + '/views/calendar.html' ));
+app.get('/diaryBtn', (req, res) => res.sendFile(__dirname + '/views/diary.html' ));
 
 
 app.get('/', function (req, res) {
