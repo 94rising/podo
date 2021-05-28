@@ -18,6 +18,7 @@ app.get('/calendarBtn', (req, res) => res.sendFile(__dirname + '/views/calendar.
 app.get('/diaryBtn', (req, res) => res.sendFile(__dirname + '/views/diary.html' ));
 
 
+
 app.get('/', function (req, res) {
     res.render('login.html')
   })
@@ -51,3 +52,20 @@ app.post('/login', (req, res) => {
  
 //   console.log('connected as id ' + connection.threadId);
 // });
+
+app.post('/board', function (req, res) {
+  const content = req.body.content;
+  
+  
+  
+
+
+  // dbConnection.query("INSERT INTO board (content) VALUES (?)",[content], function (err, result) {  
+  //   if (err) throw err;
+  //   if {
+  //     res.send({result:true});   
+  //   } else {
+  //     res.send({result:false});
+  //   }
+  // });
+});
