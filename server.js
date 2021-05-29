@@ -1,71 +1,42 @@
 const express = require('express');
 const app = express();
+const session = require('express-session')
+const FileStore = require('session-file-store')(session)
+const mainRouter = require('./routes/main.js');
+const loginRouter = require('./routes/login.js');
+const joinRouter = require('./routes/join.js');
+const calendarRouter = require('./routes/calendar.js');
+const diaryRouter = require('./routes/diary.js');
+const categoryRouter = require('./routes/category.js');
+const dbConnection = require('./util/database');
 
 
-
-const server = app.listen(3000, () => {
+const server = app.listen(3001, () => {
     console.log('Start Server : localhost:3000');
+});
+
+dbConnection.connect( function(err) {
+    if (err) {
+      console.error('error connecting: ' + err.stack);
+      return;
+    }
+    console.log('success');
 });
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
-app.get('/join', (req, res) => res.sendFile(__dirname + '/views/join.html' ));
-app.get('/main', (req, res) => res.sendFile(__dirname + '/views/main.html' ));
-app.get('/folderBtn', (req, res) => res.sendFile(__dirname + '/views/folder.html' ));
-app.get('/calendarBtn', (req, res) => res.sendFile(__dirname + '/views/calendar.html' ));
-app.get('/diaryBtn', (req, res) => res.sendFile(__dirname + '/views/diary.html' ));
+app.use(session({ //사용자가 요청할때 session 함수 실행
+    secret: 'pododo', //   
+    resave: false, 
+    saveUninitialized: true, // 세션이 필요할떄만 사용 , false 하면 항상 구동되어 서버에 부담이 될 수 있다.
+    store:new FileStore() 
+}));
 
-
-
-app.get('/', function (req, res) {
-    res.render('login.html')
-  })
-
-app.post('/login', (req, res) => {
-  const ID = req.body.ID;
-  const password = req.body.password;
-  /*dbConnection.query("SELECT * FROM member WHERE phone_number = ? and password = ?",[phoneNumber, password], function (err, result) { //id가 DB에있는지 확인 
-    if (err) throw err; 
-    if (result[0] !== undefined) {
-      res.send({result:true})
-    } else {
-      res.send({result:false})
-    }*/
-  });
-
-
-
-// var mysql      = require('mysql');
-// var connection = mysql.createConnection({
-//   host     : 'example.org',
-//   user     : 'bob',
-//   password : 'secret'
-// });
- 
-// connection.connect(function(err) {
-//   if (err) {
-//     console.error('error connecting: ' + err.stack);
-//     return;
-//   }
- 
-//   console.log('connected as id ' + connection.threadId);
-// });
-
-app.post('/board', function (req, res) {
-  const content = req.body.content;
-  
-  
-  
-
-
-  // dbConnection.query("INSERT INTO board (content) VALUES (?)",[content], function (err, result) {  
-  //   if (err) throw err;
-  //   if {
-  //     res.send({result:true});   
-  //   } else {
-  //     res.send({result:false});
-  //   }
-  // });
-});
+app.use('/', mainRouter);
+app.use('/login', loginRouter);
+app.use('/join', joinRouter);
+app.use('/diary', diaryRouter);
+app.use('/calendar', calendarRouter);
+app.use('/category', categoryRouter);

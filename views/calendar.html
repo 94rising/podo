@@ -118,8 +118,14 @@
     }
 
     function setDate(day) {
+      let month = current_month;
+      if (month < 10) month = "0" + month;
       if(day<10) day = "0" + day;
-      $("#input_date").val(current_year + "-" + current_month + "-" + day);
+
+      //current_year + "-" + month + "-" + day
+      console.log(current_year + "-" + month + "-" + day)
+      const date = current_year + "-" + month + "-" + day;
+      location.href = "/diary?date=" + date;
     }
 
     function chageMonth(diff) {
@@ -159,9 +165,9 @@
       $("#div_calendar").toggle(); // 토글 부분 없애고 날짜 선택했을때 다이어리로 이동 구현해야함
     });
 
-    //document.getElementById('day').addEventListener('click', function(){
-      //  location.href = "/diary";
-    //});
+    document.getElementById('day').addEventListener('click', function(){
+       location.href = "/diary";
+    });
 
   </script>
 
