@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>folder</title>
+    <title>category</title>
 </head>
 <body>
   <div class="dropdown">
@@ -20,8 +20,6 @@
 
     </div>
   </div>
-
-
 
 <style>
     .dropbtn {
@@ -59,6 +57,162 @@
 
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
 </style>
+
+<button id="categoryAdd">카테고리 생성</button>
+<button id="categoryDelete">카테고리 삭제</button>
+
+
     
+<!-- Control buttons -->
+<div id="myBtnContainer">
+  <button class="btn active" onclick="filterSelection('all')"> 기본</button>
+  <button class="btn" onclick="filterSelection('cars')">일상</button>
+  <button class="btn" onclick="filterSelection('animals')">취미</button>
+  <button class="btn" onclick="filterSelection('fruits')">여행</button>
+  <button class="btn" onclick="filterSelection('colors')">기타</button>
+</div>
+
+<!-- The filterable elements. Note that some have multiple class names (this can be used if they belong to multiple categories) -->
+<div class="container">
+  <div class="filterDiv cars">BMW</div>
+  <div class="filterDiv colors fruits">Orange</div>
+  <div class="filterDiv cars">Volvo</div>
+  <div class="filterDiv colors">Red</div>
+  <div class="filterDiv cars animals">Mustang</div>
+  <div class="filterDiv colors">Blue</div>
+  <div class="filterDiv animals">Cat</div>
+  <div class="filterDiv animals">Dog</div>
+  <div class="filterDiv fruits">Melon</div>
+  <div class="filterDiv fruits animals">Kiwi</div>
+  <div class="filterDiv fruits">Banana</div>
+  <div class="filterDiv fruits">Lemon</div>
+  <div class="filterDiv animals">Cow</div>
+</div>
+
+<style>
+  .container {
+  overflow: hidden;
+}
+
+.filterDiv {
+  float: left;
+  background-color: #2196F3;
+  color: #ffffff;
+  width: 100px;
+  line-height: 100px;
+  text-align: center;
+  margin: 2px;
+  display: none; /* Hidden by default */
+}
+
+/* The "show" class is added to the filtered elements */
+.show {
+  display: block;
+}
+
+/* Style the buttons */
+.btn {
+  border: none;
+  outline: none;
+  padding: 12px 16px;
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+/* Add a light grey background on mouse-over */
+.btn:hover {
+  background-color: #ddd;
+}
+
+/* Add a dark background to the active button */
+.btn.active {
+  background-color: #666;
+  color: white;
+}
+</style>
+
+<script>
+filterSelection("all")
+function filterSelection(c) {
+  var x, i;
+  x = document.getElementsByClassName("filterDiv");
+  if (c == "all") c = "";
+  
+  // Add the "show" class (display:block) to the filtered elements, and remove the "show" class from the elements that are not selected
+  for (i = 0; i < x.length; i++) {
+    w3RemoveClass(x[i], "show");
+    if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+  }
+}
+
+// Show filtered elements
+function w3AddClass(element, name) {
+  var i, arr1, arr2;
+  arr1 = element.className.split(" ");
+  arr2 = name.split(" ");
+  for (i = 0; i < arr2.length; i++) {
+    if (arr1.indexOf(arr2[i]) == -1) {
+      element.className += " " + arr2[i];
+    }
+  }
+}
+
+// Hide elements that are not selected
+function w3RemoveClass(element, name) {
+  var i, arr1, arr2;
+  arr1 = element.className.split(" ");
+  arr2 = name.split(" ");
+  for (i = 0; i < arr2.length; i++) {
+    while (arr1.indexOf(arr2[i]) > -1) {
+      arr1.splice(arr1.indexOf(arr2[i]), 1);
+    }
+  }
+  element.className = arr1.join(" ");
+}
+
+// Add active class to the current control button (highlight it)
+var btnContainer = document.getElementById("myBtnContainer");
+var btns = btnContainer.getElementsByClassName("btn");
+for (var i = 0; i < btns.length; i++) {
+  btns[i].addEventListener("click", function() {
+    var current = document.getElementsByClassName("active");
+    current[0].className = current[0].className.replace(" active", "");
+    this.className += " active";
+  });
+}
+
+window.addEventListener('DOMContentLoaded', (event) => {
+
+// AJAX START
+const xhr = new XMLHttpRequest();
+
+// params : 요청 방식, 요청 경로, 동기/비동기 여부(서버에서 데이터 받을 때 까지 대기 여부, true일 경우 비동기)
+xhr.open("get", '/category', false);
+
+// 서버에 데이터를 보내는 부분
+xhr.send(); // 객체를 json타입으로 변환 후, 서버에 데이터 전송
+
+//Send the proper header information along with the request
+xhr.responseType = "json";
+// 서버에서 데이터를 받는 부분
+xhr.onreadystatechange = function() { // 서버의 응답에 따른 로직을 여기에 작성
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+       // 요청 완료되면 여기서 처리
+        res = xhr.response;
+        if (res.result) {
+          console.log(res.result)// 이상없이 응답 받았을때
+        } else {
+            alert("해당 카테고리 데이터 없음.");
+        }
+    }
+}
+// AJAX END    
+
+console.log('DOM fully loaded and parsed');
+});
+
+</script>
+
+
 </body>
 </html>

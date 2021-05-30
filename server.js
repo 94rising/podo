@@ -11,7 +11,7 @@ const categoryRouter = require('./routes/category.js');
 const dbConnection = require('./util/database');
 
 
-const server = app.listen(3001, () => {
+const server = app.listen(3000, () => {
     console.log('Start Server : localhost:3000');
 });
 
