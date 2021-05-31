@@ -1,13 +1,14 @@
 //모듈
 const express = require('express');
 const app = express();
-const session = require('express-session')
-const FileStore = require('session-file-store')(session)
+const session = require('express-session');
+const FileStore = require('session-file-store')(session);
+const bodyParser = require('body-parser');
 
 const PORT = 3000;
 
 //라우팅
-const mainRouter = require('./routes/mainController.js');
+const mainRouter = require('./routes/main.js');
 const loginRouter = require('./routes/loginController.js');
 const joinRouter = require('./routes/joinController.js');
 const calendarRouter = require('./routes/calendarController.js');
@@ -40,8 +41,8 @@ dbConnection.connect( function(err) {
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
-
 app.use('/static', express.static('public'));
+
 app.use(session({ //사용자가 요청할때 session 함수 실행
     secret: 'pododo', //   
     resave: false, 
