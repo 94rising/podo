@@ -41,6 +41,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
+app.use('/static', express.static('public'));
 app.use(session({ //사용자가 요청할때 session 함수 실행
     secret: 'pododo', //   
     resave: false, 
