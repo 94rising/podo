@@ -5,55 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>login</title>
+
 </head>
 <body>
 <h1>podo<img src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f347.svg" width="50" height="50"></h1>
 
 <div>
-    <input type="text" id="ID" placeholder="ID를 입력해주세요" name="ID"/>
-    <input type="password" id="password" placeholder="PW를 입력해주세요" name="password"/>
-    <button id="loginButton">로그인</button> 
-    <button id="joinButton">회원가입</button>
+    <input type="text" id="id" placeholder="ID를 입력해주세요" name="ID"/><br>
+    <input type="password" id="password" placeholder="PW를 입력해주세요" name="password"/><br>
+    <button id="loginButton">로그인</button> <br>
+    <button id="joinButton">회원가입</button><br>
 </div>
 
-<script>
-    document.getElementById('joinButton').addEventListener('click', function(){
-        location.href = "/join";
-    });
-
-    document.getElementById('loginButton').addEventListener('click', function(){
-
-        //const phoneNumber=document.getElementById('ID').value;
-        //const password=document.getElementById('password').value;
-
-        // AJAX START
-        const xhr = new XMLHttpRequest();
-
-        // params : 요청 방식, 요청 경로, 동기/비동기 여부(서버에서 데이터 받을 때 까지 대기 여부, true일 경우 비동기)
-        xhr.open("POST", '/login', true);
-        
-        // 서버에 데이터를 보내는 부분
-        //Send the proper header information along with the request
-        xhr.setRequestHeader("Content-Type", "application/json"); // 서버에 보낼 데이터 타입 정의
-        xhr.send(JSON.stringify({ID, password })); // 객체를 json타입으로 변환 후, 서버에 데이터 전송
-        xhr.responseType = "json";
-        // 서버에서 데이터를 받는 부분
-        xhr.onreadystatechange = function() { // 서버의 응답에 따른 로직을 여기에 작성
-            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-               // 요청 완료되면 여기서 처리
-                res = xhr.response;
-                if (res.result) {
-                  location.href = '/main'; // 이상없이 응답 받았을때
-                } else {
-                    alert(" 아이디 혹은 비밀번호를 확인해주세요. "); //// 요구를 처리하는 과정에서 문제가 발생되었음 // 예를 들어 응답 상태 코드는 404 (Not Found) 이거나 // 혹은 500 (Internal Server Error) 이 될 수 있음
-                }
-            }
-        }
-        // AJAX END    
-
-    })
-
-</script>
 
 
 </body>
