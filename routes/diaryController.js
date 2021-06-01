@@ -24,7 +24,7 @@ router.get('/load', (req, res) => {
         } else {
             console.log(rows.length);
             for(let i=0; i<rows.length; i++){
-                console.log(rows[i]);
+                console.log(rows[i]); // row는 key:value 값 가짐
             }
         }
     });
