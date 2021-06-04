@@ -70,4 +70,11 @@ router.post('/emailCert', function (req, res) {  //이메일 중복확인 로직
 });
 
 
+router.post('/joinConfirm', function (req, res) {
+    const id = req.body.phoneNumber;
+    const password = req.body.password1;
+    const joinEmail = req.body.joinEmail;
+    const certNumber = req.body.certNumber;
+});
+
 module.exports = router;
