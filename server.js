@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const nodemailer = require("nodemailer");
+const crypto = require('crypto');
+
 
 const PORT = 3000;
 

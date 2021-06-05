@@ -59,7 +59,7 @@ const submitBtn = document.querySelector("#submitBtn");
           // Request finished. Do processing here.
           res = xhr.response;
           if (res.result) { 
-            location.href = '/main'
+            location.href = '/calendar'
           } else {
             alert("글 작성 실패.");
           }
