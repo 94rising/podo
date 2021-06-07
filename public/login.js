@@ -23,8 +23,10 @@ document.getElementById('loginBtn').addEventListener('click', function(){
     // 서버에 데이터를 보내는 부분
     //Send the proper header information along with the request
     xhr.setRequestHeader("Content-Type", "application/json"); // 서버에 보낼 데이터 타입 정의
-    xhr.send(JSON.stringify({id, password })); // 객체를 json타입으로 변환 후, 서버에 데이터 전송
-    xhr.responseType = "json";
+    const data = { id: id, password: password }
+    //xhr.send(JSON.stringify({id, password })); // 객체를 json타입으로 변환 후, 서버에 데이터 전송
+    xhr.send( data );
+    // xhr.responseType = "json";
     // 서버에서 데이터를 받는 부분
     
     xhr.onreadystatechange = function() { // Call a function when the state changes.

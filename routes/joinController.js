@@ -30,9 +30,11 @@ router.post('/emailCert', function (req, res) {  //이메일 중복확인 로직
   const session = req.session;
   let joinEmail= req.body.email;
   const certNumber = makeCertNumber();
-  const encrytedCode = encrypt(certNumber, 'secret');
+  const encrytedCode = encrypt(makeCertNumber, key);
     console.log(certNumber, encrytedCode);
 
+        req.session.save = encrytedCode; // 암호화된 세션 저장
+   
 
   /*const transporter = nodemailer.createTransport({
     service: 'NAVER',
@@ -85,20 +87,24 @@ router.post('/joinConfirm', function (req, res) {
 
 
 
-function makeCertNumber(){
+function makeCertNumber(){ //인증번호 생성
+    Math.random().toString(36).slice(2);
+  };
+
+function key(){ //key 생성
     const nowtime = Date.now()
     return nowtime.toString(36).substr(2,11);
-  }
+  };
 
-  function encrypt (certNumber, code) {
+  function encrypt (makeCertNumber, key) { //암호화
 
-  const cipher = crypto.createCipher('aes-256-cbc', certNumber);
-  let result = cipher.update(code, 'utf8', 'base64'); // 'HbMtmFdroLU0arLpMflQ'
+  const cipher = crypto.createCipher('aes-256-cbc', key); 
+  let result = cipher.update(makeCertNumber, 'utf8', 'base64'); // 'HbMtmFdroLU0arLpMflQ'
   result += cipher.final('base64'); // 'HbMtmFdroLU0arLpMflQYtt8xEf4lrPn5tX5k+a8Nzw='
     return result;
 }
 
-function decrypt (certNumber, result) {
+function decrypt (certNumber, result) { //복호화
   const decipher = crypto.createDecipher('aes-256-cbc', certNumber);
   let result2 = decipher.update(result, 'base64', 'utf8'); // 암호화할문 (base64, utf8이 위의 cipher과 반대 순서입니다.)
   result2 += decipher.final('utf8'); // 암호화할문장 (여기도 base64대신 utf8)

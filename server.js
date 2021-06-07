@@ -6,6 +6,7 @@ const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const nodemailer = require("nodemailer");
 const crypto = require('crypto');
+const fs = require('fs');
 
 
 const PORT = 3000;
@@ -25,6 +26,11 @@ const calendarRouter = require('./routes/calendarController.js');
 const diaryRouter = require('./routes/diaryController.js');
 const categoryRouter = require('./routes/categoryController.js');
 const dbConnection = require('./util/database');
+
+app.get('/navbar', (req, res) => {
+    const navbarHtml = fs.readFileSync( __dirname + '\\views\\navbar.html');
+    res.send(navbarHtml.toString());
+});
 
 app.use('/', mainRouter); //use -> 미들 웨어를 등록해주는 메서드.
 app.use('/login', loginRouter);

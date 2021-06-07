@@ -6,7 +6,6 @@ const certNumber = document.querySelector("#certNumber");
 const joinEmail = document.querySelector("#joinEmail");
 
 
-
 let globalCertNumber; //전역변수 (글로벌 변수 // emailCert부분에서 값 대입 // 사용은 joinConfirm)
 
 
@@ -70,7 +69,6 @@ document.getElementById('emailCert').addEventListener('click', function(){
         }   
     }) // JSON-string from `response.json()` call
     .catch(error => console.error(error));
-
 
 });
 
