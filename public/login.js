@@ -15,35 +15,39 @@ document.getElementById('loginBtn').addEventListener('click', function(){
     const password = document.getElementById('password').value;
 
 
-    // AJAX START
-    const xhr = new XMLHttpRequest();
-
-    // params : 요청 방식, 요청 경로, 동기/비동기 여부(서버에서 데이터 받을 때 까지 대기 여부, true일 경우 비동기)
-    xhr.open("POST", '/login', true);
-    // 서버에 데이터를 보내는 부분
-    //Send the proper header information along with the request
-    xhr.setRequestHeader("Content-Type", "application/json"); // 서버에 보낼 데이터 타입 정의
-    const data = { id: id, password: password }
-    //xhr.send(JSON.stringify({id, password })); // 객체를 json타입으로 변환 후, 서버에 데이터 전송
-    xhr.send( data );
-    // xhr.responseType = "json";
-    // 서버에서 데이터를 받는 부분
-    
-    xhr.onreadystatechange = function() { // Call a function when the state changes.
-        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            // Request finished. Do processing here.
-            res = xhr.response;
-            if (res.result) {
-              location.href = '/calendar';
-            } else {
-                alert(" 아이디 혹은 비밀번호를 확인해주세요. ");
-            }
-        }
-    }
-    // AJAX END    
+     // Example POST method implementation:
+     postData('/login', {id: id, password: password})
+     .then(data => {
+         console.log(JSON.stringify(data))
+         if (res.result) {
+               location.href = '/calendar';
+             } else {
+                 alert(" 아이디 혹은 비밀번호를 확인해주세요. ");
+                 
+             }
+             
+         })
+    .catch(error => console.error(error));
+}) 
 
 
-})
+function postData(url = '', data = {}) {
+    // Default options are marked with *
+      return fetch(url, {
+          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          mode: 'cors', // no-cors, cors, *same-origin
+          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: 'same-origin', // include, *same-origin, omit
+          headers: {
+              'Content-Type': 'application/json',
+              // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          redirect: 'follow', // manual, *follow, error
+          referrer: 'no-referrer', // no-referrer, *client
+          body: JSON.stringify(data), // body data type must match "Content-Type" header
+      })
+      .then(response => response.json()); // parses JSON response into native JavaScript objects
+  }
 
 
 

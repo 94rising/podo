@@ -5,6 +5,8 @@ const dbConnection = require('../util/database');
 const crypto = require('crypto');
 
 
+const algorithm = 'aes-256-cbc';
+const iv = '1234567890123456'; //16자리
 
 router.get('/', (req, res) => {
     res.sendFile(path.join(__dirname ,'../views', 'join.html' ))
@@ -30,7 +32,7 @@ router.post('/emailCert', function (req, res) {  //이메일 중복확인 로직
   const session = req.session;
   let joinEmail= req.body.email;
   const certNumber = makeCertNumber();
-  const encrytedCode = encrypt(makeCertNumber, key);
+  const encrytedCode = encrypt(makeCertNumber);
     console.log(certNumber, encrytedCode);
 
         req.session.save = encrytedCode; // 암호화된 세션 저장
@@ -96,21 +98,32 @@ function key(){ //key 생성
     return nowtime.toString(36).substr(2,11);
   };
 
-  function encrypt (makeCertNumber, key) { //암호화
+  const encrypt = (makeCertNumber) => { //https://velog.io/@jm-shin/%EC%95%94%ED%98%B8%ED%99%94 참고해야함
 
-  const cipher = crypto.createCipher('aes-256-cbc', key); 
-  let result = cipher.update(makeCertNumber, 'utf8', 'base64'); // 'HbMtmFdroLU0arLpMflQ'
-  result += cipher.final('base64'); // 'HbMtmFdroLU0arLpMflQYtt8xEf4lrPn5tX5k+a8Nzw='
-    return result;
-}
+    const fn = 'encrypt';
+    try {
+        const cipher = crypto.createCipheriv(algorithm, key, iv);
+        let result = cipher.update(value, 'utf8', 'base64');
+        result += cipher.final('base64');
+        console.log(`encrypt result: ${result}`);
+        return result;
+    } catch (error) {
+        throw error;
+    }
+};
 
-function decrypt (certNumber, result) { //복호화
-  const decipher = crypto.createDecipher('aes-256-cbc', certNumber);
-  let result2 = decipher.update(result, 'base64', 'utf8'); // 암호화할문 (base64, utf8이 위의 cipher과 반대 순서입니다.)
-  result2 += decipher.final('utf8'); // 암호화할문장 (여기도 base64대신 utf8)
-    return result2;
-
-}
+const decrypt = (certNumber) => {
+    const fn = 'decrypt';
+    try {
+        const decipher = crypto.createDecipheriv(algorithm, key, iv);
+        let result = decipher.update(certNumber, 'base64', 'utf8');
+        result += decipher.final('utf-8');
+        console.log(`decrypt result: ${result}`);
+        return result;
+    } catch (error) {
+        throw error;
+    }
+};
 
 
 module.exports = router;
