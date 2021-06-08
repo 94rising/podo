@@ -13,22 +13,29 @@ document.getElementById('loginBtn').addEventListener('click', function(){
 
     const id = document.getElementById('id').value;
     const password = document.getElementById('password').value;
-
-
      // Example POST method implementation:
-     postData('/login', {id: id, password: password})
+     postData('/login', {
+         id: id,
+         password: password,
+         
+        })
      .then(data => {
          console.log(JSON.stringify(data))
-         if (res.result) {
+         
+         if (data.result) {
                location.href = '/calendar';
              } else {
                  alert(" 아이디 혹은 비밀번호를 확인해주세요. ");
                  
              }
              
-         })
-    .catch(error => console.error(error));
-}) 
+         })// JSON-string from `response.json()` call
+         .catch(error => console.error(error));
+});
+
+
+
+
 
 
 function postData(url = '', data = {}) {
@@ -54,26 +61,4 @@ function postData(url = '', data = {}) {
 
 
 
-
-
-
-
-
-
-// loginBtn.addEventListener("click", login);
-
-// function login() {
-//    const req = { 
-//     id : id.value,
-//     password : password.value,
-//     };
-
-//     fetch("/login",{
-//         metod:"POST",
-//         headers: {
-//             "Content-Type": "application/json",
-//         },
-//         body: JSON.stringfy(req)
-//     });
-// }
 

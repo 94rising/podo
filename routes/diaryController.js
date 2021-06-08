@@ -13,8 +13,8 @@ router.get('/', (req, res) => {
 router.get('/load', (req, res) => {
     //const id = req.session.id;
     const id = 'good';
-    //const date = req.session.date;
-    const date = '2021-05-29';
+    const date = req.session.date;
+  
     const datas = [id, date];
 
     const sql = "SELECT * from DIARY WHERE id = ? and date = ?";

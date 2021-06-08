@@ -29,7 +29,7 @@ router.post('/categoryAdd', (req, res) => {
 
     const sql = "SELECT * from DIARY WHERE id = ? and category = ?";
     dbConnection.query(sql, datas, function (err, rows) {
-        if(err){
+        if(err){    
             console.log(err);
         } else {
             console.log(rows.length);

@@ -71,3 +71,4 @@ app.use(session({ //사용자가 요청할때 session 함수 실행
 }));
 
 
+const session = {};
