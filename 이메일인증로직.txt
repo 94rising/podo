@@ -30,3 +30,26 @@ C:\Users\LeeHyeongdo\Desktop\project\views\navbar.html
 
 
 aws 이미지저장
+
+
+
+
+
+
+
+
+
+
+* 세션저장(
+로그인 유지,
+캘린더 date,
+)
+* 카테고리 구성과 db연동
+
+* aws api 연동 (
+content 내용 감정분석,
+게시글 사진, 영상 클라우드 저장
+)
+
+* 회원가입 인증
+ 

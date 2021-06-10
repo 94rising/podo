@@ -100,3 +100,13 @@ function postData(url = '', data = {}) {
       })
       .then(response => response.json()); // parses JSON response into native JavaScript objects
   }
+
+
+
+
+ /* categoryAdd => {
+     catrgoryBtn(배열) 클릭하면  만들면서 db에 생성순서대로 번호부여
+     
+     글 생성하면  filterdiv 생성 , date / 감정 노출시키면서
+
+} */
