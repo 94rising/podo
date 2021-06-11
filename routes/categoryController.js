@@ -89,5 +89,5 @@ router.post('/categoryDelete', (req, res) => {
 // });
 
 
-
+// sql 조회    https://extbrain.tistory.com/51
 module.exports = router;

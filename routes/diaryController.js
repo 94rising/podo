@@ -34,7 +34,7 @@ router.get('/load', (req, res) => {
 router.post('/write', function(req,res,next){
     const diary = req.body.diary;
     const datas = [diary];
- 
+    //콘텐트 내용, 세션 date, 감정 저장해야함 
  
     const sql = "insert into DIARY(id, date, content, emotion, category) values(?, ?, ?, ?, ?)";
     conn.query(sql, datas, function (err, rows) {

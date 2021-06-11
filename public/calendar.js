@@ -1,9 +1,28 @@
 
     document.getElementById('day').addEventListener('click', function(){
+
+            const day = document.getElementById('day').value;
+             // Example POST method implementation:
+             postData('/calendar', {
+                 day: day            
+                 
+                })
+             .then(data => {
+                 console.log(JSON.stringify(data))
+                 
+                 if (data.result) {
+                       location.href = '/diary';
+                     } else {
+                         alert(" 날짜 선택 실패 ");
+                         
+                     }
+                     
+                 })// JSON-string from `response.json()` call
+                 .catch(error => console.error(error));
+                 location.href = "/diary";
+
+        });
         
-        
-        location.href = "/diary";
-     });
  
 
 
