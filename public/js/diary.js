@@ -1,4 +1,4 @@
-const content = document.querySelector("#content");
+const content = document.getElementById('content');
 const submitBtn = document.querySelector("#submitBtn");
 const dateBar = document.querySelector("#dateBar");
 
@@ -30,12 +30,12 @@ const dateBar = document.querySelector("#dateBar");
 });  
 
   document.getElementById('submitBtn').addEventListener('click', function(){
-
+      console.log(content.value);
      // Example POST method implementation:
-     postData('/write', {
-        content: content,
+     postData('/diary/write', {
+        content: content.value
          
-        })
+    })
      .then(data => {
          console.log(JSON.stringify(data))
          
@@ -47,7 +47,7 @@ const dateBar = document.querySelector("#dateBar");
              }
              
          })// JSON-string from `response.json()` call
-         .catch(error => console.error(error));
+    .catch(error => console.error(error));
 });  
 
 
@@ -61,7 +61,7 @@ function postData(url = '', data = {}) {
           cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
           credentials: 'same-origin', // include, *same-origin, omit
           headers: {
-              'Content-Type': 'application/json',
+              'Content-Type': 'application / json',
               // 'Content-Type': 'application/x-www-form-urlencoded',
           },
           redirect: 'follow', // manual, *follow, error

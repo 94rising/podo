@@ -10,6 +10,44 @@ router.get('/', (req, res) => {
     res.sendFile(path.join(__dirname ,'../views', 'diary.html' ));
 });
 
+router.get("/list", (req, res) => {
+    if (req.session.userId === undefined) {
+        res.redirect("/login");
+        return;
+    }
+
+    res.sendFile(path.join(__dirname, '../views', 'diary_list.html'));
+});
+
+router.get("/listData", (req, res) => {
+    const id = req.session.userId;
+    const datas = [id];
+    const sql = "SELECT * from DIARY WHERE id = ? ORDER BY date";
+    let diaryList = [];
+    // 동기 방식으로 변경하기
+    dbConnection.query(sql, datas, function (err, rows) {
+        if(err){
+            console.log(err);
+        } else {
+            for(let i=0; i<rows.length; i++){
+                diaryList.push(rows[i]); // row는 key:value 값 가짐
+                console.log(diaryList);
+            }
+        }
+    });
+    const diary = {
+        id: 'good',
+        date: '2021-05-28',
+        content: '오눌운 비ㅏ 온다',
+        emotion: 1,
+        category: 1
+      };
+    diaryList.push(diary);
+
+    const result = {diaryList};
+    res.json(result);
+});
+
 router.get('/load', (req, res) => {
     //const id = req.session.id;
     const id = 'good';
@@ -22,7 +60,6 @@ router.get('/load', (req, res) => {
         if(err){
             console.log(err);
         } else {
-            console.log(rows.length);
             for(let i=0; i<rows.length; i++){
                 diaryLst.push(rows[i]); // row는 key:value 값 가짐
             }
@@ -36,20 +73,25 @@ router.get('/load', (req, res) => {
 });
 
 
-router.post('/write', function(req,res,next){
-    const diary = req.body.diary;
-    const datas = [diary];
+router.post('/diary/write', function(req,res,next){
+    const content = req.body.content;
+    const date = req.session.date;
+    const id = req.session.userId;
+    const emotion = emotion;
+
+
+    const datas = [id, date, content, emotion];
     //콘텐트 내용, 세션 date, 감정 저장해야함 
  
-    const sql = "insert into DIARY(id, date, content, emotion, category) values(?, ?, ?, ?, ?)";
+    const sql = "insert into DIARY(id, date, content, emotion) values(?, ?, ?, ?)";
     conn.query(sql, datas, function (err, rows) {
         if (err) console.error("err : " + err);
     });
-    res.redirect('/calendar');
+    res.redirect('/');
 });
 
 
- // dbConnection.query("INSERT INTO DIARY (content) VALUES (?)",[content], function (err, result) {  
+ // dbConnection.query("INSERT INTO DIARY (id, date, content, emotion) VALUES (?)",[?,], function (err, result) {  
   //   if (err) throw err;
   //   if {
   //     res.send({result:true});   

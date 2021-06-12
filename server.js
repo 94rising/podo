@@ -7,7 +7,7 @@ const FileStore = require('session-file-store')(session);
 const nodemailer = require("nodemailer");
 const crypto = require('crypto');
 const fs = require('fs');
-
+const EMOTION_CODE =  require('./util/emotion_code');
 
 const PORT = 3000;
 
@@ -24,6 +24,7 @@ app.use( session ({
     cookie: { secure: false, maxAge: 60000 }
 }))
 app.use('/static', express.static('public'));
+app.use('/views', express.static('views'));
 
 
 //앱 세팅
