@@ -1,24 +1,32 @@
 const content = document.querySelector("#content");
 const submitBtn = document.querySelector("#submitBtn");
-
+const dateBar = document.querySelector("#dateBar");
 
 
 
  window.addEventListener('DOMContentLoaded', (event) => {
     // Example POST method implementation:
     fetch('/diary/load', {}) // fetch 디폴트 값 get방식 , 전달할 값 없음
-    .then(data => {
-        console.log(JSON.stringify(data))
-        
-        if (data.result) {
-            console.log(res.result)
-            } else {
-                alert(" 해당 일자 데이터 없음. ");
+    .then(response => {
+        console.log(response);
+        const responseJson = response.json();
+        console.log(responseJson);
+        return responseJson;
+        // if (data) {
+        //     console.log(res.result)
+        //     } else {
+        //         alert(" 해당 일자 데이터 없음. ");
                 
-            }
+        //     }
             
-        })// JSON-string from `response.json()` call
-        .catch(error => console.error(error));
+    })
+    .then(data => {
+        console.log(data.date);
+        dateBar.value = data.date;
+        console.log(data.diaryLst);
+    })
+    // JSON-string from `response.json()` call
+    .catch(error => console.error(error));
 });  
 
   document.getElementById('submitBtn').addEventListener('click', function(){
@@ -41,7 +49,6 @@ const submitBtn = document.querySelector("#submitBtn");
          })// JSON-string from `response.json()` call
          .catch(error => console.error(error));
 });  
-
 
 
 

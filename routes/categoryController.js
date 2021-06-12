@@ -73,7 +73,7 @@ router.post('/categoryDelete', (req, res) => {
 //     const testFolder = './data'; // 읽을 파일 디렉토리 경로 입력
 //     let i = 0;
 
-//     dbConnection.query("SELECT * FROM member WHERE id = ? and content = ?",[id, content], function (err, result) { //id가 DB에있는지 확인 
+//     dbConnection.query("SELECT * FROM diary WHERE id = ? and content = ?",[id, content], function (err, result) { //id가 DB에있는지 확인 
 //       if (err) throw err; //err(error) : sql문 실행시키고 에러발생시 에러 출력/ 에러 없으면 NULL 값을 가짐
 //       if (result[0] !== undefined) {
 

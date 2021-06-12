@@ -33,10 +33,9 @@ app.engine('html', require('ejs').renderFile);
 
 
 //라우팅
-const mainRouter = require('./routes/main.js');
+const mainRouter = require('./routes/mainController.js');
 const loginRouter = require('./routes/loginController.js');
 const joinRouter = require('./routes/joinController.js');
-const calendarRouter = require('./routes/calendarController.js');
 const diaryRouter = require('./routes/diaryController.js');
 const categoryRouter = require('./routes/categoryController.js');
 const dbConnection = require('./util/database');
@@ -52,11 +51,7 @@ app.use('/', mainRouter); //use -> 미들 웨어를 등록해주는 메서드.
 app.use('/login', loginRouter);
 app.use('/join', joinRouter);
 app.use('/diary', diaryRouter);
-app.use('/calendar', calendarRouter);
 app.use('/category', categoryRouter);
-
-
-
 
 
 //서버 가동

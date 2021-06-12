@@ -16,18 +16,23 @@ router.get('/load', (req, res) => {
     const date = req.session.date;
   
     const datas = [id, date];
-
     const sql = "SELECT * from DIARY WHERE id = ? and date = ?";
+    let diaryLst = [];
     dbConnection.query(sql, datas, function (err, rows) {
         if(err){
             console.log(err);
         } else {
             console.log(rows.length);
             for(let i=0; i<rows.length; i++){
-                console.log(rows[i]); // row는 key:value 값 가짐
+                diaryLst.push(rows[i]); // row는 key:value 값 가짐
             }
         }
     });
+
+    const result = {diaryLst, date};
+
+    res.json(result);
+
 });
 
 
