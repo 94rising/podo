@@ -23,7 +23,7 @@ const dateBar = document.querySelector("#dateBar");
     .then(data => {
         console.log(data.date);
         dateBar.value = data.date;
-        console.log(data.diaryLst);
+        console.log(data.diaryList);
     })
     // JSON-string from `response.json()` call
     .catch(error => console.error(error));

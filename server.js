@@ -38,7 +38,7 @@ const mainRouter = require('./routes/mainController.js');
 const loginRouter = require('./routes/loginController.js');
 const joinRouter = require('./routes/joinController.js');
 const diaryRouter = require('./routes/diaryController.js');
-const categoryRouter = require('./routes/categoryController.js');
+const diaryListRouter = require('./routes/diaryListController.js');
 const dbConnection = require('./util/database');
 
 app.get('/navbar', (req, res) => {
@@ -52,7 +52,7 @@ app.use('/', mainRouter); //use -> 미들 웨어를 등록해주는 메서드.
 app.use('/login', loginRouter);
 app.use('/join', joinRouter);
 app.use('/diary', diaryRouter);
-app.use('/category', categoryRouter);
+app.use('/category', diaryListRouter);
 
 
 //서버 가동

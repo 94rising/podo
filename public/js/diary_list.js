@@ -12,7 +12,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
         for (let i = 0; i < diaryList.length; i++) {
             const diary = diaryList[i];
             diaryListBody.innerHTML(
-                `<li><a href="/?diary=1">${diary.date}</a></li>` //diary=1 .. 1부분에 시퀀스로 작성 .. 시퀀스 : 자동증가되는 DB 유니크키 
+                `<li><a href="/?diary=${diary.date}">${diary.date}</a></li>` //diary=1 .. 1부분에 number 작성 .. number : 자동증가되는 DB 유니크키 
             );
         }
             

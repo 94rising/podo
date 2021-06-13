@@ -5,7 +5,7 @@ const fs = require('fs');
 
 
 router.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname ,'../views', 'category.html' ))
+    res.sendFile(path.join(__dirname ,'../views', 'diary_list.html' ))
 });
 
 router.get('/category', (req, res) => {

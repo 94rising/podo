@@ -55,20 +55,21 @@ router.get('/load', (req, res) => {
   
     const datas = [id, date];
     const sql = "SELECT * from DIARY WHERE id = ? and date = ?";
-    let diaryLst = [];
+    let diaryList = [];
     dbConnection.query(sql, datas, function (err, rows) {
         if(err){
             console.log(err);
         } else {
             for(let i=0; i<rows.length; i++){
-                diaryLst.push(rows[i]); // row는 key:value 값 가짐
+                diaryList.push(rows[i]); // row는 key:value 값 가짐
+                res.json(result);
             }
         }
     });
 
-    const result = {diaryLst, date};
+    const result = {diaryList, date};
 
-    res.json(result);
+   
 
 });
 
