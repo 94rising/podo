@@ -10,6 +10,7 @@ router.get('/', (req, res) => {
     res.sendFile(path.join(__dirname ,'../views', 'diary.html' ));
 });
 
+
 router.get("/list", (req, res) => {
     if (req.session.userId === undefined) {
         res.redirect("/login");
@@ -42,11 +43,13 @@ router.get("/listData", (req, res) => {
         emotion: 1,
         category: 1
       };
-    diaryList.push(diary);
+    diaryList.push(diary); //diary 말고 추가해야 할 것은? 
 
     const result = {diaryList};
     res.json(result);
 });
+
+
 
 router.get('/load', (req, res) => {
     //const id = req.session.id;
@@ -62,14 +65,12 @@ router.get('/load', (req, res) => {
         } else {
             for(let i=0; i<rows.length; i++){
                 diaryList.push(rows[i]); // row는 key:value 값 가짐
-                res.json(result);
             }
         }
     });
 
     const result = {diaryList, date};
-
-   
+    res.json(result);
 
 });
 

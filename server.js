@@ -17,7 +17,7 @@ app.use(express.urlencoded( {extended : false } ));
 // 이 옵션이 false면 노드의 querystring 모듈을 사용하여 쿼리스트링을 해석하고, 
 // true면 qs 모듈을 사용하여 쿼리스트링을 해석한다
 app.use( session ({
-    secret: 'humanwater',
+    secret: 'pododo',
     resave: false,
     saveUninitialized: true,
     secure: false,

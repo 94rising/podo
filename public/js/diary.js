@@ -24,6 +24,8 @@ const dateBar = document.querySelector("#dateBar");
         console.log(data.date);
         dateBar.value = data.date;
         console.log(data.diaryList);
+        content.value = data.responseJson;
+
     })
     // JSON-string from `response.json()` call
     .catch(error => console.error(error));
