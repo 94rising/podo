@@ -1,12 +1,15 @@
 import {getData} from './util/util.js';
 
 const diaryListBody = document.getElementById("diary_list_body");
+const node = document.createElement("LI");
+
 
 window.addEventListener('DOMContentLoaded', (event) => {
     // Example POST method implementation:
     getData('/diary/listData', {})
     .then(response => {
         const diaryList = response.diaryList;
+        
         console.log("response : " + response);
         console.log("diaryList : " + diaryList);
         for (let i = 0; i < diaryList.length; i++) {
@@ -21,3 +24,4 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 
 });
+
