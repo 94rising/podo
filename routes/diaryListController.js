@@ -5,19 +5,14 @@ const fs = require('fs');
 const dbConnection = require('../util/database');
 
 
-// router.get('/', (req, res) => {
-//     res.sendFile(path.join(__dirname ,'../views', 'diary_list.html' ))
-// });
-
-router.get('/listlist', function(req, res, next) { db.getAllMemos((rows) =>{ res.render('../view/list.ejs', { rows: rows }); }); });
-
-출처: https://dev-overload.tistory.com/8 [E: overload]
+router.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname ,'../views', 'diary_list.html' ))
+});
 
 
-function getAllMemos(callback){ connection.query(`SELECT * FROM podo ORDER BY ID DESC`, (err, rows, fields) => { if(err) throw err; callback(rows); }); } 
-module.exports = { getAllMemos }
 
-출처: https://dev-overload.tistory.com/8 [E: overload]
+
+
 
 
 // const testFolder = './data'; // 읽을 파일 디렉토리 경로 입력

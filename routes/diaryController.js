@@ -32,21 +32,22 @@ router.get("/listData", (req, res) => {
         } else {
             for(let i=0; i<rows.length; i++){
                 diaryList.push(rows[i]); // row는 key:value 값 가짐
-                console.log(diaryList);
-            }
+               console.log(diaryList); //이것만 읽힘
+            } 
+            
+            const result = {diaryList};
+            res.json(result);
         }
     });
-    const diary = {
-        id: 'good',
-        date: '2021-05-28',
-        content: '오눌운 비ㅏ 온다',
-        emotion: 1,
-        category: 1
-      };
-    diaryList.push(diary); //diary 말고 추가해야 할 것은? 
+    // const diary = {
+    //     id: 'good',
+    //     date: '2021-05-28',
+    //     content: '오눌운 비ㅏ 온다',
+    //     emotion: 1,
+    //     category: 1
+    //   };
+    // diaryList.push(diary); //diary 말고 추가해야 할 것은? 
 
-    const result = {diaryList};
-    res.json(result);
 });
 
 

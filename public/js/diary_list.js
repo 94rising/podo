@@ -1,7 +1,6 @@
 import {getData} from './util/util.js';
 
 const diaryListBody = document.getElementById("diary_list_body");
-const node = document.createElement("LI");
 
 
 window.addEventListener('DOMContentLoaded', (event) => {
@@ -10,18 +9,22 @@ window.addEventListener('DOMContentLoaded', (event) => {
     .then(response => {
         const diaryList = response.diaryList;
         
-        console.log("response : " + response);
-        console.log("diaryList : " + diaryList);
+        console.log("response : " + response); //데이터 옴
+        console.log("diaryList : " + JSON.stringify(diaryList));
         for (let i = 0; i < diaryList.length; i++) {
             const diary = diaryList[i];
-            diaryListBody.innerHTML(
-                `<li><a href="/?diary=${diary.date}">${diary.date}</a></li>` //diary=1 .. 1부분에 number 작성 .. number : 자동증가되는 DB 유니크키 
-            );
+            diaryListBody.innerHTML= 
+            `
+            <td><a href="/?diary=${diary.date}">${diary.date}</a></td>
+            <td>${diary.emotion}</td>
+            
+
+            ` //diary=1 .. 1부분에 number 작성 .. number : 자동증가되는 DB 유니크키 
+            
         }
             
     })// JSON-string from `response.json()` call
    .catch(error => console.error(error));
-
 
 });
 
