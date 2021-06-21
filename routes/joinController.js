@@ -114,10 +114,21 @@ router.post('/certNumberConfirm', (req, res) => {
 
 
 router.post('/joinConfirm', function (req, res) {
-    const id = req.body.phoneNumber;
+    const id = req.body.id;
     const password = req.body.password1;
     const joinEmail = req.body.joinEmail;
-    const certNumber = req.body.certNumber;
+    const name = req.body.name;
+
+
+
+    dbConnection.query("INSERT INTO member (id, password, email, name, sex, birthday, phone ) VALUES (?, ?, ?, ?, ?, ?, ?)",[id, password, joinEmail, name], function (err, result) {  
+      if (err) throw err;
+      if(result.affectedRows === 1) {
+        res.send({result:true});   
+      } else {
+        res.send({result:false});
+      }
+    });
 });
 
 
