@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@aws-sdk/client-comprehend": "^3.18.0",
     "@fullcalendar/core": "^5.7.0",
     "@fullcalendar/daygrid": "^5.7.0",
     "@fullcalendar/interaction": "^5.7.0",

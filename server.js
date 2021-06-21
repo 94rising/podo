@@ -8,6 +8,30 @@ const nodemailer = require("nodemailer");
 const crypto = require('crypto');
 const fs = require('fs');
 const EMOTION_CODE =  require('./util/emotion_code');
+const { ComprehendClient, BatchDetectDominantLanguageCommand } = require("@aws-sdk/client-comprehend");
+const COMPRE_OPTION = {
+    region:  "ap-northeast-2"
+}
+const clinet_Test = new ComprehendClient(COMPRE_OPTION)
+const params = {TextList: ['i hate you', 'i love you']};
+const command = new BatchDetectDominantLanguageCommand(params);
+//console.log(clinet_Test);
+
+
+const testFunc = () => {
+
+    clinet_Test.send(command)
+    .then( (result) => {
+        console.log(result)
+    }, (err) => {
+        console.log( 'err', err );
+    } )
+    .catch( err => {
+        console.log('err => ', console.log(err))
+    } )
+}
+//testFunc();
+
 
 const PORT = 3000;
 

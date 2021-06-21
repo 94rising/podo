@@ -15,9 +15,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
             const diary = diaryList[i];
             diaryListBody.innerHTML= 
             `
-            <td><a href="/?diary=${diary.date}">${diary.date}</a></td>
+            <td><a href="/?diary=${diary.date}">${diary.date}, ${diary.emotion}</a></td> 
             <td>${diary.emotion}</td>
-            
+
 
             ` //diary=1 .. 1부분에 number 작성 .. number : 자동증가되는 DB 유니크키 
             
