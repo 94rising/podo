@@ -9,6 +9,8 @@ const nodemailer = require("nodemailer");
 
 const algorithm = 'aes-256-cbc';
 const iv = '1234567890123456'; //16자리
+const makeCertNumber = '1234';
+const key = 'abcdefghizklmnopqrstlmnddadwqers'//32자리
 
 router.get('/', (req, res) => {
     res.sendFile(path.join(__dirname ,'../views', 'join.html' ))
@@ -33,7 +35,8 @@ router.post('/idConfirm', (req, res) => {
 router.post('/emailCert', function (req, res) {  //이메일 중복확인 로직 넣기 ( 이메일 중복확인이 된 후에 인증번호 발급으로)
   const session = req.session;
   const joinEmail= req.body.email;
-  const certNumber = makeCertNumber();
+  const encryptNumber = req.session.encrypt; // 암호화된 인증번호 세션 저장
+  
   // const encrytedCode = encrypt(makeCertNumber);
 
   //   console.log(certNumber, encrytedCode);
@@ -55,7 +58,7 @@ router.post('/emailCert', function (req, res) {  //이메일 중복확인 로직
         service: 'NAVER',
         auth: {
           user: 'chawoo94@naver.com',
-          pass: 'll1082611'
+          pass: 'll1082611',
         }
       });
 
@@ -63,17 +66,21 @@ router.post('/emailCert', function (req, res) {  //이메일 중복확인 로직
         from: 'chawoo94@naver.com',
         to: joinEmail,//joinEmail로 변환
         subject: '인증번호 ',
-        text: 'certNumber', // 인증번호 함수가 들어가야함
+        html: makeCertNumber, // 인증번호 함수가 들어가야함
       }
     
       transporter.sendMail(mailOptions, function(error, info){
         if (error) {
           console.log(error);
           res.send({result: 1}) // 1= email이 안보내졌을때
-        } else {
-          console.log('Email sent: ' + info.response);
+        } else { 
+         console.log('Email sent: ' + info.response);
 
-          res.send({result: 2, certNumber})  // 2= 정상작동했을 때
+        
+          res.send({result: 2})  // 2= 정상작동했을 때
+
+          
+
         }
       });
 
@@ -85,6 +92,27 @@ router.post('/emailCert', function (req, res) {  //이메일 중복확인 로직
 });
 
 
+
+router.post('/certNumberConfirm', (req, res) => {
+  const certNumber = req.body.certNumber;
+  const encrypt = req.session.encrypt;   //세션에 저장된 암호화된 코드 받아오기
+
+
+  //복호화해서 인증번호와 일치하는지 확인 
+  if (decrypt(encrypt) !== certNumber){ //복호화해서 인증번호와 일치하는지 확인 
+   
+    res.send({result:false}) //일치하지 않으면 오류 메시지, 일치하면 통과
+   } 
+  else {
+    res.send({result:true})   
+  }
+  
+ 
+});
+
+
+
+
 router.post('/joinConfirm', function (req, res) {
     const id = req.body.phoneNumber;
     const password = req.body.password1;
@@ -94,14 +122,16 @@ router.post('/joinConfirm', function (req, res) {
 
 
 
-function makeCertNumber(){ //인증번호 생성
-    Math.random().toString(36).slice(2);
-  };
-
-// function key(){ //key 생성
-//     const nowtime = Date.now()
-//     return nowtime.toString(36).substr(2,11);
+// const makeCertNumber = () => { //인증번호 생성
+//   Math.floor(Math.random()*100000);
 //   };
+
+// const key = () => { //key 생성
+//     const nowtime = Date.now()
+//   };
+
+
+
 
   const encrypt = (makeCertNumber) => { //https://velog.io/@jm-shin/%EC%95%94%ED%98%B8%ED%99%94 참고해야함
 
@@ -111,13 +141,15 @@ function makeCertNumber(){ //인증번호 생성
         let result = cipher.update(value, 'utf8', 'base64');
         result += cipher.final('base64');
         console.log(`encrypt result: ${result}`);
+        
+
         return result;
     } catch (error) {
         throw error;
     }
 };
 
-const decrypt = (certNumber) => {
+const decrypt = () => {
     const fn = 'decrypt';
     try {
         const decipher = crypto.createDecipheriv(algorithm, key, iv);
