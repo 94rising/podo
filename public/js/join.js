@@ -5,6 +5,8 @@ const joinPw2 = document.querySelector("#joinPw2");
 const certNumber = document.querySelector("#certNumber");
 const joinEmail = document.querySelector("#joinEmail");
 const name = document.querySelector("#name");
+// const gender = document.querySelector("#gender");
+
 // const genderCheck = document.querySelector('input[name="gender"]').checked; // 체크 여부(checked)
 //const gender = document.querySelector('input[name="gender"]:checked').value; // 체크된 값(checked value)
 //const sex = document.querySelector('input[name="radioName"]:checked').value;
@@ -116,23 +118,19 @@ document.getElementById('joinButton').addEventListener('click', function(){
     const password2 = document.getElementById("joinPw2").value.trim();
     const joinEmail = document.getElementById('joinEmail').value.trim();
     const name = document.getElementById('name').value.trim();
-    const gender = document.getElementsByName('gender').value
+    // const gender = document.getElementsByName('gender').value
     
-    //  const gender = for(let i=0; i < gender.length; i++) {
-    //          console.log(gender[i].value);
-    //         } 
-
+     
 
     //const certNumber = document.getElementById('certNumber').value.trim();
 
     const phoneRegExp = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;   //정규식 수정
     const passwordRegExp = /^[A-Za-z0-9]{6,12}$/; // 숫자와 문자 포함 형태의 6~12자리 이내의 암호 정규식
 
-    // 폰번호 체크
-    if(!phoneRegExp.test(phone)) {
-      alert("연락처 확인해주세요."); 
-      return false;
-    } 
+    if (id == undefined) {
+        alert('ID를 입력해주세요.')
+        return false;
+    }
 
     // 패스워드 체크
     if(!passwordRegExp.test(password1)) {
@@ -149,19 +147,29 @@ document.getElementById('joinButton').addEventListener('click', function(){
         return false;
     }
 
-    if(gender == undefined) {
-        alert('성별을 선택해주세요.')
+    // if(gender == undefined) {
+    //     alert('성별을 선택해주세요.')
+    //     return false;
+    // }
+
+    // 폰번호 체크
+    if(!phoneRegExp.test(phone)) {
+        alert("연락처 확인해주세요."); 
         return false;
     }
 
     // //인증코드 체크
-    // if(globalCertNumber !== certNumber) {
+    // if(decrypt result값 !== certNumber) {
     //   alert("인증번호 확인해주세요."); 
     //    return false; 
     // }
 
 
-    
+    // const gender ;
+    //   for(let i=0; i < genderr.length; i++) {
+    //          console.log(genderr[i].value);
+    //         } 
+
     // Example POST method implementation:
    postData('/join/joinConfirm', {
     id: id,
@@ -169,7 +177,7 @@ document.getElementById('joinButton').addEventListener('click', function(){
     joinEmail: joinEmail,
     name: name,
     phone: phone,
-    gender: gender[i].value,
+    // gender: gender[i].value,
     
 
      

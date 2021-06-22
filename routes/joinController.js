@@ -131,25 +131,30 @@ router.post('/joinConfirm', function (req, res) {
     const joinEmail = req.body.joinEmail;
     const name = req.body.name;
     const phone = req.body.phone;
-
+    let password = '';
+    const saltRounds = 10; //bcypt 관련
 
     
-    //  //비밀번호 암호화
-    // bcrypt . hash ( password1 ,  saltRounds ,  function ( err ,  hash )  {   // password에 해시를 저장합니다.
-    
-    // password = hash; 
-    // next()
+     //비밀번호 암호화
+    bcrypt.hash ( password1 ,  saltRounds ,  function ( err ,  hash )  {   // password에 해시를 저장합니다.
+    try{
+      password = hash; 
+      console.log('암호화 비밀번호: ' + password);
+    }
+    catch(err){//예외처리
+    	console.log(err);
+    }
 
-    // });
-
-    dbConnection.query("INSERT INTO member (id, pw, email, name, sex, birthday, phone ) VALUES (?, ?, ?, ?, ?, ?, ?)",[id, password1, joinEmail, name, phone], function (err, result) {  
-      if (err) throw err;
-      if(result.affectedRows === 1) {
-        res.send({result:true});   
-      } else {
-        res.send({result:false});
-      }
     });
+
+    // dbConnection.query("INSERT INTO member (id, pw, email, name, sex, birthday, phone ) VALUES (?, ?, ?, ?, ?, ?, ?)",[id, password1, joinEmail, name, phone], function (err, result) {  
+    //   if (err) throw err;
+    //   if(result.affectedRows === 1) {
+    //     res.send({result:true});   
+    //   } else {
+    //     res.send({result:false});
+    //   }
+    // });
 });
 
 
