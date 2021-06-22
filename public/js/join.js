@@ -5,7 +5,9 @@ const joinPw2 = document.querySelector("#joinPw2");
 const certNumber = document.querySelector("#certNumber");
 const joinEmail = document.querySelector("#joinEmail");
 const name = document.querySelector("#name");
-const sex = document.querySelector('input[name="radioName"]:checked').value;
+// const genderCheck = document.querySelector('input[name="gender"]').checked; // 체크 여부(checked)
+//const gender = document.querySelector('input[name="gender"]:checked').value; // 체크된 값(checked value)
+//const sex = document.querySelector('input[name="radioName"]:checked').value;
 
 
 //let globalCertNumber; //전역변수 (글로벌 변수 // emailCert부분에서 값 대입 // 사용은 joinConfirm)
@@ -84,11 +86,13 @@ document.getElementById('certNumberConfirm').addEventListener('click', function(
 
 
    // Example POST method implementation:
-   postData('/join/certNumberConfirm', {
-    certNumber: certNumber,
+   postData('join/certNumberConfirm', {
+       
+    certNumber: certNumber, //전달 확인됨
        
   })
    .then(data => {
+
        console.log(JSON.stringify(data))
        
        if (data.result) {
@@ -105,12 +109,19 @@ document.getElementById('certNumberConfirm').addEventListener('click', function(
 
 
 document.getElementById('joinButton').addEventListener('click', function(){
-
+  
+    const id = document.getElementById('id').value.trim();
     const phone = document.getElementById('phone').value.trim();
     const password1 = document.getElementById("joinPw").value.trim();
     const password2 = document.getElementById("joinPw2").value.trim();
     const joinEmail = document.getElementById('joinEmail').value.trim();
     const name = document.getElementById('name').value.trim();
+    const gender = document.getElementsByName('gender').value
+    
+    //  const gender = for(let i=0; i < gender.length; i++) {
+    //          console.log(gender[i].value);
+    //         } 
+
 
     //const certNumber = document.getElementById('certNumber').value.trim();
 
@@ -134,10 +145,14 @@ document.getElementById('joinButton').addEventListener('click', function(){
     } 
     
     if (name == undefined) {
-        alert('이름을 확인해주세요.')
+        alert('이름을 입력해주세요.')
         return false;
     }
 
+    if(gender == undefined) {
+        alert('성별을 선택해주세요.')
+        return false;
+    }
 
     // //인증코드 체크
     // if(globalCertNumber !== certNumber) {
@@ -145,12 +160,18 @@ document.getElementById('joinButton').addEventListener('click', function(){
     //    return false; 
     // }
 
+
+    
     // Example POST method implementation:
    postData('/join/joinConfirm', {
     id: id,
     password1: password1,
     joinEmail: joinEmail,
     name: name,
+    phone: phone,
+    gender: gender[i].value,
+    
+
      
 })
  .then(data => {

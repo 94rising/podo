@@ -4,13 +4,20 @@ const path = require('path');
 const session = require('express-session');
 const dbConnection = require('../util/database');
 const crypto = require('crypto');
+const bcrypt = require('bcrypt');
 const nodemailer = require("nodemailer");
+const { nextTick } = require('process');
 
 
-const algorithm = 'aes-256-cbc';
-const iv = '1234567890123456'; //16자리
-const makeCertNumber = '1234';
-const key = 'abcdefghizklmnopqrstlmnddadwqers'//32자리
+const algorithm = 'aes-256-cbc'; //crypto 관련
+const iv = '1234567890123456'; //16자리//crypto 관련
+const makeCertNumber = '1234';//crypto 관련
+const key = 'abcdefghizklmnopqrstlmnddadwqers'//32자리//crypto 관련
+
+const saltRounds = 10; //bcypt 관련
+const  myPlaintextPassword  =  's0 / \ / \ P4 $$ w0rD' ; //bcypt 관련
+const  someOtherPlaintextPassword  =  'not_bacon' ; //bcypt 관련
+
 
 router.get('/', (req, res) => {
     res.sendFile(path.join(__dirname ,'../views', 'join.html' ))
@@ -35,14 +42,15 @@ router.post('/idConfirm', (req, res) => {
 router.post('/emailCert', function (req, res) {  //이메일 중복확인 로직 넣기 ( 이메일 중복확인이 된 후에 인증번호 발급으로)
   const session = req.session;
   const joinEmail= req.body.email;
-  const encryptNumber = req.session.encrypt; // 암호화된 인증번호 세션 저장
-  
+
   // const encrytedCode = encrypt(makeCertNumber);
 
   //   console.log(certNumber, encrytedCode);
 
   //   req.session.save = encrytedCode; // 암호화된 세션 저장
   //   //const encrytedCodeSession = req.session.encrytedCode;
+
+
 
   dbConnection.query("SELECT * FROM member WHERE email = ?",[joinEmail], function (err, result) { //이메일 확인 로직추가한것
     
@@ -76,12 +84,13 @@ router.post('/emailCert', function (req, res) {  //이메일 중복확인 로직
         } else { 
          console.log('Email sent: ' + info.response);
 
-        
-          res.send({result: 2})  // 2= 정상작동했을 때
+         req.session.encryptNumber = encrypt(makeCertNumber); //암호화 문장 세션 저장 
 
-          
+          res.send({result: 2, })  // 2= 정상작동했을 때
 
         }
+        
+
       });
 
     } else {
@@ -95,11 +104,14 @@ router.post('/emailCert', function (req, res) {  //이메일 중복확인 로직
 
 router.post('/certNumberConfirm', (req, res) => {
   const certNumber = req.body.certNumber;
-  const encrypt = req.session.encrypt;   //세션에 저장된 암호화된 코드 받아오기
+  const encryptNumber = req.session.encryptNumber;   //세션에 저장된 암호화된 코드 받아오기 //현재 못받아오는중
 
+  console.log('이메일 인증' + certNumber ); //넘어오는것 확인
+  
+  console.log('암호화 인증' + req.session.encryptNumber ); // 암호화 받아오기
 
   //복호화해서 인증번호와 일치하는지 확인 
-  if (decrypt(encrypt) !== certNumber){ //복호화해서 인증번호와 일치하는지 확인 
+  if (decrypt(encryptNumber) !== certNumber){ //복호화해서 인증번호와 일치하는지 확인 
    
     res.send({result:false}) //일치하지 않으면 오류 메시지, 일치하면 통과
    } 
@@ -115,13 +127,22 @@ router.post('/certNumberConfirm', (req, res) => {
 
 router.post('/joinConfirm', function (req, res) {
     const id = req.body.id;
-    const password = req.body.password1;
+    const password1 = req.body.password1;
     const joinEmail = req.body.joinEmail;
     const name = req.body.name;
+    const phone = req.body.phone;
 
 
+    
+    //  //비밀번호 암호화
+    // bcrypt . hash ( password1 ,  saltRounds ,  function ( err ,  hash )  {   // password에 해시를 저장합니다.
+    
+    // password = hash; 
+    // next()
 
-    dbConnection.query("INSERT INTO member (id, password, email, name, sex, birthday, phone ) VALUES (?, ?, ?, ?, ?, ?, ?)",[id, password, joinEmail, name], function (err, result) {  
+    // });
+
+    dbConnection.query("INSERT INTO member (id, pw, email, name, sex, birthday, phone ) VALUES (?, ?, ?, ?, ?, ?, ?)",[id, password1, joinEmail, name, phone], function (err, result) {  
       if (err) throw err;
       if(result.affectedRows === 1) {
         res.send({result:true});   
@@ -144,7 +165,7 @@ router.post('/joinConfirm', function (req, res) {
 
 
 
-  const encrypt = (makeCertNumber) => { //https://velog.io/@jm-shin/%EC%95%94%ED%98%B8%ED%99%94 참고해야함
+  const encrypt = (value) => { //https://velog.io/@jm-shin/%EC%95%94%ED%98%B8%ED%99%94 참고해야함
 
     const fn = 'encrypt';
     try {
@@ -160,11 +181,11 @@ router.post('/joinConfirm', function (req, res) {
     }
 };
 
-const decrypt = () => {
+const decrypt = (value) => {   //복호화
     const fn = 'decrypt';
     try {
-        const decipher = crypto.createDecipheriv(algorithm, key, iv);
-        let result = decipher.update(certNumber, 'base64', 'utf8');
+        const decipher = crypto.createDecipheriv(algorithm, key, iv); 
+        let result = decipher.update(value, 'base64', 'utf8');
         result += decipher.final('utf-8');
         console.log(`decrypt result: ${result}`);
         return result;

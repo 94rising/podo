@@ -6,6 +6,7 @@ const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const nodemailer = require("nodemailer");
 const crypto = require('crypto');
+const bcrypt = require('bcrypt');
 const fs = require('fs');
 const EMOTION_CODE =  require('./util/emotion_code');
 const { ComprehendClient, BatchDetectDominantLanguageCommand } = require("@aws-sdk/client-comprehend");
