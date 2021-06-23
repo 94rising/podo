@@ -16,7 +16,8 @@ document.getElementById('loginBtn').addEventListener('click', function(){
      postData('/login', {
          id: id,
          password: password,
-         
+        
+
         })
      .then(data => {
          console.log(JSON.stringify(data))

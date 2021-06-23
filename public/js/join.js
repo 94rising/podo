@@ -32,7 +32,7 @@ document.getElementById('idBtn').addEventListener('click', function(){
        if (data.result) {
           alert("ID 사용 가능합니다.");
            } else {
-               alert(" ID 확인해주세요. ");
+                alert(" ID 확인해주세요. ");
                
            }
            

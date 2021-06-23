@@ -14,9 +14,9 @@ const iv = '1234567890123456'; //16자리//crypto 관련
 const makeCertNumber = '1234';//crypto 관련
 const key = 'abcdefghizklmnopqrstlmnddadwqers'//32자리//crypto 관련
 
-const saltRounds = 10; //bcypt 관련
-const  myPlaintextPassword  =  's0 / \ / \ P4 $$ w0rD' ; //bcypt 관련
-const  someOtherPlaintextPassword  =  'not_bacon' ; //bcypt 관련
+// const saltRounds = 10; //bcypt 관련
+// const  myPlaintextPassword  =  's0 / \ / \ P4 $$ w0rD' ; //bcypt 관련
+// const  someOtherPlaintextPassword  =  'not_bacon' ; //bcypt 관련
 
 
 router.get('/', (req, res) => {
@@ -43,12 +43,12 @@ router.post('/emailCert', function (req, res) {  //이메일 중복확인 로직
   const session = req.session;
   const joinEmail= req.body.email;
 
-  // const encrytedCode = encrypt(makeCertNumber);
+  // const encrytedCode = encrypt(makeCertNumber); // 함수안에 함수 넣기
 
   //   console.log(certNumber, encrytedCode);
 
-  //   req.session.save = encrytedCode; // 암호화된 세션 저장
-  //   //const encrytedCodeSession = req.session.encrytedCode;
+    // req.session.save = encrytedCode; // 암호화된 세션 저장
+    // const encrytedCodeSession = req.session.encrytedCode;
 
 
 
@@ -132,39 +132,42 @@ router.post('/joinConfirm', function (req, res) {
     const name = req.body.name;
     const phone = req.body.phone;
     let password = '';
+    let hash = '';
     const saltRounds = 10; //bcypt 관련
+    const  myPlaintextPassword  =  's0 / \ / \ P4 $$ w0rD' ; //bcypt 관련
+    const  someOtherPlaintextPassword  =  'not_bacon' ; //bcypt 관련
 
-    
-     //비밀번호 암호화
-    bcrypt.hash ( password1 ,  saltRounds ,  function ( err ,  hash )  {   // password에 해시를 저장합니다.
-    try{
-      password = hash; 
-      console.log('암호화 비밀번호: ' + password);
-    }
-    catch(err){//예외처리
-    	console.log(err);
-    }
-
-    });
-
-    // dbConnection.query("INSERT INTO member (id, pw, email, name, sex, birthday, phone ) VALUES (?, ?, ?, ?, ?, ?, ?)",[id, password1, joinEmail, name, phone], function (err, result) {  
-    //   if (err) throw err;
-    //   if(result.affectedRows === 1) {
-    //     res.send({result:true});   
-    //   } else {
-    //     res.send({result:false});
-    //   }
+    // bcrypt . hash ( password1 ,  saltRounds ,  function ( err ,  hash )  { 
+    //   // 암호 DB에 해시를 저장합니다. 
+    //   console.log(hash)
     // });
+    bcrypt . genSalt ( saltRounds ,  function ( err ,  salt )  { 
+      bcrypt . hash ( password1 ,  salt ,  function ( err ,  hash )  { 
+          // 암호 DB에 해시 저장. 
+      } ) ; 
+  } ) ;
+
+
+    dbConnection.query("INSERT INTO member (id, pw, email, name, phone ) VALUES (?, ?, ?, ?, ?)",[id, hash, joinEmail, name, phone], function (err, result) {  
+      if (err) throw err;
+      if(result.affectedRows === 1) {
+        res.send({result:true});   
+      } else {
+        res.send({result:false});
+      }
+    });
 });
 
 
 
 // const makeCertNumber = () => { //인증번호 생성
-//   Math.floor(Math.random()*100000);
+//  return Math.floor(Math.random()*100000);
+  
 //   };
 
 // const key = () => { //key 생성
 //     const nowtime = Date.now()
+//     return
 //   };
 
 
