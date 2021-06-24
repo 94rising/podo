@@ -30,7 +30,7 @@ document.getElementById('loginBtn').addEventListener('click', function(){
              }
              
          })// JSON-string from `response.json()` call
-         .catch(error => console.error(error));
+    .catch(error => console.error(error));
 });
 
 

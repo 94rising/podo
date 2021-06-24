@@ -16,45 +16,37 @@ router.get('/', (req, res) => {
 
 });
 
-router.post('/', (req, res) => {
-    const id = req.body.id;
-    const password = req.body.password;
+router.post('/',  async function (req, res){
+  const id = req.body.id;
+  const password = req.body.password;
 
-    dbConnection.query("SELECT * FROM member WHERE id = ? and pw = ?",[id, password], function (err, result) { //id가 DB에있는지 확인 
-      if (err) throw err; //err(error) : sql문 실행시키고 에러발생시 에러 출력/ 에러 없으면 NULL 값을 가짐
-      if (result[0] !== undefined) {
-        req.session.userId = result[0].id;
-        res.send({result:true})
-     
-     
-// // 암호 DB에서 해시를로드합니다.  https://www.npmjs.com/package/bcrypt
-// bcrypt . compareSync ( password ,  hash ) ;  // true 
-// bcrypt . compareSync ( someOtherPlaintextPassword ,  hash ) ;  // 거짓
 
-// 둘중에 해봐야함
+  const hashPassword = async function(){
+    console.log(bcrypt.hash(password,saltRounds));
+    const hashPwd = await bcrypt.hash(password,saltRounds);
+    
+    console.log('암호화 비번' + hashPwd);
+    return hashPwd;
+  }
 
-//암호 확인
-bcrypt.compare(beforePassword, afterPassword, function(err, result) {
-	//result는 암호가 맞는 경우 true , 암호가 틀린 경우 false로 반환
-    try{
-      //암호가 맞는 경우
-      if(result)
-          console.log('딩동댕!');
-      else 
-          console.log('땡!');
+    const hashPwd = await hashPassword(); // Promise { <pending> } 이 전달됨.. 이유 알아봐야함 
+    console.log('암호화 확인: ' + hashPwd); 
+
+
+
+  dbConnection.query("SELECT * FROM member WHERE id = ? and pw = ?",[id, hashPwd], function (err, result) { //id가 DB에있는지 확인 
+    if (err) throw err; //err(error) : sql문 실행시키고 에러발생시 에러 출력/ 에러 없으면 NULL 값을 가짐
+    if (result[0] !== undefined) {
+      req.session.userId == result[0].id;
+      console.log(hashPwd);
+
+      res.send({result:true})
+   
+  
+    } else { 
+      res.redirect('/login');
     }
-    catch(err){//예외처리
-    	console.log(err);
-    }
-});
-     
-     
-     
-     
-      } else { 
-        res.redirect('/login');
-      }
-    });
+  });
 });
 
 
@@ -63,3 +55,19 @@ module.exports = router;
 
 
 
+// // 둘중에 해봐야함
+
+// //암호 확인
+// bcrypt.compare(password, has, function(err, result) {
+//   //result는 암호가 맞는 경우 true , 암호가 틀린 경우 false로 반환
+//     try{
+//       //암호가 맞는 경우
+//       if(result)
+//           console.log('딩동댕!');
+//       else 
+//           console.log('땡!');
+//     }
+//     catch(err){//예외처리
+//       console.log(err);
+//     }
+//   });

@@ -7,6 +7,7 @@ const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 const nodemailer = require("nodemailer");
 const { nextTick } = require('process');
+const { resolve } = require('path');
 
 
 const algorithm = 'aes-256-cbc'; //crypto 관련
@@ -125,30 +126,40 @@ router.post('/certNumberConfirm', (req, res) => {
 
 
 
-router.post('/joinConfirm', function (req, res) {
+router.post('/joinConfirm', async function (req, res) {
     const id = req.body.id;
     const password1 = req.body.password1;
     const joinEmail = req.body.joinEmail;
     const name = req.body.name;
     const phone = req.body.phone;
-    let password = '';
-    let hash = '';
     const saltRounds = 10; //bcypt 관련
     const  myPlaintextPassword  =  's0 / \ / \ P4 $$ w0rD' ; //bcypt 관련
     const  someOtherPlaintextPassword  =  'not_bacon' ; //bcypt 관련
 
-    // bcrypt . hash ( password1 ,  saltRounds ,  function ( err ,  hash )  { 
-    //   // 암호 DB에 해시를 저장합니다. 
-    //   console.log(hash)
-    // });
-    bcrypt . genSalt ( saltRounds ,  function ( err ,  salt )  { 
-      bcrypt . hash ( password1 ,  salt ,  function ( err ,  hash )  { 
-          // 암호 DB에 해시 저장. 
-      } ) ; 
-  } ) ;
+   //비밀번호 암호화
+  //  bcrypt.hash ( password1 ,  saltRounds ,  async function ( err ,  hash )  {   // password에 해시를 저장합니다.
+  //   try{
+      
+  //     console.log('암호화 비밀번호: ' + password);
+  //     return password;
+  //   }
+  //   catch(err){//예외처리
+  //      console.log(err);
+  //   }
+  //   });
 
+  const hashPassword = async function(){
+    console.log(bcrypt.hash(password1,saltRounds));
+    const hashPwd = await bcrypt.hash(password1,saltRounds);
+    
+    console.log('암호화 비번' + hashPwd);
+    return hashPwd;
+  }
 
-    dbConnection.query("INSERT INTO member (id, pw, email, name, phone ) VALUES (?, ?, ?, ?, ?)",[id, hash, joinEmail, name, phone], function (err, result) {  
+    const hashPwd = await hashPassword(); // Promise { <pending> } 이 전달됨.. 이유 알아봐야함 
+    console.log('암호화 확인: ' + hashPwd); 
+
+     dbConnection.query("INSERT INTO member (id, pw, email, name, phone) VALUES (?, ?, ?, ?, ?)",[id, hashPwd, joinEmail, name, phone], function (err, result) {  
       if (err) throw err;
       if(result.affectedRows === 1) {
         res.send({result:true});   
