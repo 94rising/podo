@@ -23,7 +23,7 @@ document.getElementById('loginBtn').addEventListener('click', function(){
          console.log(JSON.stringify(data))
          
          if (data.result) {
-               location.href = '/';
+              location.href = '/';
              } else {
                  alert(" 아이디 혹은 비밀번호를 확인해주세요. ");
                  
