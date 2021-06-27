@@ -36,15 +36,17 @@ router.post('/',  async function (req, res){
         //result는 암호가 맞는 경우 true , 암호가 틀린 경우 false로 반환
          try{
            //암호가 맞는 경우
-           if(result)
+           if(result){
                console.log('딩동댕!');
-           else 
+               res.send({result:true})
+            } else {
                console.log('땡!');
+               res.send({result:false})
+            }
          }
          catch(err){//예외처리
             console.log(err);
          }
-         res.send({result:true})
       });
     }else { 
       res.json('/login');

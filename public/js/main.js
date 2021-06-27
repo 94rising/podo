@@ -60,6 +60,7 @@ function checkLeapYear(year) {
 
   function renderCalendar(data){
     let h = [];
+    let emotion = ['dasdsada']
     for(let i=0 ; i<data.length ; i++) {
       if(i==0) {
         h.push('<tr>');
@@ -83,6 +84,7 @@ function checkLeapYear(year) {
 
     const date = current_year + "-" + month + "-" + day;
     location.href = "/diary?date=" + date;
+    
   }
 
   function chageMonth(diff) {
@@ -110,4 +112,5 @@ function checkLeapYear(year) {
   }
 
 // calendar 생성 종료
+
      
