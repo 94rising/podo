@@ -10,6 +10,27 @@ document.addEventListener('DOMContentLoaded', (event) => {
   
   
     changeYearMonth(current_year,current_month);
+//-------------------------------------------------------
+ getData('/main', {})
+    .then(response => {
+        const mainList = response.result;
+        
+        console.log("response : " + mainList); //데이터 옴
+        console.log("mainList : " + JSON.stringify(mainList));
+        // // for (let i = 0; i < mainList.length; i++) {
+        // //     const mainList = mainList[i];
+           
+
+        //     //diary=1 .. 1부분에 number 작성 .. number : 자동증가되는 DB 유니크키 
+            
+        // }
+            
+    })// JSON-string from `response.json()` call
+   .catch(error => console.error(error)); 
+
+
+
+
 });
 
 // calendar 생성 시작
@@ -60,7 +81,6 @@ function checkLeapYear(year) {
 
   function renderCalendar(data){
     let h = [];
-    let emotion = ['dasdsada']
     for(let i=0 ; i<data.length ; i++) {
       if(i==0) {
         h.push('<tr>');
