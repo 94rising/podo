@@ -23,8 +23,8 @@
     </div>
   </div>
 
-  <div class="container">
-    <div id="div_calendar" style="width:300px;">
+  <div class="container" >
+    <div id="div_calendar" style="width:500px; height: 500px;">
       <div>
         <button type="button" onclick="chageMonth(-1)"><i class="fa fa-chevron-left"></i></button>
         <input type="number" id="year" value="2021" style="width:80px;display:initial;" class="form-control"/>
@@ -57,11 +57,22 @@
             <th>토</th>
           </tr>
         </thead>
-        <tbody id="tb_body">
+        <tbody id="tb_body" style="width:500px; height: 500px;" 
+        >
         </tbody>
       </table>
+      
     </div>
   </div>
+  <div>
+    <img id="smaile" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f601.svg" width="20" height="20">
+         
+    <img id="natural" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f610.svg" width="20" height="20">
+    <img id="bad" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/2639-fe0f.svg" width="20" height="20"> 
+  </div>
+ 
+
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
   <script src="/static/js/menu.js" defer></script>

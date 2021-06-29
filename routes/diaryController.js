@@ -57,7 +57,7 @@ router.get('/load', (req, res) => {
     const id = 'good';
     const date = req.session.date;
   
-    const datas = [id, date];
+    const datas = [id, date, emotion];
     const sql = "SELECT * from DIARY WHERE id = ? and date = ?";
     let diaryList = [];
     dbConnection.query(sql, datas, function (err, rows) {

@@ -1,3 +1,5 @@
+const { SimpleScrollGrid } = require("@fullcalendar/core");
+
 let current_year;
 let current_month;
 
@@ -18,11 +20,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         console.log("response : " + mainList); //데이터 옴
         console.log("mainList : " + JSON.stringify(mainList));
         // // for (let i = 0; i < mainList.length; i++) {
-        // //     const mainList = mainList[i];
-           
-
-        //     //diary=1 .. 1부분에 number 작성 .. number : 자동증가되는 DB 유니크키 
-            
+        // //     const mainList = mainList[i];            
         // }
             
     })// JSON-string from `response.json()` call
@@ -89,22 +87,34 @@ function checkLeapYear(year) {
         h.push('<tr>');
       }
 
+      
+
       h.push('<td onclick="setDate(' + data[i] + ');" style="cursor:pointer;">' + data[i] + '</td>');
     }
 
     h.push('</tr>');
 
+    const emoji = () => {
+        document.getElementById("smile");
+        
+        return smile;
+      } 
+
     $("#tb_body").html(h.join(""));
   }
 
-  function setDate(day) {
+  function setDate(day) { //날짜출력? 
     let month = current_month;
     if (month < 10) month = "0" + month;
     if(day<10) day = "0" + day;
+    
+    
 
     const date = current_year + "-" + month + "-" + day;
     location.href = "/diary?date=" + date;
     
+
+
   }
 
   function chageMonth(diff) {
@@ -132,5 +142,20 @@ function checkLeapYear(year) {
   }
 
 // calendar 생성 종료
+
+function emotionImage(){
+	
+  
+  for (let i = 0; i < mainList.length; i++) {
+	//document.getElementById("imgId").src = "b.PNG"; //https://song-yoshiii.tistory.com/9
+  const emotionList = mainList[i];
+	if(mainList.emotion == 1) document.getElementById("smile");
+	if(mainList.emotion == 2) document.getElementById("natural");
+  if(mainList.emotion == 3) document.getElementById("bad");
+
+
+
+  return emotionList;
+}}
 
      
