@@ -7,7 +7,6 @@ const dbConnection = require('../util/database');
 router.get('/', (req, res) => {
   const userId = req.session.userId;
 
-  const id = req.session.userId;
   
 
   if (userId === undefined) {
@@ -26,7 +25,7 @@ router.get('/', (req, res) => {
 
 
   res.sendFile(path.join(__dirname ,'../views', 'main.html' ));
-// });
 });
+// });
   
 module.exports = router;

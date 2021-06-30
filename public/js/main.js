@@ -1,4 +1,3 @@
-const { SimpleScrollGrid } = require("@fullcalendar/core");
 
 let current_year;
 let current_month;
@@ -17,6 +16,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     .then(response => {
         const mainList = response.result;
         
+
+
+
+
         console.log("response : " + mainList); //데이터 옴
         console.log("mainList : " + JSON.stringify(mainList));
         // // for (let i = 0; i < mainList.length; i++) {
@@ -82,23 +85,20 @@ function checkLeapYear(year) {
     for(let i=0 ; i<data.length ; i++) {
       if(i==0) {
         h.push('<tr>');
+
       }else if(i%7 == 0) {
         h.push('</tr>');
         h.push('<tr>');
       }
 
       
-
-      h.push('<td onclick="setDate(' + data[i] + ');" style="cursor:pointer;">' + data[i] + '</td>');
+      h.push('<td onclick="setDate(' + data[i] + ');" style="cursor:pointer;">' + data[i] + emoji() + '</td>');
+      
     }
 
     h.push('</tr>');
 
-    const emoji = () => {
-        document.getElementById("smile");
-        
-        return smile;
-      } 
+    
 
     $("#tb_body").html(h.join(""));
   }
@@ -158,4 +158,32 @@ function emotionImage(){
   return emotionList;
 }}
 
-     
+
+const emoji = () => {
+  
+  const smile = document.getElementById("emo");
+  const natural = document.getElementById("emo");
+  const bad = document.getElementById("emo");
+
+  smile.innerHTML= '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f601.svg">'
+  natural.innerHTML= '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f610.svg">'
+  bad.innerHTML= '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/2639-fe0f.svg">'
+
+  const mainList = mainList[i];
+
+
+  for (let i = 0; i < mainList.length; i++) {
+  if(date == mainList.date) {
+
+    for (let i = 0; i < mainList.length; i++) {
+	    if(mainList.emotion == 1) smile.innerHTML;
+	    if(mainList.emotion == 2) natural.innerHTML;
+      if(mainList.emotion == 3) bad.innerHTML;
+
+  return ; 
+}}}}
+
+console.log (typeof smile.innerHTML);
+console.log (smile.innerHTML);
+
+    
