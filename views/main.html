@@ -26,9 +26,9 @@
   <div class="container" >
     <div id="div_calendar" style="width:500px; height: 500px;">
       <div>
-        <button type="button" onclick="chageMonth(-1)"><i class="fa fa-chevron-left"></i></button>
+        <button type="button" onclick="changeMonth(-1)"><i class="fa fa-chevron-left"></i></button>
         <input type="number" id="year" value="2021" style="width:80px;display:initial;" class="form-control"/>
-        <select id="month" class="form-control" style="width:80px;display:initial;" onchange="chageMonth();">
+        <select id="month" class="form-control" style="width:80px;display:initial;" onchange="changeMonth();">
           <option value="1">1월</option>
           <option value="2">2월</option>
           <option value="3">3월</option>
@@ -42,7 +42,7 @@
           <option value="11">11월</option>
           <option value="12">12월</option>
         </select>
-        <button type="button" onclick="chageMonth(+1)"><i class="fa fa-chevron-right"></i></button>
+        <button type="button" onclick="changeMonth(+1)"><i class="fa fa-chevron-right"></i></button>
 
       </div>
       <table class="table table-boardered">
@@ -66,7 +66,6 @@
   </div>
   <div>
     <img id="smile" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f601.svg" width="20" height="20">
-         <div id="emo">뿌엥</div>
     <img id="natural" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f610.svg" width="20" height="20">
     <img id="bad" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/2639-fe0f.svg" width="20" height="20"> 
 

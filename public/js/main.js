@@ -1,41 +1,42 @@
 
 let current_year;
 let current_month;
-
 document.addEventListener('DOMContentLoaded', (event) => {
-    current_year = (new Date()).getFullYear();
-    current_month = (new Date()).getMonth() + 1;
+
+   postData('/', {
+     
+  })
+   .then(response => { 
+    console.log(JSON.stringify(response))
+    console.log( response)
+    const mainList = response.mainList;
+    console.log( mainList ) //여기까지 찍힘
+    const bb = 'bb';
+
+    console.log(mainList.date); //
+
+
+    return mainList;
+   })
+
+  .then(data => {
+    
+    const mainList = data;
+    console.log(mainList); //여기도 찍힘
+
+   let current_year = (new Date()).getFullYear();
+   let current_month = (new Date()).getMonth() + 1;
 
     $("#year").val(current_year);
     $("#month").val(current_month);
-  
-  
-    changeYearMonth(current_year,current_month);
-//-------------------------------------------------------
- getData('/main', {})
-    .then(response => {
-        const mainList = response.result;
-        
+
+
+    changeYearMonth(current_year, current_month);
 
 
 
-
-        console.log("response : " + mainList); //데이터 옴
-        console.log("mainList : " + JSON.stringify(mainList));
-        // // for (let i = 0; i < mainList.length; i++) {
-        // //     const mainList = mainList[i];            
-        // }
-            
-    })// JSON-string from `response.json()` call
-   .catch(error => console.error(error)); 
-
-
-
-
-});
-
-// calendar 생성 시작
-function checkLeapYear(year) {
+  // calendar 생성 시작
+   function checkLeapYear(year) {
     if(year%400 == 0) {
       return true;
     } else if (year%100 == 0) {
@@ -92,8 +93,10 @@ function checkLeapYear(year) {
       }
 
       
-      h.push('<td onclick="setDate(' + data[i] + ');" style="cursor:pointer;">' + data[i] + emoji() + '</td>');
+      h.push('<td onclick="setDate(' + data[i] + ');" style="cursor:pointer;">' + data[i] + emoji(data[i]) + '</td>');
       
+
+
     }
 
     h.push('</tr>');
@@ -112,12 +115,10 @@ function checkLeapYear(year) {
 
     const date = current_year + "-" + month + "-" + day;
     location.href = "/diary?date=" + date;
-    
-
 
   }
 
-  function chageMonth(diff) {
+  function changeMonth(diff) {
     if(diff == undefined) {
       current_month = parseInt($("#month").val());
     }else {
@@ -138,52 +139,66 @@ function checkLeapYear(year) {
   function loadCalendar() {
     $("#year").val(current_year);
     $("#month").val(current_month);
+    
     changeYearMonth(current_year, current_month);
   }
 
-// calendar 생성 종료
+  // calendar 생성 종료
 
-function emotionImage(){
-	
+
+  function emoji(day) {
+
+  const smile = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f601.svg">'
+  const natural = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f610.svg">'
+  const bad = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/2639-fe0f.svg">'
   
+  const date = current_year + "-" + month + "-" + day;
+    //console.log(mainList[1].date);
+    console.log('확인 : ' + date) //날짜만 표시됨...
+    
   for (let i = 0; i < mainList.length; i++) {
-	//document.getElementById("imgId").src = "b.PNG"; //https://song-yoshiii.tistory.com/9
-  const emotionList = mainList[i];
-	if(mainList.emotion == 1) document.getElementById("smile");
-	if(mainList.emotion == 2) document.getElementById("natural");
-  if(mainList.emotion == 3) document.getElementById("bad");
+    // console.log(mainList[i].date)
+    if(date == mainList[i].date) {
+      console.log('dasdad');
+    for (let j = 0; j < mainList.length; j++) {
+      if(mainList[j].emotion == 1) smile;
+      if(mainList[j].emotion == 2) natural;
+      if(mainList[j].emotion == 3) bad;
+      
+      return ; 
+  }}}}
+
+
+   })// JSON-string from `response.json()` call
+  .catch(error => console.error(error));
+  });
+
+
+            
+       
 
 
 
-  return emotionList;
-}}
 
-
-const emoji = () => {
-  
-  const smile = document.getElementById("emo");
-  const natural = document.getElementById("emo");
-  const bad = document.getElementById("emo");
-
-  smile.innerHTML= '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f601.svg">'
-  natural.innerHTML= '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f610.svg">'
-  bad.innerHTML= '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/2639-fe0f.svg">'
-
-  const mainList = mainList[i];
-
-
-  for (let i = 0; i < mainList.length; i++) {
-  if(date == mainList.date) {
-
-    for (let i = 0; i < mainList.length; i++) {
-	    if(mainList.emotion == 1) smile.innerHTML;
-	    if(mainList.emotion == 2) natural.innerHTML;
-      if(mainList.emotion == 3) bad.innerHTML;
-
-  return ; 
-}}}}
-
-console.log (typeof smile.innerHTML);
-console.log (smile.innerHTML);
+console.log (typeof smile);
+console.log (smile);
 
     
+
+function postData(url = '', data = {}) {
+  // Default options are marked with *
+    return fetch(url, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, cors, *same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+            'Content-Type': 'application/json',
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrer: 'no-referrer', // no-referrer, *client
+        body: JSON.stringify(data), // body data type must match "Content-Type" header
+    })
+    .then(response => response.json()); // parses JSON response into native JavaScript objects
+}
