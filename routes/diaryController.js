@@ -54,25 +54,27 @@ router.get("/listData", (req, res) => {
 
 router.get('/load', (req, res) => {
     //const id = req.session.id;
-    const id = 'good';
+    const id = req.session.userId
     const date = req.session.date;
-  
-    const datas = [id, date, emotion];
-    const sql = "SELECT * from DIARY WHERE id = ? and date = ?";
+    let result = '';
+    
+
     let diaryList = [];
-    dbConnection.query(sql, datas, function (err, rows) {
+    dbConnection.query("SELECT * from DIARY WHERE id = ? ORDER BY date", [id, date], function (err, rows) {
         if(err){
             console.log(err);
         } else {
-            for(let i=0; i<rows.length; i++){
+            for(let i=0; i<rows.length; i++){ 
                 diaryList.push(rows[i]); // row는 key:value 값 가짐
-            }
-        }
+                console.log('확인 : ' + i);
+                 }
+                 result = {diaryList, date};
+                 console.log(result)
+                 res.json(result);
+             
+               }
     });
-
-    const result = {diaryList, date};
-    res.json(result);
-
+ 
 });
 
 

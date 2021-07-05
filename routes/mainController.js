@@ -8,6 +8,11 @@ router.get('/', (req, res) => {
 
 const userId = req.session.userId;
 
+if (userId === undefined) {
+  res.redirect('/login');
+  return;
+}
+
 console.log('메인 세션확인 : ' + userId )
 res.sendFile(path.join(__dirname ,'../views', 'main.html' ));
 

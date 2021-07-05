@@ -10,7 +10,7 @@ const dateBar = document.querySelector("#dateBar");
     .then(response => {
         console.log(response);
         const responseJson = response.json();
-        console.log(responseJson);
+        console.log( responseJson);
         return responseJson;
         // if (data) {
         //     console.log(res.result)
@@ -20,11 +20,11 @@ const dateBar = document.querySelector("#dateBar");
         //     }
             
     })
-    .then(data => {
+    .then(data => { //여기완성
         console.log(data.date);
         dateBar.value = data.date;
-        console.log(data.diaryList);
-        content.value = data.responseJson;
+        console.log(data.diaryList[0].content)
+        content.value = data.diaryList[0].content;
 
     })
     // JSON-string from `response.json()` call

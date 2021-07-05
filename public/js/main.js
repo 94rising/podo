@@ -154,8 +154,7 @@ function emoji(day) {
 const smile = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f601.svg">'
 const natural = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f610.svg">'
 const bad = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/2639-fe0f.svg">'
-
-
+const no = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/2754.svg>'
 
 
 
@@ -166,14 +165,15 @@ const date = current_year + "-" + current_month + "-" + day;
 for (let i = 0; i < mainList.length; i++) {
   // console.log(mainList[i].date)
   if(date == mainList[i].date) {
-    if(mainList[i].emotion == 1)
+    if(mainList[i].emotion === undefined){
+    return no;
+    }else if(mainList[i].emotion == 1){
     return smile; 
-  }else if(mainList[i].emotion == 2){
+    }else if(mainList[i].emotion == 2){
     return natural
-  }else if(mainList[i].emotion == 3){
+    }else if(mainList[i].emotion == 3){
     return bad;
-  
-}}}
+  }}}}
 
 console.log(emoji);
 console.log(typeof emoji)
