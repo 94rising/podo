@@ -20,11 +20,23 @@ const dateBar = document.querySelector("#dateBar");
         //     }
             
     })
-    .then(data => { //여기완성
+    .then(data => { //
         console.log(data.date);
         dateBar.value = data.date;
-        console.log(data.diaryList[0].content)
-        content.value = data.diaryList[0].content;
+        console.log(data.diaryList)
+        let diary = data.diaryList;
+        const aa = 'dasda';
+
+        for (let i = 0; i < diary.length; i++) { // 
+            if (diary[i].date == data.date) {
+                content.value = diary[i].content;
+                break;
+            }
+    
+
+       //if(data.date == data.diary[date]) 
+     }
+         console.log(content.value) 
 
     })
     // JSON-string from `response.json()` call
@@ -36,13 +48,13 @@ const dateBar = document.querySelector("#dateBar");
      // Example POST method implementation:
      postData('/diary/write', {
         content: content.value
-         
+        
     })
      .then(data => {
-         console.log(JSON.stringify(data))
+         console.log(JSON.stringify(data)) 
          
          if (data.result) {
-               location.href = '/calendar';
+               location.href = '/';
              } else {
                  alert(" 작성 실패 ");
                  
@@ -54,7 +66,6 @@ const dateBar = document.querySelector("#dateBar");
 
 
 
-
 function postData(url = '', data = {}) {
     // Default options are marked with *
       return fetch(url, {
@@ -63,7 +74,7 @@ function postData(url = '', data = {}) {
           cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
           credentials: 'same-origin', // include, *same-origin, omit
           headers: {
-              'Content-Type': 'application / json',
+              'Content-Type': 'application/json',
               // 'Content-Type': 'application/x-www-form-urlencoded',
           },
           redirect: 'follow', // manual, *follow, error

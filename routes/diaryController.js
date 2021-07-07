@@ -78,22 +78,43 @@ router.get('/load', (req, res) => {
 });
 
 
-router.post('/diary/write', function(req,res,next){
+router.post('/write', async function(req,res,next){ //async 문제
     const content = req.body.content;
     const date = req.session.date;
     const id = req.session.userId;
-    const emotion = emotion;
+    //const emotion = emotion;
+    //id와 date를 비교하여 해당 db가 있다면 update 아니면 insert 
 
 
-    const datas = [id, date, content, emotion];
-    //콘텐트 내용, 세션 date, 감정 저장해야함 
- 
-    const sql = "insert into DIARY(id, date, content, emotion) values(?, ?, ?, ?)";
-    conn.query(sql, datas, function (err, rows) {
-        if (err) console.error("err : " + err);
-    });
-    res.redirect('/');
-});
+    dbConnection.query("SELECT * FROM DIARY WHERE id = ? and date = ? ",[id, date], function (err, result) {
+        if(err){
+            console.log(err);
+        }  else {
+            console.log('확인 : ' + result[0].date);
+
+            if(result[0].date == date)  { 
+                //update 수정까지 가능함 // 새로운 글은 안돼 
+                dbConnection.query( "update DIARY set content = ? where id= ? and date = ? ", [content, id, date], function(err,result){
+                    if(err)
+                        console.log(err);
+                    else 
+                    res.send({result:true})
+                })}
+    
+             else {
+                console.log('콘텐트확인 : ' + content)
+                //insert
+                dbConnection.query("insert into DIARY(id, date, content) values(?, ?, ?)", [id, date, content], function (err, result) {
+                    if (err) 
+                    console.error("err : " + err);
+                    else 
+                    res.send({result:true})
+                })};
+                
+            
+                res.redirect('/');
+            }})
+})
 
 
  // dbConnection.query("INSERT INTO DIARY (id, date, content, emotion) VALUES (?)",[?,], function (err, result) {  

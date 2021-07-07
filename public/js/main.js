@@ -110,8 +110,8 @@ function renderCalendar(data){
 
 function setDate(day) { //날짜출력? 
   let month = current_month;
-  if (month < 10) month = "0" + month;
-  if(day<10) day = "0" + day;
+  // if (month < 10) month = "0" + month; //date부분이 '0'을 인지하지 못해서 지움
+  // if(day<10) day = "0" + day;
   
   
 
@@ -151,29 +151,34 @@ function loadCalendar() {
 
 function emoji(day) {
 
+  if(day == '') return '';
+
 const smile = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f601.svg">'
 const natural = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f610.svg">'
 const bad = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/2639-fe0f.svg">'
-const no = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/2754.svg>'
+const no = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/2754.svg">'
 
 
 
 const date = current_year + "-" + current_month + "-" + day;
   //console.log(mainList[1].date);
-  console.log('확인 : ' + date) //날짜만 표시됨...
-  
+  let emotion = no;
+
 for (let i = 0; i < mainList.length; i++) {
   // console.log(mainList[i].date)
+
   if(date == mainList[i].date) {
-    if(mainList[i].emotion === undefined){
-    return no;
-    }else if(mainList[i].emotion == 1){
-    return smile; 
+   
+    if(mainList[i].emotion == 1){
+      emotion = smile; 
     }else if(mainList[i].emotion == 2){
-    return natural
+      emotion = natural;
     }else if(mainList[i].emotion == 3){
-    return bad;
-  }}}}
+      emotion = bad;
+    }
+}}
+return emotion;
+}
 
 console.log(emoji);
 console.log(typeof emoji)

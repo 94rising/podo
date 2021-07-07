@@ -33,7 +33,6 @@ console.log('메인 세션확인2 : ' + userId )
       } else {
           for(let i=0; i<rows.length; i++){
             mainList.push(rows[i]); // row는 key:value 값 가짐
-            console.log('확인 : ' + i);
             
           } 
           result = {mainList};
