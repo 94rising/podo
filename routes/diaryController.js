@@ -78,41 +78,40 @@ router.get('/load', (req, res) => {
 });
 
 
-router.post('/write', async function(req,res,next){ //async 문제
+router.post('/write', function(req,res){ 
     const content = req.body.content;
-    const date = req.session.date;
+    const date =  req.session.date;
     const id = req.session.userId;
     //const emotion = emotion;
     //id와 date를 비교하여 해당 db가 있다면 update 아니면 insert 
+    console.log('date화긴' + date)
+    dbConnection.query("SELECT * FROM DIARY WHERE id = ? and date = ? ", [id, date], function (err, result) {
 
-
-    dbConnection.query("SELECT * FROM DIARY WHERE id = ? and date = ? ",[id, date], function (err, result) {
         if(err){
             console.log(err);
-        }  else {
-            console.log('확인 : ' + result[0].date);
+        } else {
+            console.log('리절트확인' + result[0])
 
-            if(result[0].date == date)  { 
-                //update 수정까지 가능함 // 새로운 글은 안돼 
-                dbConnection.query( "update DIARY set content = ? where id= ? and date = ? ", [content, id, date], function(err,result){
-                    if(err)
-                        console.log(err);
-                    else 
-                    res.send({result:true})
-                })}
-    
-             else {
-                console.log('콘텐트확인 : ' + content)
-                //insert
+            if(result[0] == undefined)  { 
+               //insert
                 dbConnection.query("insert into DIARY(id, date, content) values(?, ?, ?)", [id, date, content], function (err, result) {
                     if (err) 
                     console.error("err : " + err);
                     else 
-                    res.send({result:true})
-                })};
+                    res.send({result: true})
+                })}
+    
+             else {
+                console.log('콘텐트확인 : ' + content)
+                 //update 수정까지 가능함 // 새로운 글은 안돼 
+                dbConnection.query( "update DIARY set content = ? where id= ? and date = ? ", [content, id, date], function(err,result){
+                    if(err)
+                        console.log(err);
+                    else 
+                    res.send({result: true})
+                })}
                 
             
-                res.redirect('/');
             }})
 })
 

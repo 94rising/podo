@@ -3,7 +3,6 @@ const submitBtn = document.querySelector("#submitBtn");
 const dateBar = document.querySelector("#dateBar");
 
 
-
  window.addEventListener('DOMContentLoaded', (event) => {
     // Example POST method implementation:
     fetch('/diary/load', {}) // fetch 디폴트 값 get방식 , 전달할 값 없음
