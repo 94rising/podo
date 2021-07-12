@@ -7,7 +7,7 @@ const feed = document.getElementsByClassName('feed')
 window.addEventListener('DOMContentLoaded', async (event) => {
     // Example POST method implementation:
     getData('/diary/listData', {})
-    .then(response =>  {
+    .then(response => {
         const diaryList = response.diaryList;
   
 
@@ -23,7 +23,7 @@ window.addEventListener('DOMContentLoaded', async (event) => {
                     `
         <td><a href="/?diary=${diaryList[i].date}"> ● ${diaryList[i].date}</td> 
         <td>${diaryList[i].phrase}</td>
-        <td>${diaryList[i].emotion}</td>
+        <td>${emoji(diaryList[i])}</td>
          </a>
          
                     `
@@ -39,19 +39,19 @@ window.addEventListener('DOMContentLoaded', async (event) => {
 });
 
 
-  function emoji () {
+ function emoji (diaryList)  {
 
           
 const smile = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f601.svg">'
 const natural = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f610.svg">'
 const bad = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/2639-fe0f.svg">'
 
-
-    if(diaryList[i].emotion == 1){
+let emotion = '';
+    if(diaryList.emotion == 1){
         emotion = smile; 
-      }else if(diaryList[i].emotion == 2){
+      }else if(diaryList.emotion == 2){
         emotion = natural;
-      }else if(diaryList[i].emotion == 3){
+      }else if(diaryList.emotion == 3){
         emotion = bad;
       }
       return  emotion;
