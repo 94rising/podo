@@ -7,14 +7,23 @@
     <title>diary_list</title>
 </head>
 <body>
-  <table>
-      <thread>
+  <table border="1" style=" width: 100%; 
+  border-top: 1px solid #444444;
+  border-collapse: collapse;">  
+      <thead >
+        <tr>
         <th>날짜</th>
         <th>핵심 키워드</th>
         <th>감정</th>
-      </thread>
+      </tr>
+      </thead>
+      <tbody >
+        <tr>
+        <tbody id="diaryListBody"></tbody>
+      </tr>
+      </tbody>
   </table>
-  <div id="diary_list_body">
+  <div >
   </div>
   <script type="module" src="/static/js/diary_list.js" defer></script>
 </body>

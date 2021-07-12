@@ -2,30 +2,7 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const dbConnection = require('../util/database');
-// const EMOTION_CODE =  require('./util/emotion_code');
-// const { ComprehendClient, BatchDetectDominantLanguageCommand } = require("@aws-sdk/client-comprehend");
-// const COMPRE_OPTION = {
-//     region:  "ap-northeast-2"
-// }
-// const clinet_Test = new ComprehendClient(COMPRE_OPTION)
-// const params = {TextList: ['i hate you', 'i love you']};
-// const command = new BatchDetectDominantLanguageCommand(params);
-// //console.log(clinet_Test);
 
-
-// const testFunc = () => {
-
-//     clinet_Test.send(command)
-//     .then( (result) => {
-//         console.log(result)
-//     }, (err) => {
-//         console.log( 'err', err );
-//     } )
-//     .catch( err => {
-//         console.log('err => ', console.log(err))
-//     } )
-// }
-// //testFunc();
 
 
 
@@ -41,6 +18,8 @@ router.get('/', (req, res) => {
 });
 
 
+
+
 router.get("/list", (req, res) => {
     if (req.session.userId === undefined) {
         res.redirect("/login");
@@ -53,7 +32,7 @@ router.get("/list", (req, res) => {
 router.get("/listData", (req, res) => {
     const id = req.session.userId;
     const datas = [id];
-    const sql = "SELECT * from DIARY WHERE id = ? ORDER BY date";
+    const sql = "SELECT * from DIARY WHERE id = ? ORDER BY number";
     let diaryList = [];
     // 동기 방식으로 변경하기
     dbConnection.query(sql, datas, function (err, rows) {
@@ -79,6 +58,7 @@ router.get("/listData", (req, res) => {
     // diaryList.push(diary); //diary 말고 추가해야 할 것은? 
 
 });
+
 
 
 

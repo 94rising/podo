@@ -11,6 +11,45 @@ router.get('/', (req, res) => {
 
 
 
+router.get("/list", (req, res) => {
+    if (req.session.userId === undefined) {
+        res.redirect("/login");
+        return;
+    }
+
+    res.sendFile(path.join(__dirname, '../views', 'diary_list.html'));
+});
+
+router.get("/listData", (req, res) => {
+    const id = req.session.userId;
+    const datas = [id];
+    const sql = "SELECT * from DIARY WHERE id = ? ORDER BY date";
+    let diaryList = [];
+    // 동기 방식으로 변경하기
+    dbConnection.query(sql, datas, function (err, rows) {
+        if(err){
+            console.log(err);
+        } else {
+            for(let i=0; i<rows.length; i++){
+                diaryList.push(rows[i]); // row는 key:value 값 가짐
+               console.log(diaryList); //이것만 읽힘
+            } 
+            
+            const result = {diaryList};
+            res.json(result);
+        }
+    });
+    // const diary = {
+    //     id: 'good',
+    //     date: '2021-05-28',
+    //     content: '오눌운 비ㅏ 온다',
+    //     emotion: 1,
+    //     category: 1
+    //   };
+    // diaryList.push(diary); //diary 말고 추가해야 할 것은? 
+
+});
+
 
 
 

@@ -14,7 +14,6 @@ const COMPRE_OPTION = {
         clinet_Test.send(command)
         .then( (result) => {
             console.log(result)
-            return 
     
         }, (err) => {
             console.log( 'err', err );

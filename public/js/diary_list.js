@@ -1,26 +1,36 @@
 import {getData} from './util/util.js';
 
-const diaryListBody = document.getElementById("diary_list_body");
+const diaryListBody = document.getElementById("diaryListBody");
+const feed = document.getElementsByClassName('feed')
 
 
-window.addEventListener('DOMContentLoaded', (event) => {
+window.addEventListener('DOMContentLoaded', async (event) => {
     // Example POST method implementation:
     getData('/diary/listData', {})
-    .then(response => {
+    .then(response =>  {
         const diaryList = response.diaryList;
-        
+  
+
+
         console.log("response : " + response); //데이터 옴
         console.log("diaryList : " + JSON.stringify(diaryList));
         for (let i = 0; i < diaryList.length; i++) {
-            const diary = diaryList[i];
-            diaryListBody.innerHTML= 
-            `
-            <td><a href="/?diary=${diary.date}">${diary.date}, ${diary.emotion}</a></td> 
-            <td>${diary.emotion}</td>
-
-
-            ` //diary=1 .. 1부분에 number 작성 .. number : 자동증가되는 DB 유니크키 
+            console.log(diaryList[i].number);
             
+
+         diaryListBody.innerHTML += 
+
+                    `
+        <td><a href="/?diary=${diaryList[i].date}"> ● ${diaryList[i].date}</td> 
+        <td>${diaryList[i].phrase}</td>
+        <td>${diaryList[i].emotion}</td>
+         </a>
+         
+                    `
+        
+                    
+
+
         }
             
     })// JSON-string from `response.json()` call
@@ -28,3 +38,21 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 });
 
+
+  function emoji () {
+
+          
+const smile = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f601.svg">'
+const natural = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f610.svg">'
+const bad = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/2639-fe0f.svg">'
+
+
+    if(diaryList[i].emotion == 1){
+        emotion = smile; 
+      }else if(diaryList[i].emotion == 2){
+        emotion = natural;
+      }else if(diaryList[i].emotion == 3){
+        emotion = bad;
+      }
+      return  emotion;
+}
