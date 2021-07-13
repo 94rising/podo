@@ -10,7 +10,8 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     .then(response => {
         const diaryList = response.diaryList;
   
-
+        
+        
 
         console.log("response : " + response); //데이터 옴
         console.log("diaryList : " + JSON.stringify(diaryList));
@@ -21,16 +22,12 @@ window.addEventListener('DOMContentLoaded', async (event) => {
          diaryListBody.innerHTML += 
 
                     `
-        <td><a href="/?diary=${diaryList[i].date}"> ● ${diaryList[i].date}</td> 
+        <td><a href="/diary?date=${diaryList[i].date}" style = "  text-decoration:none; "> ● ${diaryList[i].date}</td> 
         <td>${diaryList[i].phrase}</td>
         <td>${emoji(diaryList[i])}</td>
          </a>
          
                     `
-        
-                    
-
-
         }
             
     })// JSON-string from `response.json()` call

@@ -31,11 +31,11 @@ router.get("/list", (req, res) => {
 
 router.get("/listData", (req, res) => {
     const id = req.session.userId;
-    const datas = [id];
-    const sql = "SELECT * from DIARY WHERE id = ? ORDER BY number";
     let diaryList = [];
+
+
     // 동기 방식으로 변경하기
-    dbConnection.query(sql, datas, function (err, rows) {
+    dbConnection.query("SELECT * from DIARY WHERE id = ?  ORDER BY number LIMIT 3;", [id], function (err, rows) {
         if(err){
             console.log(err);
         } else {
@@ -48,14 +48,6 @@ router.get("/listData", (req, res) => {
             res.json(result);
         }
     });
-    // const diary = {
-    //     id: 'good',
-    //     date: '2021-05-28',
-    //     content: '오눌운 비ㅏ 온다',
-    //     emotion: 1,
-    //     category: 1
-    //   };
-    // diaryList.push(diary); //diary 말고 추가해야 할 것은? 
 
 });
 
