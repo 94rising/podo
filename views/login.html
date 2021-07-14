@@ -26,7 +26,7 @@
  <button id="kakaoLogout" onclick="kakaoLogout()">kakaoLogout</button>
 
 <script>
-window.Kakao.init("320eb75ea03092912a492070f7665a73");
+window.Kakao.init(process.env.KAKAO_KEY);
     
     function KakaoLogin() {
         window.Kakao.Auth.login({
