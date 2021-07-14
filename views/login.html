@@ -20,30 +20,57 @@
     <button id="joinBtn">회원가입</button><br>
     
 </div>
-
-
-<a href = "javascript:KakaoLogin();"><img src="https://img.eduwill.net/Img2/mobile2/brand_new/common/btn-kakao-mobile@3x.png" style="height: 40px; width: auto;"></img></a>
-
-
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-<script>
-    window.Kakao.init("320eb75ea03092912a492070f7665a73");
 
+<a href = "javascript:KakaoLogin();"><img src="https://img.eduwill.net/Img2/mobile2/brand_new/common/btn-kakao-mobile@3x.png" style="height: 40px; width: auto;" id="kakaoLoginImg"></img></a>
+ <button id="kakaoLogout" onclick="kakaoLogout()">kakaoLogout</button>
+
+<script>
+window.Kakao.init("320eb75ea03092912a492070f7665a73");
+    
     function KakaoLogin() {
         window.Kakao.Auth.login({
-            scope:'profile_nickname, account_email, gender',
+            scope:'profile_nickname, account_email',
             success: function(authObj) {
                 console.log(authObj);
                 window.Kakao.API.request({
-                    url:'/v2/user/me',
-                    success: res => {
-                        const Kakao_account = res.Kakao_account;
-                        console.log(Kakao_account);
+                    url: '/v2/user/me',
+                    data: {
+                        property_keys: ["profile_nickname, account_email,"]
+                    },
+                    success: function(response) {
+
+                        console.log(response);
+                    },
+                    fail: function(error) {
+                        console.log(error);
                     }
                 });
             }
         });
     }
+    function kakaoLogout() {
+    if (Kakao.Auth.getAccessToken()) {
+      //토큰이 있으면
+      Kakao.API.request({
+        //로그아웃하고
+        url: '/v1/user/unlink',
+        success: function (response) {
+          //console.log(response)
+        },
+        fail: function (error) {
+          console.log(error)
+        },
+      })
+      //토큰도 삭제
+      Kakao.Auth.setAccessToken(undefined)
+      //유저정보도 삭제
+      const userinfoElem = document.querySelector('#userinfo') 
+      if(userinfoElem) userinfoElem.value = ''
+    }
+  }
+
+
 </script>
 
 

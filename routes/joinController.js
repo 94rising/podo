@@ -67,7 +67,7 @@ router.post('/emailCert', function (req, res) {  //이메일 중복확인 로직
         service: 'NAVER',
         auth: {
           user: 'chawoo94@naver.com',
-          pass: 'll1082611',
+          pass: process.env.EMAIL_PASSWORD,
         }
       });
 

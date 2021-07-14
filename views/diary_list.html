@@ -7,6 +7,63 @@
     <title>diary_list</title>
 </head>
 <body>
+
+
+  <style>
+    .dropbtn {
+  background-color: #ea2129;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  }
+  
+  .dropdown {
+  position: relative;
+  display: inline-block;
+  }
+  
+  .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  }
+  
+  .dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  }
+  
+  .dropdown-content a:hover {background-color: #ddd;}
+  
+  .dropdown:hover .dropdown-content {display: block;}
+  
+  .dropdown:hover .dropbtn {background-color: #3e8e41;}
+  </style>
+
+<h1>podo<img src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f347.svg" width="50" height="50"></h1>
+
+    <div id="navbar" class="dropdown">
+      
+        <button class="dropbtn">=</button>
+        <div class="dropdown-content">
+          <a id="homeBtn">홈</a>
+          <a id="calendarBtn">캘린더 보기</a>
+          <a id="folderBtn">폴더별 보기</a>
+          <a id="diaryBtn">일기 쓰기</a>
+          <a id="optionBtn">설정</a>
+          <a id="logoutBtn">로그아웃</a>
+      
+      
+        </div>
+    </div>
+
+
   <table border="1" style=" width: 100%; 
   border-top: 1px solid #444444;
   border-collapse: collapse;">  
@@ -23,6 +80,11 @@
   </table>
   <div >
   </div>
+
+
+
+
+
   <script type="module" src="/static/js/diary_list.js" defer></script>
 </body>
 </html>

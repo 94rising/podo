@@ -35,7 +35,7 @@ router.get("/listData", (req, res) => {
 
 
     // 동기 방식으로 변경하기
-    dbConnection.query("SELECT * from DIARY WHERE id = ?  ORDER BY number LIMIT 3;", [id], function (err, rows) {
+    dbConnection.query("SELECT * from DIARY WHERE id = ?  ORDER BY number;", [id], function (err, rows) {
         if(err){
             console.log(err);
         } else {

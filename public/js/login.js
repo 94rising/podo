@@ -3,6 +3,7 @@ const id = document.querySelector("#id");
 const password = document.querySelector("#password");
 const loginBtn = document.querySelector("#loginBtn");
 const joinBtn = document.querySelector("#joinBtn");
+const kakao = document.querySelector("#kakaoLoginImg");
 
 document.getElementById('joinBtn').addEventListener('click', function(){
     location.href = "/join"
@@ -32,6 +33,45 @@ document.getElementById('loginBtn').addEventListener('click', function(){
          })// JSON-string from `response.json()` call
     .catch(error => console.error(error));
 });
+
+
+
+
+
+
+// function kakaoLogin() {
+//     Kakao.init(process.env.KAKAO_KEY);
+//     console.log(Kakao.isInitialized());
+//     Kakao.Auth.login({
+//       success: function (authObj) {
+//         console.log(authObj);
+//         fetch('api 주소', {
+//           method: 'GET',
+//           headers: {
+//             Authorization: authObj.access_token,
+//           },
+//         })
+//           .then(res => res.json())
+//           .then(res => {
+//             localStorage.setItem('access_token', res.access_token);
+//             if (res.access_token) {
+//               alert('로그인 성공!');
+//               history.push('/');
+//             } else {
+//               alert('다시 확인해주세요');
+//             }
+//           });
+//        },
+//         fail: function (err) {
+//         console.log('에러', err);
+//         alert('로그인실패!');
+//          },
+//        });
+//     }
+
+    
+
+
 
 
 
