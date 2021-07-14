@@ -18,11 +18,11 @@ window.addEventListener('DOMContentLoaded', async (event) => {
         for (let i = 0; i < diaryList.length; i++) {
             console.log(diaryList[i].number);
             
-
+            
          diaryListBody.innerHTML += 
 
                     `
-        <td><a href="/diary?date=${diaryList[i].date}" style = "  text-decoration:none; "> ● ${diaryList[i].date}</td> 
+        <td><a href="/diary?date=${diaryList[i].date}" style = "  text-decoration:none; ">  ${diaryList[i].date}</td> 
         <td>${diaryList[i].phrase}</td>
         <td>${emoji(diaryList[i])}</td>
          </a>
