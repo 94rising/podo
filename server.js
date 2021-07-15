@@ -43,6 +43,7 @@ app.engine('html', require('ejs').renderFile);
 //라우팅
 const mainRouter = require('./routes/mainController.js');
 const loginRouter = require('./routes/loginController.js');
+const findRouter = require('./routes/findController.js');
 const joinRouter = require('./routes/joinController.js');
 const diaryRouter = require('./routes/diaryController.js');
 const diaryListRouter = require('./routes/diaryListController.js');
@@ -60,6 +61,8 @@ app.use('/login', loginRouter);
 app.use('/join', joinRouter);
 app.use('/diary', diaryRouter);
 app.use('/category', diaryListRouter);
+app.use('/find', findRouter);
+
 
 
 //서버 가동

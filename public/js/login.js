@@ -3,17 +3,29 @@ const id = document.querySelector("#id");
 const password = document.querySelector("#password");
 const loginBtn = document.querySelector("#loginBtn");
 const joinBtn = document.querySelector("#joinBtn");
+const findBtn = document.querySelector("#findBtn");
+
 const kakao = document.querySelector("#kakaoLoginImg");
 
 document.getElementById('joinBtn').addEventListener('click', function(){
     location.href = "/join"
   
 })
+
+
+document.getElementById('findBtn').addEventListener('click', function(){
+    location.href = "/find"
+  
+})
+
+
 document.getElementById('loginBtn').addEventListener('click', function(){
 
     const id = document.getElementById('id').value;
     const password = document.getElementById('password').value;
      // Example POST method implementation:
+
+
      postData('/login', {
          id: id,
          password: password,
@@ -23,6 +35,7 @@ document.getElementById('loginBtn').addEventListener('click', function(){
      .then(data => {
          console.log(JSON.stringify(data))
          
+
          if (data.result) {
               location.href = '/';
              } else {

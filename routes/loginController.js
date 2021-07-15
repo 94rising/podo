@@ -21,13 +21,19 @@ router.post('/',  async function (req, res){
   const password = req.body.password;
 
   dbConnection.query("SELECT * FROM member WHERE id = ? ORDER BY number ",[id], function (err, rows) { //id가 DB에있는지 확인 
-    if (err) throw err; //err(error) : sql문 실행시키고 에러발생시 에러 출력/ 에러 없으면 NULL 값을 가짐
+    if (err) err; //err(error) : sql문 실행시키고 에러발생시 에러 출력/ 에러 없으면 NULL 값을 가짐
+    
+
     console.log('아이디확인: ' + rows[0]);
-    // console.log('비밀번호확인: ' + hashPwd);
+    
+    
+    if (rows[0] !== undefined) {
+
+      // console.log('비밀번호확인: ' + hashPwd);
     let hash = rows[0].pw;
     console.log('해쉬 : ' + hash);
 
-    if (rows[0] !== undefined) {
+
       req.session.userId = rows[0].id;
       console.log('세션확인 : ' + req.session.userId)
       console.log(rows[0]);

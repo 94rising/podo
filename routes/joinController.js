@@ -87,7 +87,7 @@ router.post('/emailCert', function (req, res) {  //이메일 중복확인 로직
 
          req.session.encryptNumber = encrypt(makeCertNumber); //암호화 문장 세션 저장 
 
-          res.send({result: 2, })  // 2= 정상작동했을 때
+          res.send({result: 2})  // 2= 정상작동했을 때
 
         }
         
