@@ -1,11 +1,16 @@
 
+
 const id = document.querySelector("#id");
 const password = document.querySelector("#password");
 const loginBtn = document.querySelector("#loginBtn");
 const joinBtn = document.querySelector("#joinBtn");
 const findBtn = document.querySelector("#findBtn");
+let kakao_account;
 
 const kakao = document.querySelector("#kakaoLoginImg");
+window.Kakao.init(process.env.KAKAO_KEY);
+
+
 
 document.getElementById('joinBtn').addEventListener('click', function(){
     location.href = "/join"
@@ -19,7 +24,7 @@ document.getElementById('findBtn').addEventListener('click', function(){
 })
 
 
-document.getElementById('loginBtn').addEventListener('click', function(){
+document.getElementById('loginBtn').addEventListener('click', function(){ 
 
     const id = document.getElementById('id').value;
     const password = document.getElementById('password').value;
@@ -47,6 +52,54 @@ document.getElementById('loginBtn').addEventListener('click', function(){
     .catch(error => console.error(error));
 });
 
+
+document.getElementById('kakaoLoginImg').addEventListener('click', function  (){ //클릭하는순간 데이터가 넘어가고 KakaoLogin 함수실행된다
+      
+    KakaoLogin ();
+     console.log('dasda')
+
+     postData('/login/kakao', {
+     kakao_account : kakao_account,
+         
+ 
+         })
+      .then(data => {
+          console.log(JSON.stringify(data))
+          
+ 
+          if (data.result) {
+               location.href = '/';
+              } else {
+                  alert(" 아이디 혹은 비밀번호를 확인해주세요. ");
+                  
+              }
+              
+          })// JSON-string from `response.json()` call
+     .catch(error => console.error(error));
+ });
+
+
+
+    
+  function KakaoLogin (){
+    window.Kakao.Auth.login({
+        scope:'profile_nickname, account_email',
+        success:function(authObj){
+            console.log(authObj);
+            window.Kakao.API.request({
+                url:'/v2/user/me',
+                success:res => {
+                     kakao_account = res.kakao_account;
+                    console.log(kakao_account);
+
+
+                }
+            });
+        }
+    });
+    return kakao_account;
+
+}
 
 
 

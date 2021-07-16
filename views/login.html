@@ -30,33 +30,16 @@
 
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 
-<a href = "javascript:KakaoLogin();"><img src="https://img.eduwill.net/Img2/mobile2/brand_new/common/btn-kakao-mobile@3x.png" style="height: 40px; width: auto;" id="kakaoLoginImg"></img></a>
+<img src="https://img.eduwill.net/Img2/mobile2/brand_new/common/btn-kakao-mobile@3x.png" style="height: 40px; width: auto;" id="kakaoLoginImg"></img></a>
  <button id="kakaoLogout" onclick="kakaoLogout()">kakaoLogout</button>
 
-<script>
-window.Kakao.init(process.env.KAKAO_KEY);
-    
-    function KakaoLogin() {
-        window.Kakao.Auth.login({
-            scope:'profile_nickname, account_email',
-            success: function(authObj) {
-                console.log(authObj);
-                window.Kakao.API.request({
-                    url: '/v2/user/me',
-                    data: {
-                        property_keys: ["profile_nickname, account_email,"]
-                    },
-                    success: function(response) {
+ <script>
 
-                        console.log(response);
-                    },
-                    fail: function(error) {
-                        console.log(error);
-                    }
-                });
-            }
-        });
-    }
+
+
+
+
+
     function kakaoLogout() {
     if (Kakao.Auth.getAccessToken()) {
       //토큰이 있으면

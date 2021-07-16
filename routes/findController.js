@@ -7,6 +7,7 @@ const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 const nodemailer = require("nodemailer");
 
+let check = false;
 
 const algorithm = 'aes-256-cbc'; //crypto 관련
 const iv = '1234567890123456'; //16자리//crypto 관련
@@ -221,9 +222,13 @@ router.post('/pwCertNumberConfirm', (req, res) => {
   if (decrypt(encryptNumber) !== certNumber){ //복호화해서 인증번호와 일치하는지 확인 
    
     res.send({result:false}) //일치하지 않으면 오류 메시지, 일치하면 통과
+  
    } 
   else {
+    check = true;
+
     res.send({result:true})   
+    
   }
   
  
@@ -253,7 +258,7 @@ const hashPassword = async function(){
 
    dbConnection.query("UPDATE member SET pw =? WHERE id = ? ",[hashPwd, id], function (err, result) {  
     if (err) throw err;
-    if(result.affectedRows === 1) {
+    if(result.affectedRows === 1 && check == true ) {
       res.send({result:true});   
     } else {
       res.send({result:false});

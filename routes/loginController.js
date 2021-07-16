@@ -1,3 +1,5 @@
+
+
 const express = require('express');
 const router = express.Router();
 const path = require('path');
@@ -59,6 +61,56 @@ router.post('/',  async function (req, res){
     }
   })
 });
+
+
+
+
+router.post('/kakao',  async function (req, res){
+  // const email = req.body.kakao_account.email;
+  // const name = req.body.kakao_account.profile;
+  const kakao_account = req.body.kakao_account;
+  console.log('dasda서버');
+
+  console.log(kakao_account)
+
+
+  dbConnection.query("SELECT * FROM member WHERE email = ? ORDER BY number ",[email], function (err, rows) { //id가 DB에있는지 확인 
+    if (err) err; //err(error) : sql문 실행시키고 에러발생시 에러 출력/ 에러 없으면 NULL 값을 가짐
+    
+
+    console.log('아이디확인: ' + rows[0]);
+    
+    if (rows[0] !== undefined) {
+           if(result){
+               console.log('딩동댕!');
+               res.send({result:true})
+            } else {
+               console.log('땡!');
+               res.send({result:false})
+            }
+         
+    }else { 
+      res.json('/login');
+    }
+  })
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 module.exports = router;
