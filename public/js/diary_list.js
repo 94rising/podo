@@ -1,25 +1,50 @@
-import {getData} from './util/util.js';
+import {getData, postData} from './util/util.js';
+
 
 const diaryListBody = document.getElementById("diaryListBody");
-const feed = document.getElementsByClassName('feed')
-
+let prevOffset = 0;
+let offset = 0;
 
 window.addEventListener('DOMContentLoaded', async (event) => {
     // Example POST method implementation:
-    getData('/diary/listData', {})
-    .then(response => {
+   drawList(10);
+
+});
+
+
+
+
+
+
+
+window.addEventListener("scroll", async function () { // 스크롤이 두번 연속된다
+  if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+    if (prevOffset != offset) {
+      drawList(5);
+    } 
+  }
+});
+
+
+
+
+ function drawList(limit){
+  prevOffset = offset;
+  postData('/diary/ListData', {
+      offset : offset,
+      limit : limit,
+    })
+    .then( response =>{
         const diaryList = response.diaryList;
-  
-        
-        
 
         console.log("response : " + response); //데이터 옴
         console.log("diaryList : " + JSON.stringify(diaryList));
+
         for (let i = 0; i < diaryList.length; i++) {
             console.log(diaryList[i].number);
             
             
-         diaryListBody.innerHTML += 
+          diaryListBody.innerHTML += 
 
                     `
         <td><a href="/diary?date=${diaryList[i].date}" style = "  text-decoration:none; ">  ${diaryList[i].date}</td> 
@@ -29,11 +54,10 @@ window.addEventListener('DOMContentLoaded', async (event) => {
          
                     `
         }
-            
+            offset = offset + limit ;
     })// JSON-string from `response.json()` call
    .catch(error => console.error(error));
-
-});
+}
 
 
  function emoji (diaryList)  {
@@ -53,3 +77,4 @@ let emotion = '';
       }
       return  emotion;
 }
+

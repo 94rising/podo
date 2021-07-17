@@ -5,10 +5,10 @@ const password = document.querySelector("#password");
 const loginBtn = document.querySelector("#loginBtn");
 const joinBtn = document.querySelector("#joinBtn");
 const findBtn = document.querySelector("#findBtn");
-let kakao_account;
+let kakao_account ;
 
 const kakao = document.querySelector("#kakaoLoginImg");
-window.Kakao.init(process.env.KAKAO_KEY);
+window.Kakao.init("process.env.KAKAO_KEY");
 
 
 
@@ -53,19 +53,23 @@ document.getElementById('loginBtn').addEventListener('click', function(){
 });
 
 
-document.getElementById('kakaoLoginImg').addEventListener('click', function  (){ //클릭하는순간 데이터가 넘어가고 KakaoLogin 함수실행된다
+document.getElementById('kakaoLoginImg').addEventListener('click', function  async(){ //클릭하는순간 데이터가 넘어가고 KakaoLogin 함수실행된다
       
-    KakaoLogin ();
-     console.log('dasda')
+      KakaoLogin () ;
 
-     postData('/login/kakao', {
-     kakao_account : kakao_account,
+
+
+      //카카오톡 이메일을 변수에 저장함
+
+      postData ('/login/kakao', {
+          
+     kakao_account :  kakao_account,
          
  
          })
-      .then(data => {
+    .then (data => {
           console.log(JSON.stringify(data))
-          
+
  
           if (data.result) {
                location.href = '/';
@@ -82,6 +86,8 @@ document.getElementById('kakaoLoginImg').addEventListener('click', function  (){
 
     
   function KakaoLogin (){
+   
+
     window.Kakao.Auth.login({
         scope:'profile_nickname, account_email',
         success:function(authObj){
@@ -89,6 +95,7 @@ document.getElementById('kakaoLoginImg').addEventListener('click', function  (){
             window.Kakao.API.request({
                 url:'/v2/user/me',
                 success:res => {
+                  
                      kakao_account = res.kakao_account;
                     console.log(kakao_account);
 
