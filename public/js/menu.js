@@ -20,14 +20,18 @@ podoLogo.addEventListener("click", function() {
 });
 
 
+
+
+
+
 logoutBtn.addEventListener("click", function() {
     
-app.get('/logout',function(req, res){
-    req.session.destroy(function(){
-    req.session;
-    });
-    res.redirect('/');
-    });
+  
+    kakaoLogout();
+
+    location.href = "/";
+
+
 });
 
 
@@ -51,4 +55,5 @@ function kakaoLogout() {
       const userinfoElem = document.querySelector('#userinfo') 
       if(userinfoElem) userinfoElem.value = ''
     }
+    
   }

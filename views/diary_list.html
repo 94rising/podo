@@ -61,11 +61,22 @@
 
 
    
-
+<select name = "dateBox" id="dateBox" onchange="datedate(this)">
+  <option selected value="none" >날짜별 보기</option>
+  <option value = "1" id="latest">최신순</option>
+  <option value = "2" id="past">과거순</option>
+</select>  
+<select name = "emotionBox" id="emotionBox"  onchange="emotionValueBox(this)">
+    <option selected>감정별보기</option>
+    <option value = "1" id="1" >smile</option>
+    <option value = "2" id="2">natural</option>
+    <option value = "3" id="3">sad</option>
+ </select>
 
   <table border="1" style=" width: 100%; 
   border-top: 1px solid #444444;
   border-collapse: collapse;">  
+
       <thead >
         <tr>
         <th>날짜</th>
@@ -80,12 +91,10 @@
   <div >
   </div>
 
-
-
+  <script  src="/static/js/diary_list.js" defer ></script>
 
   <script src="/static/js/menu.js" defer></script>
 
-  <script type="module" src="/static/js/diary_list.js" defer></script>
 
 </body>
 </html>

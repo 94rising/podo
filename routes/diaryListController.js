@@ -11,28 +11,6 @@ router.get('/', (req, res) => {
 
 
 
-router.get("/scrollListData", (req, res) => {
-    const id = req.session.userId;
-    let diaryList = [];
-
-
-    // 동기 방식으로 변경하기
-    dbConnection.query("SELECT * from DIARY WHERE id = ?  ORDER BY number LIMIT 5;", [id], function (err, rows) {
-        if(err){
-            console.log(err);
-        } else {
-            for(let i=0; i<rows.length; i++){
-                diaryList.push(rows[i]); // row는 key:value 값 가짐
-               console.log(diaryList); //이것만 읽힘
-            } 
-            
-            const result = {diaryList};
-            res.json(result);
-        }
-    });
-
-});
-
 
 
 

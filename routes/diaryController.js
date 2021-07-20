@@ -56,14 +56,21 @@ router.post("/listData", (req, res) => {
 });
 
 
-
-router.post("/scrollListData", (req, res) => {
+router.post("/dateListData", (req, res) => {
     const id = req.session.userId;
-    let offset = req.body.offset;
+    const offset = req.body.offset;
+    const limit = req.body.limit;
+    const dateValue = req.body.dateValue
     let diaryList = [];
-    console.log(offset);
+    let sql = '';
+        
+    console.log('데이트리스트확인 :  ' + dateValue)
     // 동기 방식으로 변경하기
-    dbConnection.query("SELECT * from DIARY WHERE id = ? ORDER BY number LIMIT 5 offset ?  ;", [id, offset], function (err, rows) {
+    if(dateValue == 1)  sql = "SELECT * from DIARY WHERE id = ? ORDER BY date ASC  LIMIT ?  offset ?  ;"
+    else sql = "SELECT * from DIARY WHERE id = ? ORDER BY date DESC  LIMIT ?  offset ?  ;"
+
+
+    dbConnection.query(sql, [id, limit, offset], function (err, rows) {
         if(err){
             console.log(err);
         } else {
@@ -78,6 +85,36 @@ router.post("/scrollListData", (req, res) => {
     });
 
 });
+
+
+router.post("/listEmotion", (req, res) => {
+    const id = req.session.userId;
+    const offset = req.body.offset;
+    const limit = req.body.limit;
+    const emotion = req.body.emotionValue;
+    let diaryList = [];
+    
+    console.log( '확인 ' + emotion)
+        
+
+    // 동기 방식으로 변경하기
+    dbConnection.query("SELECT * from DIARY WHERE id = ? ORDER BY number, emotion ? LIMIT ?  offset ?  ;", [id, emotion, limit, offset], function (err, rows) {
+        if(err){
+            console.log(err);
+        } else {
+            for(let i=0; i<rows.length; i++){
+                diaryList.push(rows[i]); // row는 key:value 값 가짐
+               console.log(diaryList); //이것만 읽힘
+            } 
+            
+            const result = {diaryList};
+            res.json(result);
+        }
+    });
+
+});
+
+
 
 
 
