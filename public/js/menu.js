@@ -1,3 +1,5 @@
+
+
 const mainBtn = document.getElementById("mainBtn");
 const listBtn = document.getElementById("listBtn");
 const logoutBtn = document.getElementById("logoutBtn");
@@ -25,13 +27,14 @@ podoLogo.addEventListener("click", function() {
 
 
 logoutBtn.addEventListener("click", function() {
-    
-  
-    kakaoLogout();
+  kakaoLogout()
 
-    location.href = "/";
-
-
+// app.get('/logout',function(req, res){
+//     req.session.destroy(function(){
+//     req.session;
+//     });
+//     res.redirect('/');
+//     });
 });
 
 
@@ -55,5 +58,4 @@ function kakaoLogout() {
       const userinfoElem = document.querySelector('#userinfo') 
       if(userinfoElem) userinfoElem.value = ''
     }
-    
   }

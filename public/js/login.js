@@ -7,7 +7,7 @@ const findBtn = document.querySelector("#findBtn");
 let kakao_account ;
 
 const kakao = document.querySelector("#kakaoLoginImg");
-window.Kakao.init("320eb75ea03092912a492070f7665a73");
+window.Kakao.init("process.env.KAKAO_KEY");
 
 
 
