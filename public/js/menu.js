@@ -26,15 +26,24 @@ podoLogo.addEventListener("click", function() {
 
 
 
-logoutBtn.addEventListener("click", function() {
-  kakaoLogout()
+ logoutBtn.addEventListener("click", async function() {
+ 
+ getData('/login/logout', {
 
-// app.get('/logout',function(req, res){
-//     req.session.destroy(function(){
-//     req.session;
-//     });
-//     res.redirect('/');
-//     });
+   })
+.then(data => {
+    console.log(JSON.stringify(data))
+    if (data.result) {
+      location.href = "/";
+    } else {
+    
+            alert(" 로그아웃 실패 ");
+            
+        }
+        
+    })// JSON-string from `response.json()` call
+.catch(error => console.error(error));
+
 });
 
 
@@ -58,4 +67,24 @@ function kakaoLogout() {
       const userinfoElem = document.querySelector('#userinfo') 
       if(userinfoElem) userinfoElem.value = ''
     }
-  }
+  };
+
+
+
+
+  async function getData(url = '', data = {}) {
+    // Default options are marked with *
+        return fetch(url, {
+            method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, cors, *same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json',
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrer: 'no-referrer', // no-referrer, *client
+        })
+        .then(response => response.json()); // parses JSON response into native JavaScript objects
+    }

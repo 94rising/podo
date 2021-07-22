@@ -30,6 +30,8 @@ app.use( session ({
     secure: false,
     cookie: { secure: false, maxAge: 60000 }
 }))
+
+
 app.use('/static', express.static('public'));
 app.use('/views', express.static('views'));
 
@@ -47,6 +49,8 @@ const findRouter = require('./routes/findController.js');
 const joinRouter = require('./routes/joinController.js');
 const diaryRouter = require('./routes/diaryController.js');
 const diaryListRouter = require('./routes/diaryListController.js');
+const compreRouter = require('./routes/test_compre.js');
+
 const dbConnection = require('./util/database');
 
 app.get('/navbar', (req, res) => {
@@ -62,6 +66,8 @@ app.use('/join', joinRouter);
 app.use('/diary', diaryRouter);
 app.use('/category', diaryListRouter);
 app.use('/find', findRouter);
+app.use('/compre', compreRouter);
+
 
 
 

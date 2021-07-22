@@ -203,7 +203,7 @@ document.getElementById('pwButton').addEventListener('click', function(){
 
 
 
-function postData(url = '', data = {}) {
+function postData (url = '', data = {}) {
     // Default options are marked with *
       return fetch(url, {
           method: 'POST', // *GET, POST, PUT, DELETE, etc.

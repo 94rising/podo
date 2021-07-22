@@ -18,6 +18,34 @@ router.get('/', (req, res) => {
 
 });
 
+
+router.get('/logout', async (req, res,result)  =>  {
+  const loginSession = req.session;
+
+  req.session.destroy( function (){
+    console.log('파괴확인 :' + loginSession)
+    
+    loginSession;
+
+    console.log('그냥확인q :' + loginSession) 
+
+        });
+        
+    
+    if (loginSession == undefined) res.send({result:true})
+    else {
+     console.log('그냥확인 :' + loginSession) 
+     res.send({result:false})
+   
+ }
+
+        // res.redirect('/');
+     
+       
+  })
+
+
+
 router.post('/',  async function (req, res){
   const id = req.body.id;
   const password = req.body.password;

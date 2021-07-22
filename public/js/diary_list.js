@@ -50,75 +50,75 @@ function emotionValueBox(emotionBox){
 
 
 
-function dateList(limit){
+// function dateList(limit){
   
-  prevOffset = offset;
-  console.log('확인 :' + dateValue)
-  postData('/diary/dateListData', {
-      offset : offset,
-      limit : limit,
-      dateValue : dateValue,
-    })
-    .then( response =>{
-        const diaryList = response.diaryList;
+//   prevOffset = offset;
+//   console.log('확인 :' + dateValue)
+//   postData('/diary/dateListData', {
+//       offset : offset,
+//       limit : limit,
+//       dateValue : dateValue,
+//     })
+//     .then( response =>{
+//         const diaryList = response.diaryList;
 
-        console.log("response : " + response); //데이터 옴
-        console.log("diaryList : " + JSON.stringify(diaryList));
+//         console.log("response : " + response); //데이터 옴
+//         console.log("diaryList : " + JSON.stringify(diaryList));
 
-        for (let i = 0; i < diaryList.length; i++) {
-            console.log(diaryList[i].number);
+//         for (let i = 0; i < diaryList.length; i++) {
+//             console.log(diaryList[i].number);
             
             
-          diaryListBody.innerHTML += 
+//           diaryListBody.innerHTML += 
 
-                    `
-        <td><a href="/diary?date=${diaryList[i].date}" style = "  text-decoration:none; ">  ${diaryList[i].date}</td> 
-        <td>${diaryList[i].phrase}</td>
-        <td>${emoji(diaryList[i])}</td>
-         </a>
+//                     `
+//         <td><a href="/diary?date=${diaryList[i].date}" style = "  text-decoration:none; ">  ${diaryList[i].date}</td> 
+//         <td>${diaryList[i].phrase}</td>
+//         <td>${emoji(diaryList[i])}</td>
+//          </a>
          
-                    `
-        }
-            offset = offset + limit ;
-    })// JSON-string from `response.json()` call
-   .catch(error => console.error(error));
-}
+//                     `
+//         }
+//             offset = offset + limit ;
+//     })// JSON-string from `response.json()` call
+//    .catch(error => console.error(error));
+// }
 
 
 
-function emotionList(limit){
-  prevOffset = offset;
+// function emotionList(limit){
+//   prevOffset = offset;
 
 
-  postData('/diary/ListEmotion', {
-      offset : offset,
-      limit : limit,
-      emotionValue : emotionValue,
-    })
-    .then( response =>{
-        const diaryList = response.diaryList;
+//   postData('/diary/ListEmotion', {
+//       offset : offset,
+//       limit : limit,
+//       emotionValue : emotionValue,
+//     })
+//     .then( response =>{
+//         const diaryList = response.diaryList;
 
-        console.log("response : " + response); //데이터 옴
-        console.log("diaryList : " + JSON.stringify(diaryList));
+//         console.log("response : " + response); //데이터 옴
+//         console.log("diaryList : " + JSON.stringify(diaryList));
 
-        for (let i = 0; i < diaryList.length; i++) {
-            console.log(diaryList[i].number);
+//         for (let i = 0; i < diaryList.length; i++) {
+//             console.log(diaryList[i].number);
             
             
-          diaryListBody.innerHTML += 
+//           diaryListBody.innerHTML += 
 
-                    `
-        <td><a href="/diary?date=${diaryList[i].date}" style = "  text-decoration:none; ">  ${diaryList[i].date}</td> 
-        <td>${diaryList[i].phrase}</td>
-        <td>${emoji(diaryList[i])}</td>
-         </a>
+//                     `
+//         <td><a href="/diary?date=${diaryList[i].date}" style = "  text-decoration:none; ">  ${diaryList[i].date}</td> 
+//         <td>${diaryList[i].phrase}</td>
+//         <td>${emoji(diaryList[i])}</td>
+//          </a>
          
-                    `
-        }
-            offset = offset + limit ;
-    })// JSON-string from `response.json()` call
-   .catch(error => console.error(error));
-}
+//                     `
+//         }
+//             offset = offset + limit ;
+//     })// JSON-string from `response.json()` call
+//    .catch(error => console.error(error));
+// }
 
 
 

@@ -7,7 +7,7 @@ const findBtn = document.querySelector("#findBtn");
 let kakao_account ;
 
 const kakao = document.querySelector("#kakaoLoginImg");
-window.Kakao.init("process.env.KAKAO_KEY");
+window.Kakao.init("320eb75ea03092912a492070f7665a73");
 
 
 
@@ -64,7 +64,6 @@ document.getElementById('kakaoLoginImg').addEventListener('click', async functio
     
   async function KakaoLogin  (){
    
-
     window.Kakao.Auth.login({
         scope:'profile_nickname, account_email',
         success:function (authObj){
@@ -76,6 +75,7 @@ document.getElementById('kakaoLoginImg').addEventListener('click', async functio
                      kakao_account = res.kakao_account;
                     console.log(kakao_account);
                     console.log( ' 확인' + kakao_account.profile.nickname);
+                    
                      kakaoLoginData();
                 }
             });
@@ -84,7 +84,7 @@ document.getElementById('kakaoLoginImg').addEventListener('click', async functio
 
         
     });
-    
+
 }
 
 
