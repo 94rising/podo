@@ -4,8 +4,18 @@ const path = require('path');
 const dbConnection = require('../util/database');
 
 
+const { ComprehendClient, DetectSentimentCommand, DetectKeyPhrasesCommand  } = require("@aws-sdk/client-comprehend");
+const config = {
+ credentials:{
+    accessKeyId: process.env.accessKeyId,
+    secretAccessKey: process.env.secretAccessKey,
+ },
+ region: 'ap-northeast-2'
+}
 
+const client = new ComprehendClient(config);
 
+let content2 ;
 
 
 
@@ -146,15 +156,32 @@ router.get('/load', (req, res) => {
 });
 
 
-router.post('/write', function(req,res){ 
+router.post('/write', async function (req,res){ 
     const content = req.body.content;
     const date =  req.session.date;
     const id = req.session.userId;
+     content2 = req.body.content2;
+
+
+    console.log('콘테느 확인:' +  content)
+    console.log('콘테느 확인2:' +  content2)
+
+    const comprehends = await comprehend(content2);
+    
+    const sentiment = comprehends.response.SentimentScore.Sentiment
+    const mixed = comprehends.response.SentimentScore.Mixed
+    const negative = comprehends.response.SentimentScore.Negative
+    const neutral = comprehends.response.SentimentScore.Neutral
+    const positive = comprehends.response.SentimentScore.Positive
+
+
     //const emotion = emotion;
     //id와 date를 비교하여 해당 db가 있다면 update 아니면 insert 
     console.log('date화긴' + date)
     dbConnection.query("SELECT * FROM DIARY WHERE id = ? and date = ? ", [id, date], function (err, result) {
-
+        
+        console.log('확인컴프'+ neutral)
+        console.log('확인컴프' + comprehends.response2)
         if(err){
             console.log(err);
         } else {
@@ -162,7 +189,7 @@ router.post('/write', function(req,res){
 
             if(result[0] == undefined)  { 
                //insert
-                dbConnection.query("insert into DIARY(id, date, content) values(?, ?, ?)", [id, date, content], function (err, result) {
+                dbConnection.query("insert into DIARY(id, date, content,) values(?, ?, ?,)", [id, date, content, ], function (err, result) {
                     if (err) 
                     console.error("err : " + err);
                     else 
@@ -171,7 +198,6 @@ router.post('/write', function(req,res){
     
              else {
                 console.log('콘텐트확인 : ' + content)
-                 //update 수정까지 가능함 // 새로운 글은 안돼 
                 dbConnection.query( "update DIARY set content = ? where id= ? and date = ? ", [content, id, date], function(err,result){
                     if(err)
                         console.log(err);
@@ -184,14 +210,60 @@ router.post('/write', function(req,res){
 })
 
 
- // dbConnection.query("INSERT INTO DIARY (id, date, content, emotion) VALUES (?)",[?,], function (err, result) {  
-  //   if (err) throw err;
-  //   if {
-  //     res.send({result:true});   
-  //   } else {
-  //     res.send({result:false});
-  //   }
-  // });
+async function comprehend () {
+    
+    const input = {
+       LanguageCode: 'ko',
+       Text: content2
+   }
+   const command = new DetectSentimentCommand(input);
+   const command2 = new DetectKeyPhrasesCommand(input);
+   
+   const response = await client.send(command);
+   const response2 = await client.send(command2);
+   
+   console.log('test string => ', input.Text);
+   console.log(response);
+   console.log(response.Sentiment)
+   console.log('\n\n\n=========================\n\n\n')
+   console.log(response2);
+
+   return {response, response2}
+
+   }
+
+
+
+
+   
+//    for(int i = 0, i< 3, i++){
+
+
+//     for(int j = i; j<3 ; j++){
+//         if(comprehends.response2[i].Score < comprehends.response2[j].Score) 
+
+//         {
+//             int temp = i;
+//             comprehends.response2[i].Score = comprehends.response2[j].Score;
+//             comprehends.response2[j].Score = comprehends.response2[temp].Score;
+//         }
+//     }
+// } 
+
+
+
+
+// /    콘텐츠 ascii로 개행 띄어쓰기로 바꾸고 aws compre  사용 해야함 
+
+// function aa () {
+//     const content = req.body.content;
+
+    
+// }
+
+
+
+
 
 
 module.exports = router;

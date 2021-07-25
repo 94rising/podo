@@ -65,7 +65,10 @@ router.post('/',  async function (req, res){
 
 
       req.session.userId = rows[0].id;
+      req.session.name = rows[0].name;
       console.log('세션확인 : ' + req.session.userId)
+      console.log('세션확인 : ' + req.session.name)
+
       console.log(rows[0]);
 
       bcrypt.compare(password, hash, function(err, result) {

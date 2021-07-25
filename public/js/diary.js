@@ -43,17 +43,19 @@ const dateBar = document.querySelector("#dateBar");
 });  
 
   document.getElementById('submitBtn').addEventListener('click', function(){
-      console.log(content.value);
+      const content2 = content.value.replace(/(\r\n\t|\n|\r\t)/gm,"");
+
+
      // Example POST method implementation:
      postData('/diary/write', {
-        content: content.value
-        
+        content: content.value,
+        content2: content2
     })
      .then(data => {
          console.log(JSON.stringify(data)) 
          
          if (data.result) {
-               location.href = '/';
+            //    location.href = '/compre';
              } else {
                  alert(" 작성 실패 ");
                  

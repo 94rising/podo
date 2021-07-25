@@ -49,7 +49,7 @@ const findRouter = require('./routes/findController.js');
 const joinRouter = require('./routes/joinController.js');
 const diaryRouter = require('./routes/diaryController.js');
 const diaryListRouter = require('./routes/diaryListController.js');
-const compreRouter = require('./routes/test_compre.js');
+const compreRouter = require('./routes/compreController.js');
 
 const dbConnection = require('./util/database');
 

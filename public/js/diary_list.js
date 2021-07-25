@@ -161,14 +161,14 @@ function emotionValueBox(emotionBox){
 
           
 const smile = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f601.svg">'
-const natural = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f610.svg">'
+const neutral = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f610.svg">'
 const bad = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/2639-fe0f.svg">'
 
 let emotion = '';
     if(diaryList.emotion == 1){
         emotion = smile; 
       }else if(diaryList.emotion == 2){
-        emotion = natural;
+        emotion = neutral;
       }else if(diaryList.emotion == 3){
         emotion = bad;
       }
