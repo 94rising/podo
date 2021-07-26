@@ -14,8 +14,13 @@ const config = {
 }
 
 const client = new ComprehendClient(config);
-
+let keyPhrasesObj;
 let content2 ;
+let keyPhrases1 = '';
+let keyPhrases2 = '';
+let keyPhrases3 = '';
+let keyPhrases4 = '';
+let keyPhrases5 = '';
 
 
 
@@ -173,12 +178,15 @@ router.post('/write', async function (req,res){
     const negative = comprehends.response.SentimentScore.Negative
     const neutral = comprehends.response.SentimentScore.Neutral
     const positive = comprehends.response.SentimentScore.Positive
+    keyPhrasesObj = comprehends.response3;
 
-    const keyPhrases1 = comprehends.response3[0].Text;
-    const keyPhrases2 = comprehends.response3[1].Text;
-    const keyPhrases3 = comprehends.response3[2].Text;
-    const keyPhrases4 = comprehends.response3[3].Text;
-    const keyPhrases5 = comprehends.response3[4].Text;
+
+    keyPhrasesList(keyPhrasesObj);
+    // const keyPhrases1 = comprehends.response3[0].Text;
+    // const keyPhrases2 = comprehends.response3[1].Text;
+    // const keyPhrases3 = comprehends.response3[2].Text;
+    // const keyPhrases4 = comprehends.response3[3].Text;
+    // const keyPhrases5 = comprehends.response3[4].Text;
 
     //const emotion = emotion;
     //id와 date를 비교하여 해당 db가 있다면 update 아니면 insert 
@@ -236,7 +244,7 @@ async function comprehend () {
 
    let response3;
    response3 = response2.KeyPhrases.sort(function (a, b) {
-    return b.Score - a.Score;
+    return b.Text.length - a.Text.length;
 
    })
 
@@ -245,6 +253,12 @@ async function comprehend () {
    return {response, response2, response3}
 
    }
+
+
+
+function keyPhrasesList () {
+
+}
 
 
 
@@ -278,7 +292,21 @@ async function comprehend () {
 // }
 
 
+function keyPhrasesList(keyPhrasesObj){
 
+    if(keyPhrasesObj[0].Text !== undefined) keyPhrases1 = keyPhrasesObj[0].Text;
+    else keyPhrases1 = '';
+    if(keyPhrasesObj[1].Text !== undefined) keyPhrases2 = keyPhrasesObj[1].Text;
+    else keyPhrases2 = '';
+    if(keyPhrasesObj[2].Text !== undefined) keyPhrases3 = keyPhrasesObj[2].Text;
+    else keyPhrases3 = '';
+    if(keyPhrasesObj[3].Text !== undefined) keyPhrases4 = keyPhrasesObj[3].Text;
+    else keyPhrases4 = '';
+    if(keyPhrasesObj[4].Text !== undefined) keyPhrases5 = keyPhrasesObj[4].Text;
+    else keyPhrases5 = '';
+
+    return
+}
 
 
 

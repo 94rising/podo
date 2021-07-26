@@ -145,7 +145,7 @@ function emotionValueBox(emotionBox){
 
                     `
         <td><a href="/diary?date=${diaryList[i].date}" style = "  text-decoration:none; ">  ${diaryList[i].date}</td> 
-        <td>${diaryList[i].phrase}</td>
+        <td>${' #'+ diaryList[i].phrase1 +' #'+ diaryList[i].phrase2 +' #'+ diaryList[i].phrase3 +' #'+ diaryList[i].phrase4 +' #'+ diaryList[i].phrase5}</td>
         <td>${emoji(diaryList[i])}</td>
          </a>
          

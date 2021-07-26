@@ -1,9 +1,11 @@
 const ctx = document.getElementById('myChart');
-const compreData = [];
-let Mixed ;
-let Positive ;
-let Neutral ;
-let Negative ;
+const keyWord1 = document.getElementById('keyWord1');
+const keyWord2 = document.getElementById('keyWord2');
+const keyWord3 = document.getElementById('keyWord3');
+const keyWord4 = document.getElementById('keyWord4');
+const keyWord5 = document.getElementById('keyWord5');
+
+let compreObj;
 
 
 
@@ -17,15 +19,24 @@ console.log('gagasga')
      console.log(JSON.stringify(response))
      console.log(response)
 
-        Mixed = response.compreList[0].Mixed;
-        Positive = response.compreList[0].Positive;
-        Neutral = response.compreList[0].Neutral;
-        Negative = response.compreList[0].Negative;
+     compreObj = response.compreList[0];
 
 
-
-    console.log(response.compreList[0].Mixed)
  
+    doughnutChart();
+    KeyPhraseText();
+
+
+
+    })// JSON-string from `response.json()` call
+   .catch(error => console.error(error));
+   });
+ 
+
+   
+   
+
+function doughnutChart () {
 
 	const myChart = new Chart(ctx, {
 
@@ -34,7 +45,7 @@ console.log('gagasga')
 			labels: ['혼합', '긍정', '보통', '부정'],
 			datasets: [{
 				label: '# of Votes',
-				data: [Mixed, Positive, Neutral, Negative],
+				data: [compreObj.Mixed, compreObj.Positive, compreObj.Neutral, compreObj.Negative],
 				backgroundColor: [
 					'rgba(255, 99, 132, 0.2)',
 					'rgba(54, 162, 235, 0.2)',
@@ -63,15 +74,18 @@ console.log('gagasga')
 			},
 		}
 	});
+}
 
+function KeyPhraseText () {
+    keyWord1.innerHTML = compreObj.phrase1
+    keyWord2.innerHTML = compreObj.phrase2
+    keyWord3.innerHTML = compreObj.phrase3
+    keyWord4.innerHTML = compreObj.phrase4
+    keyWord5.innerHTML = compreObj.phrase5
 
-    })// JSON-string from `response.json()` call
-   .catch(error => console.error(error));
-   });
- 
+    
+}
 
-   
-   
 function postData(url = '', data = {}) {
     // Default options are marked with *
       return fetch(url, {
