@@ -1,31 +1,74 @@
-const content2 = document.getElementById('content');
+const ctx = document.getElementById('myChart');
+const compreData = [];
+let Mixed ;
+let Positive ;
+let Neutral ;
+let Negative ;
 
-const aa = document.getElementById('aa');
 
 
-document.getElementById('aa').addEventListener('click', function () {
+window.addEventListener('DOMContentLoaded', (event) => {
+console.log('gagasga')
 
-    console.log('확인 : ' + content2.value)
-    
-    const content = content2.value.replace(/(\r\n\t|\n|\r\t)/gm,"");
-    console.log('확인2 : ' + content)
-
-    
     postData('/compre', {
-      content:content,
+
    })
     .then(response => { 
-     
+     console.log(JSON.stringify(response))
+     console.log(response)
+
+        Mixed = response.compreList[0].Mixed;
+        Positive = response.compreList[0].Positive;
+        Neutral = response.compreList[0].Neutral;
+        Negative = response.compreList[0].Negative;
+
+
+
+    console.log(response.compreList[0].Mixed)
  
- 
- 
+
+	const myChart = new Chart(ctx, {
+
+		type: 'doughnut',
+		data: {
+			labels: ['혼합', '긍정', '보통', '부정'],
+			datasets: [{
+				label: '# of Votes',
+				data: [Mixed, Positive, Neutral, Negative],
+				backgroundColor: [
+					'rgba(255, 99, 132, 0.2)',
+					'rgba(54, 162, 235, 0.2)',
+					'rgba(255, 206, 86, 0.2)',
+					'rgba(75, 192, 192, 0.2)',
+					
+				],
+				borderColor: [
+					'rgba(255, 99, 132, 1)',
+					'rgba(54, 162, 235, 1)',
+					'rgba(255, 206, 86, 1)',
+					'rgba(75, 192, 192, 1)',
+					
+				],
+				borderWidth: 1
+			}]
+		},
+		options: {
+			responsive: false,
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true
+					}
+				}]
+			},
+		}
+	});
+
+
     })// JSON-string from `response.json()` call
    .catch(error => console.error(error));
    });
-
-
-
-
+ 
 
    
    

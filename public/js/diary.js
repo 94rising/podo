@@ -55,7 +55,7 @@ const dateBar = document.querySelector("#dateBar");
          console.log(JSON.stringify(data)) 
          
          if (data.result) {
-            //    location.href = '/compre';
+               location.href = '/compre';
              } else {
                  alert(" 작성 실패 ");
                  

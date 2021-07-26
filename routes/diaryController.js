@@ -55,7 +55,7 @@ router.post("/listData", (req, res) => {
         } else {
             for(let i=0; i<rows.length; i++){
                 diaryList.push(rows[i]); // row는 key:value 값 가짐
-               console.log(diaryList); //이것만 읽힘
+            //    console.log(diaryList); //이것만 읽힘
             } 
             
             const result = {diaryList};
@@ -168,20 +168,26 @@ router.post('/write', async function (req,res){
 
     const comprehends = await comprehend(content2);
     
-    const sentiment = comprehends.response.SentimentScore.Sentiment
+    const sentiment = comprehends.response.Sentiment
     const mixed = comprehends.response.SentimentScore.Mixed
     const negative = comprehends.response.SentimentScore.Negative
     const neutral = comprehends.response.SentimentScore.Neutral
     const positive = comprehends.response.SentimentScore.Positive
 
+    const keyPhrases1 = comprehends.response3[0].Text;
+    const keyPhrases2 = comprehends.response3[1].Text;
+    const keyPhrases3 = comprehends.response3[2].Text;
+    const keyPhrases4 = comprehends.response3[3].Text;
+    const keyPhrases5 = comprehends.response3[4].Text;
 
     //const emotion = emotion;
     //id와 date를 비교하여 해당 db가 있다면 update 아니면 insert 
     console.log('date화긴' + date)
     dbConnection.query("SELECT * FROM DIARY WHERE id = ? and date = ? ", [id, date], function (err, result) {
         
-        console.log('확인컴프'+ neutral)
-        console.log('확인컴프' + comprehends.response2)
+        console.log('확인컴프'+ sentiment)
+        console.log('확인컴프'+ keyPhrases2)
+
         if(err){
             console.log(err);
         } else {
@@ -189,7 +195,7 @@ router.post('/write', async function (req,res){
 
             if(result[0] == undefined)  { 
                //insert
-                dbConnection.query("insert into DIARY(id, date, content,) values(?, ?, ?,)", [id, date, content, ], function (err, result) {
+                dbConnection.query("insert into DIARY(id, date, content, emotion, Mixed, Negative, Neutral, Positive, phrase1, phrase2, phrase3, phrase4, phrase5) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [id, date, content, sentiment, mixed, negative, neutral, positive, keyPhrases1, keyPhrases2, keyPhrases3, keyPhrases4, keyPhrases5], function (err, result) {
                     if (err) 
                     console.error("err : " + err);
                     else 
@@ -198,7 +204,7 @@ router.post('/write', async function (req,res){
     
              else {
                 console.log('콘텐트확인 : ' + content)
-                dbConnection.query( "update DIARY set content = ? where id= ? and date = ? ", [content, id, date], function(err,result){
+                dbConnection.query( "update DIARY set content = ?, emotion = ?, Mixed = ?, Negative = ?, Neutral =?, Positive =?, phrase1 =?, phrase2 =?, phrase3 =?, phrase4 =?, phrase5=?  where id= ? and date = ? ", [content,sentiment, mixed, negative, neutral, positive, keyPhrases1, keyPhrases2, keyPhrases3, keyPhrases4, keyPhrases5, id, date], function(err,result){
                     if(err)
                         console.log(err);
                     else 
@@ -228,14 +234,24 @@ async function comprehend () {
    console.log('\n\n\n=========================\n\n\n')
    console.log(response2);
 
-   return {response, response2}
+   let response3;
+   response3 = response2.KeyPhrases.sort(function (a, b) {
+    return b.Score - a.Score;
+
+   })
+
+
+   console.log( response3)
+   return {response, response2, response3}
 
    }
 
 
 
 
-   
+//    comprehends.response2.sort
+
+
 //    for(int i = 0, i< 3, i++){
 
 

@@ -163,14 +163,17 @@ function emotionValueBox(emotionBox){
 const smile = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f601.svg">'
 const neutral = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f610.svg">'
 const bad = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/2639-fe0f.svg">'
+const mixed = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/2754.svg">'
 
 let emotion = '';
-    if(diaryList.emotion == 1){
+    if(diaryList.emotion == 'POSITIVE'){
         emotion = smile; 
-      }else if(diaryList.emotion == 2){
+      }else if(diaryList.emotion == 'NEUTRAL'){
         emotion = neutral;
-      }else if(diaryList.emotion == 3){
+      }else if(diaryList.emotion == 'NEGATIVE'){
         emotion = bad;
+      }else if(diaryList.emotion == 'MIXED'){
+        emotion = mixed;
       }
       return  emotion;
 }

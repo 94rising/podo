@@ -157,25 +157,27 @@ function emoji(day) {
 const smile = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f601.svg">'
 const neutral = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f610.svg">'
 const bad = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/2639-fe0f.svg">'
-const no = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/2754.svg">'
+const mixed = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f643.svg">'
 
 
 
 const date = current_year + "-" + current_month + "-" + day;
   //console.log(mainList[1].date);
-  let emotion = no;
+  let emotion = '';
 
 for (let i = 0; i < mainList.length; i++) {
   // console.log(mainList[i].date)
 
   if(date == mainList[i].date) {
    
-    if(mainList[i].emotion == 1){
+    if(mainList[i].emotion == 'POSITIVE'){
       emotion = smile; 
-    }else if(mainList[i].emotion == 2){
+    }else if(mainList[i].emotion == 'NEUTRAL'){
       emotion = neutral;
-    }else if(mainList[i].emotion == 3){
+    }else if(mainList[i].emotion == 'NEGATIVE'){
       emotion = bad;
+    }else if(mainList[i].emotion == 'MIXED'){
+      emotion = mixed;
     }
 }}
 return emotion;

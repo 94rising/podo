@@ -4,16 +4,6 @@ const path = require('path');
 const dbConnection = require('../util/database');
 const session = require('express-session');
 
-const { ComprehendClient, DetectSentimentCommand, DetectKeyPhrasesCommand  } = require("@aws-sdk/client-comprehend");
-const config = {
- credentials:{
-    accessKeyId: process.env.accessKeyId,
-    secretAccessKey: process.env.secretAccessKey,
- },
- region: 'ap-northeast-2'
-}
-
-const client = new ComprehendClient(config);
 
 
 
@@ -28,49 +18,32 @@ router.get( '/',  async (req, res) => {
 
 
 router.post("/", async (req, res) => { 
-    const content = req.body.content
-    console.log('확인 :' + content)
+    const userId = req.session.userId;
+    const date = req.session.date;
+    let result = '';
+    
+    console.log( '데이트확인!!' + date );
+    let compreList = [];
+    dbConnection.query("SELECT * from DIARY WHERE id = ? and date = ? ", [userId, date], function (err, rows) {
+            console.log( '데이트확인!!' + date );
 
+        if(err){
+            console.log(err);
+        } else {
+            compreList.push(rows[0]); // row는 key:value 값 가짐
+                 
+                 result = {compreList, date};
+                 console.log(result)
+                 res.json(result);
+             
+               }
+    });
+                
 
-
- const input = {
-    LanguageCode: 'ko',
-    Text: content
-}
-const command = new DetectSentimentCommand(input);
-const command2 = new DetectKeyPhrasesCommand(input);
-
-const response = await client.send(command);
-const response2 = await client.send(command2);
-
-console.log('test string => ', input.Text);
-console.log(response);
-console.log(response.Sentiment)
-console.log('\n\n\n=========================\n\n\n')
-console.log(response2);
 
 
 
 });
 
-
-async function comprehend () {
-    
- const input = {
-    LanguageCode: 'ko',
-    Text: content
-}
-const command = new DetectSentimentCommand(input);
-const command2 = new DetectKeyPhrasesCommand(input);
-
-const response = await client.send(command);
-const response2 = await client.send(command2);
-
-console.log('test string => ', input.Text);
-console.log(response);
-console.log(response.Sentiment)
-console.log('\n\n\n=========================\n\n\n')
-console.log(response2);
-}
 
 module.exports = router;
