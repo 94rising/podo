@@ -6,8 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>diary</title>
     <link rel="stylesheet" href="/static/css/menu.css"/>
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+
 </head>
 <body>
+  <h1>podo<img src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f347.svg" width="50" height="50" id="podoLogo"></h1>
+
+  <p3 id="header" style="float: right; color: blueviolet;" > </p3>
+
     <div id="navbar" class="dropdown">
       <button class="dropbtn">=</button>
       <div class="dropdown-content">
@@ -18,7 +26,6 @@
         </div>
       </div>
       </div>
-      <h1>podo<img src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f347.svg" width="50" height="50" id="podoLogo"></h1>
 
       <table boarder="1">
         <tr>
@@ -33,6 +40,17 @@
           <td><button id="submitBtn"type="submitBtn">글쓰기</button></td>
         </tr>
       </table>
+
+ 
+      <canvas id="myChart" width="400" height="400"></canvas>
+
+      <h3 id="keyWord1"></h3>
+      <h3 id="keyWord2"></h3>
+      <h3 id="keyWord3"></h3>
+      <h3 id="keyWord4"></h3>
+      <h3 id="keyWord5"></h3>
+
+
     
     <script src="/static/js/diary.js" defer></script>
 

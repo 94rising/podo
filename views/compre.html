@@ -5,13 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/static/css/menu.css"/>
 
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 </head>
 <body>
     <h1>podo<img src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f347.svg" width="50" height="50" id="podoLogo"></h1> 
-
+    <p3 id="header" style="float: right; color: blueviolet;" > </p3>
+    <div id="navbar" class="dropdown">
+        <button class="dropbtn">=</button>
+        <div class="dropdown-content">
+          <div class="dropdown-content">
+            <a id="mainBtn">홈</a>
+            <a id="listBtn">리스트 보기</a>
+            <a id="logoutBtn">로그아웃</a>
+          </div>
+        </div>
+      </div>
+      
     <canvas id="myChart" width="400" height="400"></canvas>
 
 <h3 id="keyWord1"></h3>
@@ -22,6 +34,8 @@
 
 
     <script src="/static/js/compre.js" defer></script>
+    <script src="/static/js/menu.js" defer></script>
+
 
 </body>
 </html>

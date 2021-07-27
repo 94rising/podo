@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     mainList = response.mainList;
     console.log( mainList ) //여기까지 찍힘
     const bb = 'bb';
+    header.innerHTML = response.name +'님 환영합니다.';
 
 
     current_year = (new Date()).getFullYear();
@@ -28,7 +29,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     changeYearMonth(current_year, current_month);
 
 
-   })// JSON-string from `response.json()` call
+  })// JSON-string from `response.json()` call
   .catch(error => console.error(error));
   });
 

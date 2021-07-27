@@ -20,6 +20,7 @@ router.get( '/',  async (req, res) => {
 router.post("/", async (req, res) => { 
     const userId = req.session.userId;
     const date = req.session.date;
+    const name = req.session.name
     let result = '';
     
     console.log( '데이트확인!!' + date );
@@ -32,7 +33,7 @@ router.post("/", async (req, res) => {
         } else {
             compreList.push(rows[0]); // row는 key:value 값 가짐
                  
-                 result = {compreList, date};
+                 result = {compreList, date, name};
                  console.log(result)
                  res.json(result);
              

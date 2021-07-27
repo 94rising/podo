@@ -3,10 +3,14 @@ const router = express.Router();
 const path = require('path');
 const session = require('express-session');
 const dbConnection = require('../util/database');
+const moment = require('moment');
+const today = moment();
+console.log(today.format());
 
 router.get('/', (req, res) => {
 
 const userId = req.session.userId;
+
 
 if (userId === undefined) {
   res.redirect('/login');
@@ -22,8 +26,11 @@ res.sendFile(path.join(__dirname ,'../views', 'main.html' ));
   
 router.post('/',  async function (req, res) {
   const userId = req.session.userId;
+  const name = req.session.name;
 
 console.log('메인 세션확인2 : ' + userId )
+console.log('메인 세션확인3 : ' + name )
+
   
   let mainList = [];
   let result = '';
@@ -35,7 +42,7 @@ console.log('메인 세션확인2 : ' + userId )
             mainList.push(rows[i]); // row는 key:value 값 가짐
             
           } 
-          result = {mainList};
+          result = {mainList, name};
           console.log(result);
           res.json(result);
       }

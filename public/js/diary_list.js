@@ -2,15 +2,19 @@
 
 // const emotionBox = document.querySelector("emotionBox");
 // const dateBox = document.getElementById("dateBox");
+const header = document.querySelector("#header");
 let dateValue = '';
 let emotionValue = '';
 const diaryListBody = document.getElementById("diaryListBody");
 let prevOffset = 0;
 let offset = 0;
+let compreObj;
 
 window.addEventListener('DOMContentLoaded', async (event) => {
     // Example POST method implementation:
-   drawList(10);
+
+    drawList(10);
+
 
 });
 
@@ -132,6 +136,9 @@ function emotionValueBox(emotionBox){
       limit : limit,
     })
     .then( response =>{
+      header.innerHTML = response.name +'님 다이어리 리스트';
+      compreObj = response.diaryList[0];
+
         const diaryList = response.diaryList;
 
         console.log("response : " + response); //데이터 옴
@@ -145,13 +152,14 @@ function emotionValueBox(emotionBox){
 
                     `
         <td><a href="/diary?date=${diaryList[i].date}" style = "  text-decoration:none; ">  ${diaryList[i].date}</td> 
-        <td>${' #'+ diaryList[i].phrase1 +' #'+ diaryList[i].phrase2 +' #'+ diaryList[i].phrase3 +' #'+ diaryList[i].phrase4 +' #'+ diaryList[i].phrase5}</td>
+        <td>${KeyPhraseText(diaryList[i])}</td>
         <td>${emoji(diaryList[i])}</td>
          </a>
          
                     `
         }
             offset = offset + limit ;
+
     })// JSON-string from `response.json()` call
    .catch(error => console.error(error));
 }
@@ -177,6 +185,21 @@ let emotion = '';
       }
       return  emotion;
 }
+
+
+
+
+function KeyPhraseText (diaryList) {
+  let phrase = '';
+  if (diaryList.phrase1 !== '') phrase += '# ' + diaryList.phrase1;
+  if (diaryList.phrase2 !== '') phrase += '# ' + diaryList.phrase2;
+  if (diaryList.phrase3 !== '') phrase += '# ' + diaryList.phrase3;
+  if (diaryList.phrase4 !== '') phrase += '# ' + diaryList.phrase4;
+  if (diaryList.phrase5 !== '') phrase += '# ' + diaryList.phrase5;
+  return phrase;
+}
+
+
 
 
 

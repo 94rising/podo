@@ -1,4 +1,6 @@
 const ctx = document.getElementById('myChart');
+const header = document.querySelector("#header");
+
 const keyWord1 = document.getElementById('keyWord1');
 const keyWord2 = document.getElementById('keyWord2');
 const keyWord3 = document.getElementById('keyWord3');
@@ -16,6 +18,8 @@ console.log('gagasga')
 
    })
     .then(response => { 
+    header.innerHTML = response.name +'님의 ' + response.date +' 일기 분석';
+
      console.log(JSON.stringify(response))
      console.log(response)
 
@@ -77,11 +81,12 @@ function doughnutChart () {
 }
 
 function KeyPhraseText () {
-    keyWord1.innerHTML = compreObj.phrase1
-    keyWord2.innerHTML = compreObj.phrase2
-    keyWord3.innerHTML = compreObj.phrase3
-    keyWord4.innerHTML = compreObj.phrase4
-    keyWord5.innerHTML = compreObj.phrase5
+    
+    if(compreObj.phrase1 !=='' )keyWord1.innerHTML = '# '+ compreObj.phrase1
+    if(compreObj.phrase2 !=='' )keyWord2.innerHTML = '# '+ compreObj.phrase2
+    if(compreObj.phrase3 !=='' )keyWord3.innerHTML = '# '+ compreObj.phrase3
+    if(compreObj.phrase4 !=='' )keyWord4.innerHTML = '# '+ compreObj.phrase4
+    if(compreObj.phrase5 !=='' )keyWord5.innerHTML = '# '+ compreObj.phrase5
 
     
 }

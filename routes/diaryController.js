@@ -26,6 +26,7 @@ let keyPhrases5 = '';
 
 
 router.get('/', (req, res) => {
+    
     const date = req.query.date;
     console.log(date);
     req.session.date = date;
@@ -34,8 +35,8 @@ router.get('/', (req, res) => {
 
 
 
-
-router.get("/list", (req, res) => {
+//다이어리 리스트
+router.get("/list", (req, res) => { 
     if (req.session.userId === undefined) {
         res.redirect("/login");
         return;
@@ -44,14 +45,14 @@ router.get("/list", (req, res) => {
     res.sendFile(path.join(__dirname, '../views', 'diary_list.html'));
 });
 
+//다이어리 리스트 목록 조회
 router.post("/listData", (req, res) => {
     const id = req.session.userId;
     const offset = req.body.offset;
     const limit = req.body.limit;
-
     let diaryList = [];
     
-        
+    const name = req.session.name
 
     // 동기 방식으로 변경하기
     dbConnection.query("SELECT * from DIARY WHERE id = ? ORDER BY number LIMIT ?  offset ?  ;", [id, limit, offset], function (err, rows) {
@@ -63,7 +64,7 @@ router.post("/listData", (req, res) => {
             //    console.log(diaryList); //이것만 읽힘
             } 
             
-            const result = {diaryList};
+            const result = {diaryList, name};
             res.json(result);
         }
     });
@@ -134,11 +135,12 @@ router.post("/listData", (req, res) => {
 
 
 
-
+//다이어리 작성부분 로드
 router.get('/load', (req, res) => {
     //const id = req.session.id;
     const id = req.session.userId
     const date = req.session.date;
+    const name = req.session.name
     let result = '';
     
 
@@ -151,7 +153,7 @@ router.get('/load', (req, res) => {
                 diaryList.push(rows[i]); // row는 key:value 값 가짐
                 console.log('확인 : ' + i);
                  }
-                 result = {diaryList, date};
+                 result = {diaryList, date, name};
                  console.log(result)
                  res.json(result);
              
@@ -160,7 +162,7 @@ router.get('/load', (req, res) => {
  
 });
 
-
+//다이어리 작성
 router.post('/write', async function (req,res){ 
     const content = req.body.content;
     const date =  req.session.date;
@@ -294,15 +296,17 @@ function keyPhrasesList () {
 
 function keyPhrasesList(keyPhrasesObj){
 
-    if(keyPhrasesObj[0].Text !== undefined) keyPhrases1 = keyPhrasesObj[0].Text;
+
+
+    if(keyPhrasesObj[0] !== undefined) keyPhrases1 = keyPhrasesObj[0].Text;
     else keyPhrases1 = '';
-    if(keyPhrasesObj[1].Text !== undefined) keyPhrases2 = keyPhrasesObj[1].Text;
+    if(keyPhrasesObj[1] !== undefined) keyPhrases2 = keyPhrasesObj[1].Text;
     else keyPhrases2 = '';
-    if(keyPhrasesObj[2].Text !== undefined) keyPhrases3 = keyPhrasesObj[2].Text;
+    if(keyPhrasesObj[2] !== undefined) keyPhrases3 = keyPhrasesObj[2].Text;
     else keyPhrases3 = '';
-    if(keyPhrasesObj[3].Text !== undefined) keyPhrases4 = keyPhrasesObj[3].Text;
+    if(keyPhrasesObj[3] !== undefined) keyPhrases4 = keyPhrasesObj[3].Text;
     else keyPhrases4 = '';
-    if(keyPhrasesObj[4].Text !== undefined) keyPhrases5 = keyPhrasesObj[4].Text;
+    if(keyPhrasesObj[4] !== undefined) keyPhrases5 = keyPhrasesObj[4].Text;
     else keyPhrases5 = '';
 
     return

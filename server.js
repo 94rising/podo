@@ -50,6 +50,8 @@ const joinRouter = require('./routes/joinController.js');
 const diaryRouter = require('./routes/diaryController.js');
 const diaryListRouter = require('./routes/diaryListController.js');
 const compreRouter = require('./routes/compreController.js');
+const menuRouter = require('./routes/menuController.js');
+
 
 const dbConnection = require('./util/database');
 
@@ -67,6 +69,7 @@ app.use('/diary', diaryRouter);
 app.use('/category', diaryListRouter);
 app.use('/find', findRouter);
 app.use('/compre', compreRouter);
+app.use('/menu', menuRouter);
 
 
 
