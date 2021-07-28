@@ -12,7 +12,11 @@ const { resolve } = require('path');
 
 const algorithm = 'aes-256-cbc'; //crypto 관련
 const iv = '1234567890123456'; //16자리//crypto 관련
-const makeCertNumber = '1234';//crypto 관련
+const makeCertNumber = makeCertNumber2();
+function makeCertNumber2() { //인증번호 생성
+ return Math.floor(Math.random()*100000);
+  
+  };
 const key = 'abcdefghizklmnopqrstlmnddadwqers'//32자리//crypto 관련
 
 // const saltRounds = 10; //bcypt 관련
@@ -75,7 +79,7 @@ router.post('/emailCert', function (req, res) {  //이메일 중복확인 로직
         from: 'chawoo94@naver.com',
         to: joinEmail,//joinEmail로 변환
         subject: '인증번호 ',
-        html: makeCertNumber, // 인증번호 함수가 들어가야함
+        html:`${makeCertNumber}`, // 인증번호 함수가 들어가야함
       }
     
       transporter.sendMail(mailOptions, function(error, info){
@@ -85,7 +89,7 @@ router.post('/emailCert', function (req, res) {  //이메일 중복확인 로직
         } else { 
          console.log('Email sent: ' + info.response);
 
-         req.session.encryptNumber = encrypt(makeCertNumber); //암호화 문장 세션 저장 
+         req.session.encryptNumber = encrypt(`${makeCertNumber}`); //암호화 문장 세션 저장 
 
           res.send({result: 2})  // 2= 정상작동했을 때
 

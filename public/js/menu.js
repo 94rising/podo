@@ -27,8 +27,7 @@ podoLogo.addEventListener("click", function() {
 
 
  logoutBtn.addEventListener("click", async function() {
- 
- getData('/login/logout', {
+ getData('/menu/logout', {
 
    })
 .then(data => {
@@ -45,6 +44,12 @@ podoLogo.addEventListener("click", function() {
 .catch(error => console.error(error));
 
 });
+
+
+
+
+
+
 
 
 

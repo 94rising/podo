@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const dbConnection = require('../util/database');
+const moment = require('moment');
+const today = moment().format("YYYY-M-D");
+console.log(today);
 
 
 const { ComprehendClient, DetectSentimentCommand, DetectKeyPhrasesCommand  } = require("@aws-sdk/client-comprehend");
@@ -169,7 +172,12 @@ router.post('/write', async function (req,res){
     const id = req.session.userId;
      content2 = req.body.content2;
 
+    console.log(date, today);
 
+    if(date !== today) {
+        res.send({result : 'dayErr', today})
+    }
+    else{
     console.log('콘테느 확인:' +  content)
     console.log('콘테느 확인2:' +  content2)
 
@@ -184,12 +192,7 @@ router.post('/write', async function (req,res){
 
 
     keyPhrasesList(keyPhrasesObj);
-    // const keyPhrases1 = comprehends.response3[0].Text;
-    // const keyPhrases2 = comprehends.response3[1].Text;
-    // const keyPhrases3 = comprehends.response3[2].Text;
-    // const keyPhrases4 = comprehends.response3[3].Text;
-    // const keyPhrases5 = comprehends.response3[4].Text;
-
+    
     //const emotion = emotion;
     //id와 date를 비교하여 해당 db가 있다면 update 아니면 insert 
     console.log('date화긴' + date)
@@ -223,7 +226,7 @@ router.post('/write', async function (req,res){
                 
             
             }})
-})
+}})
 
 
 async function comprehend () {

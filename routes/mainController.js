@@ -3,9 +3,7 @@ const router = express.Router();
 const path = require('path');
 const session = require('express-session');
 const dbConnection = require('../util/database');
-const moment = require('moment');
-const today = moment();
-console.log(today.format());
+
 
 router.get('/', (req, res) => {
 

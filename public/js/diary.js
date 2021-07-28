@@ -74,13 +74,16 @@ let compreObj;
     })
      .then(data => {
          console.log(JSON.stringify(data)) 
-         
-         if (data.result) {
+         console.log(data.result)
+    if(data.result == 'dayErr') {
+        alert('오늘' + ' (' + data.today + ') ' + ' 날짜 일기만 작성이 가능합니다.')
+
+    }else if(data.result) {
                location.href = '/compre';
-             } else {
-                 alert(" 작성 실패 ");
+    } else {
+        alert(" 작성 실패 ");
                  
-             }
+    }
              
          })// JSON-string from `response.json()` call
     .catch(error => console.error(error));
@@ -88,7 +91,6 @@ let compreObj;
 
 
 function doughnutChart () {
-console.log(compreObj.Mixed)
 	const myChart = new Chart(ctx, {
 
 		type: 'doughnut',
