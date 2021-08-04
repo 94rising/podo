@@ -4,12 +4,11 @@ const password = document.querySelector("#password");
 const loginBtn = document.querySelector("#loginBtn");
 const joinBtn = document.querySelector("#joinBtn");
 const findBtn = document.querySelector("#findBtn");
-let kakao_account ;
-
 const kakao = document.querySelector("#kakaoLoginImg");
-window.Kakao.init("320eb75ea03092912a492070f7665a73");
-
-
+const kakaoLogin = document.querySelector("#kakaoLogin");
+const kakaoLogout = document.querySelector("#kakaoLogout");
+const url = 'https://kauth.kakao.com/oauth/authorize?client_id=20e2b296829e3514f9a490fc43a5b076&redirect_uri=http://localhost:3000/login/auth/kakao/callback&response_type=code'
+const options = 'top=10, left=10, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no';
 
 document.getElementById('joinBtn').addEventListener('click', function(){
     location.href = "/join"
@@ -51,102 +50,88 @@ document.getElementById('loginBtn').addEventListener('click', function(){
 });
 
 
-document.getElementById('kakaoLoginImg').addEventListener('click', async function (){ //클릭하는순간 데이터가 넘어가고 KakaoLogin 함수실행된다
-   KakaoLogin ();   
+// document.getElementById('kakaoLoginImg').addEventListener('click', async function (){ //클릭하는순간 데이터가 넘어가고 KakaoLogin 함수실행된다
+//    KakaoLogin ();   
 
    
-      //카카오톡 이메일을 변수에 저장함
+//       //카카오톡 이메일을 변수에 저장함
 
- });
+//  });
+
+const responseJson= '' ;
+
+ document.getElementById('kakaoLoginImg').addEventListener('click',  function(){
+// location.href ="https://kauth.kakao.com/oauth/authorize?client_id=20e2b296829e3514f9a490fc43a5b076&redirect_uri=http://localhost:3000/login/auth/kakao/callback&response_type=code",
+
+    const kakaoLoginLayout = document.getElementById("kakaoLoginLayout");
+
+// getData('/login/1', data = {}) 
+//     .then(response => {
+//         console.log(JSON.stringify(response))
+//         console.log(response);
+//         //window.open(url, kakao,options)
+//         // kakaoLoginLayout.innerHTML = response.body
+//     }).then(data => {
+//         document.write(data)
+
+//     })
+});  
 
 
 
+document.getElementById('kakaoLogin').addEventListener('click',  function(){
     
-  async function KakaoLogin  (){
-   
-    window.Kakao.Auth.login({
-        scope:'profile_nickname, account_email',
-        success:function (authObj){
-            console.log(authObj);
-             window.Kakao.API.request ({
-                url:'/v2/user/me',
-                success: res   => {
-                  
-                     kakao_account = res.kakao_account;
-                    console.log(kakao_account);
-                    console.log( ' 확인' + kakao_account.profile.nickname);
-                    
-                     kakaoLoginData();
-                }
-            });
+        const kakaoLoginLayoutCss = document.getElementsByClassName("kakaoLoginLayout");
+
+        location.href ="https://kauth.kakao.com/oauth/authorize?client_id=20e2b296829e3514f9a490fc43a5b076&redirect_uri=http://localhost:3000/login/auth/kakao/callback&response_type=code"
+
+    getData('/login/kakao', data = {}) 
+        .then(response => {
+            console.log(JSON.stringify(response))
+            console.log(response);
+            console.log(response.body);
+
+            // document.write(response.body)
+            // window.open(url, kakao,options)
+            // kakaoLoginLayout.innerHTML = response.body
             
-        }
-
-        
-    });
-
-}
-
-
-
-  async function kakaoLoginData (){
-
-    
-     postData 
-      ('/login/kakao', {
-          
-        kakao_account :  kakao_account,
+        })
+        // .then(data => {
+        //     console.log(data)
             
-    
-            })
-       .then (data => {
-             console.log(JSON.stringify(data))
-   
-    
-             if (data.result) {
-                  location.href = '/';
-                 } else {
-                     alert(" 아이디 혹은 비밀번호를 확인해주세요. ");
-                     
-                 }
-                 
-             })// JSON-string from `response.json()` call
-        .catch(error => console.error(error));
-}
+        // })
+      
 
-// function kakaoLogin() {
-//     Kakao.init(process.env.KAKAO_KEY);
-//     console.log(Kakao.isInitialized());
-//     Kakao.Auth.login({
-//       success: function (authObj) {
-//         console.log(authObj);
-//         fetch('api 주소', {
-//           method: 'GET',
-//           headers: {
-//             Authorization: authObj.access_token,
-//           },
-//         })
-//           .then(res => res.json())
-//           .then(res => {
-//             localStorage.setItem('access_token', res.access_token);
-//             if (res.access_token) {
-//               alert('로그인 성공!');
-//               history.push('/');
+    });  
+
+// function kakaoLogout () {
+    
+//     postData('/v1/user/logout', {
+//         id: id,
+//         password: password,
+       
+
+//        })
+//     .then(data => {
+//         console.log(JSON.stringify(data))
+
+//         if (data.result) {
+//              location.href = '/';
 //             } else {
-//               alert('다시 확인해주세요');
+//                 alert(" 아이디 혹은 비밀번호를 확인해주세요. ");
+                
 //             }
-//           });
-//        },
-//         fail: function (err) {
-//         console.log('에러', err);
-//         alert('로그인실패!');
-//          },
-//        });
-//     }
-
-    
+            
+//         })// JSON-string from `response.json()` call
+//    .catch(error => console.error(error));
+// }
 
 
+
+// document.getElementById('kakaoLogout').addEventListener('click', function(){
+//     location.href = 'https://kapi.kakao.com/v1/user/logout?target=c80d68c5bef8191ac2322ccd84a6262f&redirect_uri=http://localhost:3000/logout/auth/kakao/callback&response_type=code'
+
+// });  
 
 
 
@@ -177,4 +162,19 @@ document.getElementById('kakaoLoginImg').addEventListener('click', async functio
 
 
 
-
+  function getData(url = '', data = {}) {
+    // Default options are marked with *
+        return fetch(url, {
+            method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, cors, *same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-type' : 'application/x-www-form-urlencoded;charset=utf-8',
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrer: 'no-referrer', // no-referrer, *client
+        })
+        .then(response => response.json()); // parses JSON response into native JavaScript objects
+    }

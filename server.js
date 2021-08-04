@@ -13,12 +13,17 @@ const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 const fs = require('fs');
 const EMOTION_CODE =  require('./util/emotion_code');
+const cors = require('cors');
 
 console.log()
 
 const PORT = 3000;
-
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    credentials: true,
+}
 //bodyPaser : 라우팅보다 위에 있어야함
+app.use(cors(corsOptions));
 app.use(express.json()); // json으로 받아들인 정보를 분석함
 app.use(express.urlencoded( {extended : false } )); 
 // 이 옵션이 false면 노드의 querystring 모듈을 사용하여 쿼리스트링을 해석하고, 
@@ -70,6 +75,7 @@ app.use('/category', diaryListRouter);
 app.use('/find', findRouter);
 app.use('/compre', compreRouter);
 app.use('/menu', menuRouter);
+
 
 
 

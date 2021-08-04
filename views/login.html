@@ -22,15 +22,18 @@
 
 </div>
 
+<div id="kakaoLoginLayout" class="kakaoLoginLayout">  
+
+</div>
 
 
 
 
 
 
-<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 
-<img src="https://img.eduwill.net/Img2/mobile2/brand_new/common/btn-kakao-mobile@3x.png" style="height: 40px; width: auto;" id="kakaoLoginImg"></img></a>
+<a id="kakaoLoginImg"><img src="https://img.eduwill.net/Img2/mobile2/brand_new/common/btn-kakao-mobile@3x.png" style="height: 40px; width: auto;" ></img></a>
+<button id="kakaoLogin">카카오로그인</button>
  <button id="kakaoLogout" onclick="kakaoLogout()">kakaoLogout</button>
 
  <script>
@@ -40,26 +43,26 @@
 
 
 
-    function kakaoLogout() {
-    if (Kakao.Auth.getAccessToken()) {
-      //토큰이 있으면
-      Kakao.API.request({
-        //로그아웃하고
-        url: '/v1/user/unlink',
-        success: function (response) {
-          //console.log(response)
-        },
-        fail: function (error) {
-          console.log(error)
-        },
-      })
-      //토큰도 삭제
-      Kakao.Auth.setAccessToken(undefined)
-      //유저정보도 삭제
-      const userinfoElem = document.querySelector('#userinfo') 
-      if(userinfoElem) userinfoElem.value = ''
-    }
-  }
+  //   function kakaoLogout() {
+  //   if (Kakao.Auth.getAccessToken()) {
+  //     //토큰이 있으면
+  //     Kakao.API.request({
+  //       //로그아웃하고
+  //       url: '/v1/user/unlink',
+  //       success: function (response) {
+  //         //console.log(response)
+  //       },
+  //       fail: function (error) {
+  //         console.log(error)
+  //       },
+  //     })
+  //     //토큰도 삭제
+  //     Kakao.Auth.setAccessToken(undefined)
+  //     //유저정보도 삭제
+  //     const userinfoElem = document.querySelector('#userinfo') 
+  //     if(userinfoElem) userinfoElem.value = ''
+  //   }
+  // }
 
 
 </script>

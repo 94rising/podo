@@ -93,7 +93,7 @@ let compreObj;
 function doughnutChart () {
 	const myChart = new Chart(ctx, {
 
-		type: 'doughnut',
+		type: 'pie',
 		data: {
 			labels: ['혼합', '긍정', '보통', '부정'],
 			datasets: [{
@@ -113,18 +113,18 @@ function doughnutChart () {
 					'rgba(75, 192, 192, 1)',
 					
 				],
-				borderWidth: 1
+				borderWidth: 1,
 			}]
 		},
 		options: {
-			responsive: false,
-			scales: {
-				yAxes: [{
-					ticks: {
-						beginAtZero: true
-					}
-				}]
-			},
+			responsive: false, //responsive 옵션을 true 값을 주면 브라우저 사이즈가 바뀔 때 마다 사이즈가 비율에 맞게 변함.
+
+
+            title: {
+                display: true,
+                text: '일기 감정분석 결과'
+            },
+			
 		}
 	});
 }
