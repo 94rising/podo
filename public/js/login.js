@@ -4,7 +4,6 @@ const password = document.querySelector("#password");
 const loginBtn = document.querySelector("#loginBtn");
 const joinBtn = document.querySelector("#joinBtn");
 const findBtn = document.querySelector("#findBtn");
-const kakao = document.querySelector("#kakaoLoginImg");
 const kakaoLogin = document.querySelector("#kakaoLogin");
 const kakaoLogout = document.querySelector("#kakaoLogout");
 const url = 'https://kauth.kakao.com/oauth/authorize?client_id=20e2b296829e3514f9a490fc43a5b076&redirect_uri=http://localhost:3000/login/auth/kakao/callback&response_type=code'
@@ -60,28 +59,11 @@ document.getElementById('loginBtn').addEventListener('click', function(){
 
 const responseJson= '' ;
 
- document.getElementById('kakaoLoginImg').addEventListener('click',  function(){
-// location.href ="https://kauth.kakao.com/oauth/authorize?client_id=20e2b296829e3514f9a490fc43a5b076&redirect_uri=http://localhost:3000/login/auth/kakao/callback&response_type=code",
-
-    const kakaoLoginLayout = document.getElementById("kakaoLoginLayout");
-
-// getData('/login/1', data = {}) 
-//     .then(response => {
-//         console.log(JSON.stringify(response))
-//         console.log(response);
-//         //window.open(url, kakao,options)
-//         // kakaoLoginLayout.innerHTML = response.body
-//     }).then(data => {
-//         document.write(data)
-
-//     })
-});  
 
 
 
 document.getElementById('kakaoLogin').addEventListener('click',  function(){
     
-        const kakaoLoginLayoutCss = document.getElementsByClassName("kakaoLoginLayout");
 
         location.href ="https://kauth.kakao.com/oauth/authorize?client_id=20e2b296829e3514f9a490fc43a5b076&redirect_uri=http://localhost:3000/login/auth/kakao/callback&response_type=code"
 
@@ -91,49 +73,10 @@ document.getElementById('kakaoLogin').addEventListener('click',  function(){
             console.log(response);
             console.log(response.body);
 
-            // document.write(response.body)
-            // window.open(url, kakao,options)
-            // kakaoLoginLayout.innerHTML = response.body
             
         })
-        // .then(data => {
-        //     console.log(data)
-            
-        // })
-      
 
     });  
-
-// function kakaoLogout () {
-    
-//     postData('/v1/user/logout', {
-//         id: id,
-//         password: password,
-       
-
-//        })
-//     .then(data => {
-//         console.log(JSON.stringify(data))
-
-//         if (data.result) {
-//              location.href = '/';
-//             } else {
-//                 alert(" 아이디 혹은 비밀번호를 확인해주세요. ");
-                
-//             }
-            
-//         })// JSON-string from `response.json()` call
-//    .catch(error => console.error(error));
-// }
-
-
-
-// document.getElementById('kakaoLogout').addEventListener('click', function(){
-//     location.href = 'https://kapi.kakao.com/v1/user/logout?target=c80d68c5bef8191ac2322ccd84a6262f&redirect_uri=http://localhost:3000/logout/auth/kakao/callback&response_type=code'
-
-// });  
-
-
 
 
 

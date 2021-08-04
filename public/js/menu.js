@@ -33,18 +33,18 @@ podoLogo.addEventListener("click", function() {
   // Kakao.Auth.logout()
    getData('/menu/logout', {
    })
-// .then(data => {
-//     console.log(JSON.stringify(data))
-//     if (data.result) {
-//       location.href = "/";
-//     } else {
+.then(data => {
+    console.log(JSON.stringify(data))
+    if (data.result) {
+      location.href = "/";
+    } else {
     
-//             alert(" 로그아웃 실패 ");
+            alert(" 로그아웃 실패 ");
             
-//         }
+        }
         
-//     })// JSON-string from `response.json()` call
-// .catch(error => console.error(error));
+    })// JSON-string from `response.json()` call
+.catch(error => console.error(error));
 
 });
 

@@ -103,26 +103,6 @@ router.post('/',  async function (req, res){
   })
 });
 
-router.get('/1', (req, res, next)  =>{
-  const options1 = {
-    'method': 'GET',
-    'url' : 'https://kauth.kakao.com/oauth/authorize?client_id=20e2b296829e3514f9a490fc43a5b076&redirect_uri=http://localhost:3000/login/auth/kakao/callback&response_type=code',
-    'header' : {
-      'Content-type' : 'application/x-www-form-urlencoded;charset=utf-8'},
-  
-  };
- request(options1,function (error,response){
-  res.json((response)) //res.json은 웹에서 출력 값을 출력
-if(error) throw new Error(error);
-//  console.log(response.body); // 터미널 출력 값 확인
-// res.send(response);
-
-}).then( result => {
-  console.log('확인 ' +  'result');
-  res.send(result);
-  //res.setHeader(result);
-} )
-});
 
 
 
@@ -251,55 +231,6 @@ async function kakaoJoin(kakaoEmail){
   })}
 
 
-  // const nickname = req.body.kakao_account.profile.nickname;
-  // const email = req.body.kakao_account.email;
-  // console.log('dasda서버 : ' +req.body.kakao_account );
-  // console.log('dasda서버2 : ' + name );
-
-
-  // dbConnection.query("SELECT * FROM member WHERE email = ? ORDER BY number ",[email],  function  (err, rows) { //id가 DB에있는지 확인 
-  //   if (err) err; //err(error) : sql문 실행시키고 에러발생시 에러 출력/ 에러 없으면 NULL 값을 가짐
-
-  //   console.log('아이디확인: ' + req.session.id); 
-    
-  //   if (rows[0] !== undefined) {
-  //         req.session.userId = rows[0].id;
-
-  //     console.log('딩동댕')
-  //       res.send({result:true})
-  //     } else {
-  //       console.log('땡')
-
-  //       dbConnection.query("INSERT INTO member (id, email, name) VALUES (?, ?, ?)",[email, email, nickname], function (err, result) {  
-  //         if (err) throw err;
-  //         if(result.affectedRows === 1) {
-  //           req.session.userId = rows[0].id;
-
-  //           res.send({result:true});   
-
-  //         } else {
-  //           res.send({result:false});
-  //         }
-  //       });
-
-
-  //     }
-  // })
-
-// const kakaoLogin = (req, res) => {
-//   const base_url = "https://kauth.kakao.com/oauth/authorize";
-//   const config = {
-//     client_id: process.env.KAKAO_CLIENT_ID,
-//     redirect_uri: "http://localhost:3000/auth/kakao/callback",
-//     response_type: "code",
-//   };
-//   const config_url = new URLSearchParams(config).toString();
-//   const final_url = `${base_url}?${config_url}`;
-
-//   return res.redirect(final_url);
-// };
-
-
 
 
 
@@ -339,19 +270,4 @@ module.exports = router;
 
 
 
-// // 둘중에 해봐야함
 
-// //암호 확인
-// bcrypt.compare(password, has, function(err, result) {
-//   //result는 암호가 맞는 경우 true , 암호가 틀린 경우 false로 반환
-//     try{
-//       //암호가 맞는 경우
-//       if(result)
-//           console.log('딩동댕!');
-//       else 
-//           console.log('땡!');
-//     }
-//     catch(err){//예외처리
-//       console.log(err);
-//     }
-//   });
