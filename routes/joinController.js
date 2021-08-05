@@ -12,7 +12,6 @@ const { resolve } = require('path');
 
 const algorithm = 'aes-256-cbc'; //crypto 관련
 const iv = '1234567890123456'; //16자리//crypto 관련
-const makeCertNumber = makeCertNumber2();
 function makeCertNumber2() { //인증번호 생성
  return Math.floor(Math.random()*100000);
   
@@ -66,7 +65,8 @@ router.post('/emailCert', function (req, res) {  //이메일 중복확인 로직
     if (err) throw err;
     console.log("result[0] >> " + result[0]); // 데이터 없을 경우, undefinded
     if (result[0] === undefined) {
-       
+      const makeCertNumber = makeCertNumber2();
+
      const transporter = nodemailer.createTransport({
         service: 'NAVER',
         auth: {
@@ -76,6 +76,7 @@ router.post('/emailCert', function (req, res) {  //이메일 중복확인 로직
       });
 
       const mailOptions = {
+        
         from: 'chawoo94@naver.com',
         to: joinEmail,//joinEmail로 변환
         subject: '인증번호 ',

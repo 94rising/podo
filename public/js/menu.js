@@ -1,4 +1,3 @@
-window.Kakao.init("320eb75ea03092912a492070f7665a73");
 
 
 const mainBtn = document.getElementById("mainBtn");
