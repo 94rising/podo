@@ -16,8 +16,6 @@ const { response } = require('express');
 const saltRounds = 10; //bcypt 관련
 const myPlaintextPassword  =  's0 / \ / \ P4 $$ w0rD' ; //bcypt 관련
 const someOtherPlaintextPassword  =  'not_bacon' ; //bcypt 관련
-const url = 'https://kauth.kakao.com/oauth/authorize?client_id=20e2b296829e3514f9a490fc43a5b076&redirect_uri=http://localhost:3000/login/auth/kakao/callback&response_type=code'
-const options = 'top=10, left=10, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no';
 
 
 router.get('/', (req, res) => {
@@ -104,6 +102,33 @@ router.post('/',  async function (req, res){
 });
 
 
+
+
+router.get('/kakao', (req, res, next)  =>{
+  const options1 = {
+    'method': 'GET',
+    'url' : 'https://kauth.kakao.com/oauth/authorize?client_id=20e2b296829e3514f9a490fc43a5b076&redirect_uri=http://localhost:3000/login/auth/kakao/callback&response_type=code',
+    'header' : {
+      'Content-type' : 'application/x-www-form-urlencoded;charset=utf-8'},
+
+  
+  };
+  request(options1,function (error,response){
+  // res.json(response) //res.json은 웹에서 출력 값을 출력
+if(error) throw new Error(error);
+//  console.log(response); // 터미널 출력 값 확인
+res.send(response);
+// res.redirect('http://localhost:3000/login/auth/kakao/callback')
+
+})
+// .then( result => {
+//   console.log('확인 ' +  'result');
+//   // res.send(result);
+//   // res.setHeader(result);
+
+// } )
+
+});  
 
 
 router.get('/auth/kakao/callback', async (req,res,next)=> { //어싱크어웨잇
@@ -232,33 +257,6 @@ async function kakaoJoin(kakaoEmail){
 
 
 
-
-
-router.get('/kakao', (req, res, next)  =>{
-  const options1 = {
-    'method': 'GET',
-    'url' : 'https://kauth.kakao.com/oauth/authorize?client_id=20e2b296829e3514f9a490fc43a5b076&redirect_uri=http://localhost:3000/login/auth/kakao/callback&response_type=code',
-    'header' : {
-      'Content-type' : 'application/x-www-form-urlencoded;charset=utf-8'},
-
-  
-  };
-  request(options1,function (error,response){
-  // res.json(response) //res.json은 웹에서 출력 값을 출력
-if(error) throw new Error(error);
-//  console.log(response); // 터미널 출력 값 확인
-res.send(response);
-// res.redirect('http://localhost:3000/login/auth/kakao/callback')
-
-})
-// .then( result => {
-//   console.log('확인 ' +  'result');
-//   // res.send(result);
-//   // res.setHeader(result);
-
-// } )
-
-});  
 
 
 

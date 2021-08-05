@@ -56,9 +56,9 @@ async function kakaoLogout(token){
     }
   
  const logout = await request(options2, function (error, response){
-      console.log('2')
-      console.log(JSON.parse(response.body).id)
-      if(error) throw new Error(error);
+    console.log('2')
+    console.log(JSON.parse(response.body).id)
+    if(error) throw new Error(error);
       
     })
 

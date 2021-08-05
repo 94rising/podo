@@ -27,8 +27,8 @@ router.post('/',  async function (req, res) {
   const userId = req.session.userId;
   const name = req.session.name;
 
-console.log('메인 세션확인2 : ' + userId )
-console.log('메인 세션확인3 : ' + name )
+  console.log('메인 세션확인2 : ' + userId )
+  console.log('메인 세션확인3 : ' + name )
 
   
   let mainList = [];

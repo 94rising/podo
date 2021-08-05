@@ -159,12 +159,12 @@ const smile = '<img width="50" height="50" src="https://notion-emojis.s3-us-west
 const neutral = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f610.svg">'
 const bad = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/2639-fe0f.svg">'
 const mixed = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f643.svg">'
-
+const no = '<img width="50" height="50" src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/25ab-fe0f.svg">'
 
 
 const date = current_year + "-" + current_month + "-" + day;
   //console.log(mainList[1].date);
-  let emotion = '';
+  let emotion = no;
 
 for (let i = 0; i < mainList.length; i++) {
   // console.log(mainList[i].date)

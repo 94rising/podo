@@ -6,8 +6,6 @@ const joinBtn = document.querySelector("#joinBtn");
 const findBtn = document.querySelector("#findBtn");
 const kakaoLogin = document.querySelector("#kakaoLogin");
 const kakaoLogout = document.querySelector("#kakaoLogout");
-const url = 'https://kauth.kakao.com/oauth/authorize?client_id=20e2b296829e3514f9a490fc43a5b076&redirect_uri=http://localhost:3000/login/auth/kakao/callback&response_type=code'
-const options = 'top=10, left=10, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no';
 
 document.getElementById('joinBtn').addEventListener('click', function(){
     location.href = "/join"
@@ -48,16 +46,6 @@ document.getElementById('loginBtn').addEventListener('click', function(){
     .catch(error => console.error(error));
 });
 
-
-// document.getElementById('kakaoLoginImg').addEventListener('click', async function (){ //클릭하는순간 데이터가 넘어가고 KakaoLogin 함수실행된다
-//    KakaoLogin ();   
-
-   
-//       //카카오톡 이메일을 변수에 저장함
-
-//  });
-
-const responseJson= '' ;
 
 
 
