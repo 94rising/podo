@@ -34,13 +34,19 @@ function datedate(dateBox){
   
    dateValue = dateBox.value;
   console.log(' 확인 : ' + dateValue)
-  dateList(10);
+  diaryListBody.innerHTML = "";
+  prevOffset = 0;
+  offset = 0;
+  drawList(10);
 }
 
 function emotionValueBox(emotionBox){
    emotionValue = emotionBox.value;
   console.log(' 확인 : ' + emotionValue)
-  emotionList(10);
+  diaryListBody.innerHTML = "";
+  prevOffset = 0;
+  offset = 0;
+  drawList(10);
 }
 
 
@@ -134,6 +140,8 @@ function emotionValueBox(emotionBox){
   postData('/diary/ListData', {
       offset : offset,
       limit : limit,
+      dateValue : dateValue,
+      emotionValue : emotionValue
     })
     .then( response =>{
       header.innerHTML = response.name +'님 다이어리 리스트';

@@ -46,7 +46,7 @@ function doughnutChart () {
 
 		type: 'doughnut',
 		data: {
-			labels: ['혼합', '긍정', '보통', '부정'],
+			labels: ['복잡', '긍정', '보통', '부정'],
 			datasets: [{
 				label: '# of Votes',
 				data: [compreObj.Mixed, compreObj.Positive, compreObj.Neutral, compreObj.Negative],

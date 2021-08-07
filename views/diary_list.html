@@ -28,16 +28,16 @@
 
    
 <select name = "dateBox" id="dateBox" onchange="datedate(this)">
-  <option selected value="none" >날짜별 보기</option>
-  <option value = "1" id="latest">최신순</option>
-  <option value = "2" id="past">과거순</option>
+  <option selected value="" >날짜별 보기</option>
+  <option value = "DESC" id="latest">최신순</option>
+  <option value = "ASC" id="past">과거순</option>
 </select>  
 <select name = "emotionBox" id="emotionBox"  onchange="emotionValueBox(this)">
-    <option selected>감정별보기</option>
-    <option value = "1" id="1" >smile</option>
-    <option value = "2" id="2">neutral</option>
-    <option value = "3" id="3">sad</option>
-    <option value = "4" id="4">mixed</option>
+    <option selected value="">감정별보기</option>
+    <option value = "POSITIVE" id="1" >긍정</option>
+    <option value = "NEUTRAL" id="2">보통</option>
+    <option value = "NEGATIVE" id="3">부정</option>
+    <option value = "MIXED" id="4">복잡</option>
 
  </select>
 

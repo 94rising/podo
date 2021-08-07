@@ -53,12 +53,26 @@ router.post("/listData", (req, res) => {
     const id = req.session.userId;
     const offset = req.body.offset;
     const limit = req.body.limit;
+    const dateValue = req.body.dateValue;
+    const emotionValue = req.body.emotionValue;
+
+    let order = "ASC";
+    if (dateValue !== "") {
+        order = dateValue;
+    }
+    let whereEmotion = "";
+    if (emotionValue !== "") {
+        whereEmotion = "AND emotion = \'" + emotionValue + "\'";
+    }
+
+    console.log("order >>>> " + order);
+    console.log("whereEmotion >>>> " + whereEmotion);
     let diaryList = [];
     
     const name = req.session.name
 
     // 동기 방식으로 변경하기
-    dbConnection.query("SELECT * from DIARY WHERE id = ? ORDER BY number LIMIT ?  offset ?  ;", [id, limit, offset], function (err, rows) {
+    dbConnection.query("SELECT * from DIARY WHERE id = ? " + whereEmotion + " ORDER BY date " + order + " LIMIT ?  offset ?  ;", [id, limit, offset], function (err, rows) {
         if(err){
             console.log(err);
         } else {
