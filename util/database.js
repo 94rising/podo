@@ -4,7 +4,7 @@ const dbConnection = mysql.createConnection({
     user: 'root',
     password: process.env.MYSQL_PASSWORD,
     port: 3306,
-    database: 'podo',
+    database: process.env.DB_NAME,
 });
 
 module.exports = dbConnection;
