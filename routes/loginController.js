@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
 
 
 router.get('/kakaoUrl',(req, res) => {
-  res.send({url : 'https://kauth.kakao.com/oauth/authorize?client_id=20e2b296829e3514f9a490fc43a5b076&redirect_uri=' + serverUrl + '/login/auth/kakao/callback&response_type=code&scope=account_email'})
+  res.send({url : 'https://kauth.kakao.com/oauth/authorize?client_id=20e2b296829e3514f9a490fc43a5b076&redirect_uri=' + serverUrl + '/login/auth/kakao/callback&response_type=code&scope=account_email,profile_nickname'})
 })
 
 
