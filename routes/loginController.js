@@ -1,5 +1,4 @@
 
-
 const express = require('express');
 const fs = require('fs');
 const router = express.Router();
@@ -12,19 +11,20 @@ const request = require('request-promise');
 const cors = require('cors');
 const { response } = require('express');
 
-
+const serverUrl = process.env.SERVER_URL;
 const saltRounds = 10; //bcypt 관련
 const myPlaintextPassword  =  's0 / \ / \ P4 $$ w0rD' ; //bcypt 관련
 const someOtherPlaintextPassword  =  'not_bacon' ; //bcypt 관련
 
 
 router.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname ,'../views', 'login.html' ))
-
-
-
-
+    res.sendFile(path.join(__dirname ,'../views', 'login.html' ));
 });
+
+
+router.get('/kakaoUrl',(req, res) => {
+  res.send({url : 'https://kauth.kakao.com/oauth/authorize?client_id=20e2b296829e3514f9a490fc43a5b076&redirect_uri=' + serverUrl + '/login/auth/kakao/callback&response_type=code'})
+})
 
 
 router.get('/logout', async (req, res,result)  =>  {
@@ -107,7 +107,7 @@ router.post('/',  async function (req, res){
 router.get('/kakao', (req, res, next)  =>{
   const options1 = {
     'method': 'GET',
-    'url' : 'https://kauth.kakao.com/oauth/authorize?client_id=20e2b296829e3514f9a490fc43a5b076&redirect_uri=http://localhost:3000/login/auth/kakao/callback&response_type=code',
+    'url' : 'https://kauth.kakao.com/oauth/authorize?client_id=20e2b296829e3514f9a490fc43a5b076&redirect_uri=' + serverUrl + '/login/auth/kakao/callback&response_type=code',
     'header' : {
       'Content-type' : 'application/x-www-form-urlencoded;charset=utf-8'},
 
@@ -169,7 +169,7 @@ router.get('/auth/kakao/callback', async (req,res,next)=> { //어싱크어웨잇
 
   const options =  {
     'method' : 'POST',
-    'url': 'https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=20e2b296829e3514f9a490fc43a5b076&redirect_uri=http://localhost:3000/login/auth/kakao/callback&code='+code,
+    'url': 'https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=20e2b296829e3514f9a490fc43a5b076&redirect_uri=' + serverUrl + '/login/auth/kakao/callback&code='+code,
     'header' : {
     'Content-type' : 'application/x-www-form-urlencoded;charset=utf-8'},
 

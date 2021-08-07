@@ -52,17 +52,24 @@ document.getElementById('loginBtn').addEventListener('click', function(){
 
 document.getElementById('kakaoLogin').addEventListener('click',  function(){
     
-
-        location.href ="https://kauth.kakao.com/oauth/authorize?client_id=20e2b296829e3514f9a490fc43a5b076&redirect_uri=http://localhost:3000/login/auth/kakao/callback&response_type=code"
-
-    getData('/login/kakao', data = {}) 
+    getData('/login/kakaoUrl', data={})
         .then(response => {
-            console.log(JSON.stringify(response))
-            console.log(response);
-            console.log(response.body);
+            console.log(response)
+            console.log(response.url)
+            location.href = response.url;
+        });
+
+
+        // location.href = "https://kauth.kakao.com/oauth/authorize?client_id=20e2b296829e3514f9a490fc43a5b076&redirect_uri=http://localhost:3000/login/auth/kakao/callback&response_type=code";
+
+    // getData('/login/kakao', data = {}) 
+    //     .then(response => {
+    //         console.log(JSON.stringify(response))
+    //         console.log(response);
+    //         console.log(response.body);
 
             
-        })
+    //     })
 
     });  
 

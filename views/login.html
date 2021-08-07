@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  style="margin: 0 auto;">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,32 +8,27 @@
     <title>login</title>
 
 </head>
-<body>
+<body style="margin: 0 auto;">
+    <div  style="margin: 0 auto; padding: 30px 60px; width: 100%;">
+       
+        <h1>podo<img src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f347.svg" width="50" height="50" id="podoLogo"></h1>
 
+        <div>
+            <input type="text" id="id" placeholder="ID를 입력해주세요" name="id"/><br>
+            <input type="password" id="password" placeholder="PW를 입력해주세요" name="password"/><br>
+            <button id="loginBtn">로그인</button>
+            <button id="joinBtn">회원가입</button><br>
+            <button id="findBtn">아이디/비밀번호 찾기</button><br>
+    
+        </div>
+    
+        <div id="kakaoLoginLayout" class="kakaoLoginLayout">  
+    
+        </div>
+    
+        <a id="kakaoLogin"><img src="https://img.eduwill.net/Img2/mobile2/brand_new/common/btn-kakao-mobile@3x.png" style="height: 40px; width: auto;" ></img></a>     
 
-<h1>podo<img src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f347.svg" width="50" height="50" id="podoLogo"></h1>
-
-<div>
-    <input type="text" id="id" placeholder="ID를 입력해주세요" name="id"/><br>
-    <input type="password" id="password" placeholder="PW를 입력해주세요" name="password"/><br>
-    <button id="loginBtn">로그인</button>
-    <button id="joinBtn">회원가입</button><br>
-    <button id="findBtn">아이디/비밀번호 찾기</button><br>
-
-</div>
-
-<div id="kakaoLoginLayout" class="kakaoLoginLayout">  
-
-</div>
-
-
-
-
-
-
-
-<a id="kakaoLogin"><img src="https://img.eduwill.net/Img2/mobile2/brand_new/common/btn-kakao-mobile@3x.png" style="height: 40px; width: auto;" ></img></a>
-
+    </div>
  <script>
 
 
@@ -68,6 +63,6 @@
 
 
 <script  src="/static/js/login.js" defer></script>
-
+</div>
 </body>
 </html>
