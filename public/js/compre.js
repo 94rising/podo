@@ -6,6 +6,7 @@ const keyWord2 = document.getElementById('keyWord2');
 const keyWord3 = document.getElementById('keyWord3');
 const keyWord4 = document.getElementById('keyWord4');
 const keyWord5 = document.getElementById('keyWord5');
+const diaryListBtn = document.getElementById("diaryListBtn");
 
 let compreObj;
 
@@ -37,8 +38,12 @@ console.log('gagasga')
    });
  
 
-   
-   
+
+   diaryListBtn.addEventListener("click", function() {
+    location.href = "/diary/list";
+});
+
+
 
 function doughnutChart () {
 
