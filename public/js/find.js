@@ -6,6 +6,7 @@ const pwCertNumber = document.querySelector("#pwCertNumber");
 const joinEmail = document.querySelector("#joinEmail");
 const findPw = document.querySelector("#findPw");
 const findPw2 = document.querySelector("#findPw2");
+const loginBtn  = document.getElementById("loginBtn");
 
 
 
@@ -201,6 +202,9 @@ document.getElementById('pwButton').addEventListener('click', function(){
 
 
 
+loginBtn.addEventListener("click", function() {
+    location.href = "/login";
+});
 
 
 function postData (url = '', data = {}) {
