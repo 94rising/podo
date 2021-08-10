@@ -128,10 +128,10 @@ router.post('/write', async function (req,res){
 
     console.log(date, today);
 
-    // if(date !== today) {
-    //     res.send({result : 'dayErr', today})
-    // }
-    // else{
+    if(date !== today) {
+        res.send({result : 'dayErr', today})
+    }
+    else{
     console.log('콘테느 확인:' +  content)
     console.log('콘테느 확인2:' +  content2)
 
@@ -180,7 +180,7 @@ router.post('/write', async function (req,res){
                 
             
             }})
-}) // } 추가해야함
+}}) 
 
 
 async function comprehend () {
