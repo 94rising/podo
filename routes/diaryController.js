@@ -3,8 +3,6 @@ const router = express.Router();
 const path = require('path');
 const dbConnection = require('../util/database');
 const moment = require('moment');
-const today = moment().format("YYYY-M-D");
-console.log(today);
 
 
 const { ComprehendClient, DetectSentimentCommand, DetectKeyPhrasesCommand  } = require("@aws-sdk/client-comprehend");
@@ -125,6 +123,7 @@ router.post('/write', async function (req,res){
     const date =  req.session.date;
     const id = req.session.userId;
      content2 = req.body.content2;
+     const today = moment().format("YYYY-M-D");
 
     console.log(date, today);
 
