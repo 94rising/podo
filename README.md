@@ -23,6 +23,8 @@
 + AWS comprehends (AWS 텍스트 분석)
 + 외 chart.js 오픈 소스 사용 그 외비밀번호 저장 방식(Node.js 모듈 Crypto 이용): 개인정보보호법, 정보통신망법에 따른 해시암호(단방향) 저장.
 
+<img src="https://user-images.githubusercontent.com/79087007/128902534-81e1df77-b888-4819-bc18-2cfaa35a9d04.png">
+
 # 서비스 주요 기능
 
 ### #0 로그인 & 회원가입 & 아이디, 비밀번호 찾기
