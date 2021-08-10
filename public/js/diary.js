@@ -78,7 +78,8 @@ let compreObj;
     if(data.result == 'dayErr') {
         alert('오늘' + ' (' + data.today + ') ' + ' 날짜 일기만 작성이 가능합니다.')
 
-    }else if(data.result) {
+    }else
+     if(data.result) {
                location.href = '/compre';
     } else {
         alert(" 작성 실패 ");

@@ -128,10 +128,10 @@ router.post('/write', async function (req,res){
 
     console.log(date, today);
 
-    if(date !== today) {
-        res.send({result : 'dayErr', today})
-    }
-    else{
+    // if(date !== today) {
+    //     res.send({result : 'dayErr', today})
+    // }
+    // else{
     console.log('콘테느 확인:' +  content)
     console.log('콘테느 확인2:' +  content2)
 
@@ -180,7 +180,7 @@ router.post('/write', async function (req,res){
                 
             
             }})
-}})
+}) // } 추가해야함
 
 
 async function comprehend () {
@@ -221,34 +221,6 @@ function keyPhrasesList () {
 
 
 
-
-//    comprehends.response2.sort
-
-
-//    for(int i = 0, i< 3, i++){
-
-
-//     for(int j = i; j<3 ; j++){
-//         if(comprehends.response2[i].Score < comprehends.response2[j].Score) 
-
-//         {
-//             int temp = i;
-//             comprehends.response2[i].Score = comprehends.response2[j].Score;
-//             comprehends.response2[j].Score = comprehends.response2[temp].Score;
-//         }
-//     }
-// } 
-
-
-
-
-// /    콘텐츠 ascii로 개행 띄어쓰기로 바꾸고 aws compre  사용 해야함 
-
-// function aa () {
-//     const content = req.body.content;
-
-    
-// }
 
 
 function keyPhrasesList(keyPhrasesObj){

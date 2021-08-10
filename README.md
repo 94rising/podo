@@ -27,7 +27,7 @@
 
 ### #0 로그인 & 회원가입 & 아이디, 비밀번호 찾기
 
-<img src="https://user-images.githubusercontent.com/79087007/128819043-ebb070d5-2a73-45cb-9d29-aa6fbf84b4f1.png">
+<img src="https://user-images.githubusercontent.com/79087007/128834919-169dae4e-b730-46e2-8597-a9cc13e17dd0.png">
 
 + Node.js 모듈 Crypto 이용해 로그인과 회원가입 패스워드, 이메일 인증 시 개인정보보호법, 정보통신망법에 따른 해시암호(단방향) 저장.
 + 카카오 로그인 REST API 를 통해 간편한 가입 가능
@@ -37,7 +37,7 @@
 
 ### #1 메인(홈) & 일기 작성 & 일기 분석
 
-<img src="https://user-images.githubusercontent.com/79087007/128830202-4df36d1b-c806-4ced-9d3a-1c2cce87216a.png">
+<img src="https://user-images.githubusercontent.com/79087007/128833503-5d5a0a2f-f012-4491-9f7f-3b288efdd683.png">
 
 + 캘린더에 감정분석을 통한 데이터 중 주요 감정을 Emoji로 표현해 날짜와 함께 조회
 + main 페이지에서 저장한 date 세션을 가져와 dateBar에 입력시켰고, 해당 날짜가 아닐 시에는 일기 작성 및 수정 불가 
@@ -48,8 +48,10 @@
 
 ### #2 일기 목록 & 일기 수정 & 메인(홈) 
 
+
+
 + 최근 작성한 일기 부터 조회 (게시물 단위 첫 10개 스크롤시 5개 추가로 설정)
-+ 날짜별(최근, 과거) / 감정별(긍정,부정,보통,복잡) 별로 조회가 가능함.
++ 날짜별(최근, 과거) / 감정별(긍정,부정,보통,복잡) 조회가 가능함.
 + 무한스크롤을 통해 조회한 데이터를 직관적으로 확인 가능
 
     
